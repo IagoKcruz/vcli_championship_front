@@ -48,9 +48,11 @@ function registerForm(){
         msg = "Confirmação de senha não coincide com o email"
         toastify(erro, msg)
     }else{
-        registerDataBase(name, pass, email)
+        dataBase = registerDataBase(name, pass, email)
+        if(dataBase){
+            window.location.href = "./home"
+        }
     }
-
 } 
 
 
