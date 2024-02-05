@@ -1,15 +1,22 @@
 
-
-openPage()
+// openDayGame()
+// openTableChampion()
+// openGames()
 
 function openTableChampion(){
     const table = document.querySelector("#tableCampion")
     table.insertAdjacentHTML("afterbegin", `
+    <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    </ul>
     `)
 }
 function openDayGame(){
     const game = document.querySelector("#dayGame")
     game.insertAdjacentHTML("afterbegin", `
+    <div>A x B (14 hrs)</div>
     `)
 }
 function openGames(){
