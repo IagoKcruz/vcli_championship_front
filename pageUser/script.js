@@ -1,10 +1,11 @@
+const table = document.querySelector("#tableCampionUl")
+const game = document.querySelector("#dayGamesUl")
+const games = document.querySelector("#butGames")
+openDayGame(game)
+openTableChampion(table)
+openGames(games)
 
-openDayGame()
-openTableChampion()
-openGames()
-
-function openTableChampion(){
-    const table = document.querySelector("#tableCampionUl")
+function openTableChampion() {
     table.insertAdjacentHTML("afterbegin", `
     <li>1</li>
     <li>2</li>
@@ -17,10 +18,10 @@ function openTableChampion(){
     <li>9</li>
     <li>10</li>
     `)
+    table.setAttribute("style", "padding:5px;")
 }
-function openDayGame(){
-    const game = document.querySelector("#dayGamesUl")
-    //consulta ao banco por jogos na data de hoje
+function openDayGame() {
+
     game.insertAdjacentHTML("afterbegin", `
     <li>
     <p> A [0] x B [0] (05/02/2023 15 hrs)</p>
@@ -32,32 +33,31 @@ function openDayGame(){
     <p> E [0] x F [0] (05/02/2023 17 hrs)</p>
     </li>
     `)
+    game.setAttribute("style", "padding:5px;")
 }
-function openGames(){
-    const games = document.querySelector("#games")
-    games.insertAdjacentHTML("beforebegin", `
-    <div>
+function openGames() {
+    games.insertAdjacentHTML("afterbegin", `
     <button id="next">Próximos Jogos</button>
     <button id="last">Jogos Anteriores</button>
-    </div>
     `)
     const next = document.querySelector("#next")
     const last = document.querySelector("#last")
-    next.addEventListener("click",()=>{
+    next.addEventListener("click", () => {
         nextGame()
     })
-    last.addEventListener("click",()=>{
+    last.addEventListener("click", () => {
         lastGame()
     })
+    games.setAttribute("style", "padding:5px;")
 }
 
 const dateGames = document.querySelector("#dateGames")
 
-function nextGame(){
+function nextGame() {
     dateGames.innerHTML = ""
     //consulta ao bando de dados para pegar os jogos
     //resultado foreach()...
-    dateGames.insertAdjacentHTML("afterbegin",`
+    dateGames.insertAdjacentHTML("afterbegin", `
     <li>
     <p> A [1] x C [3] (04/02/2023 15 hrs)</p>
     </li>
@@ -68,12 +68,13 @@ function nextGame(){
     <p> B [1] x E [3] (04/02/2023 15 hrs)</p>
     </li>
     `)
+    dateGamesGames.setAttribute("style", "padding:5px;")
 }
-function lastGame(){
+function lastGame() {
     dateGames.innerHTML = ""
     //consulta ao bando de dados para pegar os jogos
     //resultado foreach()...
-    dateGames.insertAdjacentHTML("afterbegin",`
+    dateGames.insertAdjacentHTML("afterbegin", `
     <li>
     <p> C [0] x D [0] (06/02/2023 15 hrs)</p>
     </li>
@@ -84,18 +85,49 @@ function lastGame(){
     <p> B [0] x F [0] (06/02/2023 17 hrs)</p>
     </li>
     `)
+    dateGames.setAttribute("style", "padding:5px;")
 }
 
-    const tableOC = document.querySelector("#tableOC")
-    tableOC.addEventListener("click",()=>{
-        
-    })
-    const dayGameOC = document.querySelector("#dayGameOC")
-    dayGameOC.addEventListener("click",()=>{
+const imgTable = document.querySelector("imgTable")
+const imgGame = document.querySelector("imgGame")
+const imgGames = document.querySelector("imgGames")
 
-    })
-    const gamesOC = document.querySelector("#gamesOC")
-    gamesOC.addEventListener("click",()=>{
-        
-    })
+const tableOC = document.querySelector("#tableOC")
+tableOC.addEventListener("click", () => {
+    console.log(tableOC.value)
+    if (tableOC.value == 1) {
+        table.innerHTML = ""
+        tableOC.value = 2
+        table.setAttribute("style", "padding:0px;")
+        imgTable.src = "/img/fechar.png"
+    } else {
+        openTableChampion(table)
+        tableOC.value = 1
+    }
+})
+const dayGameOC = document.querySelector("#dayGameOC")
+dayGameOC.addEventListener("click", () => {
+    if (dayGameOC.value == 1) {
+        game.innerHTML = ""
+        dayGameOC.value = 2
+        game.setAttribute("style", "padding:0px;")
+    } else {
+        openDayGame(game)
+        dayGameOC.value = 1
+    }
+})
+const gamesOC = document.querySelector("#gamesOC")
+gamesOC.addEventListener("click", () => {
+    if (gamesOC.value == 1) {
+        games.innerHTML = ""
+        dateGames.innerHTML = ""
+        gamesOC.value = 2
+        games.setAttribute("style", "padding:0px;")
+        dateGames.setAttribute("style", "padding:0px;")
+    } else {
+        dateGames.insertAdjacentHTML("afterbegin", `<li>Não há nenhuma seleção</li>`)
+        openGames(games)
+        gamesOC.value = 1
+    }
+})
 
