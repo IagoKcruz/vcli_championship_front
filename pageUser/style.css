@@ -1,22 +1,26 @@
-div{
+div {
     background-color: rgba(0, 0, 0, 0.425);
     width: 100%;
     display: flex;
     flex-direction: column;
 }
-ul{
+
+ul {
     background-color: aqua;
     display: flex;
     flex-direction: column;
     gap: 5px;
-}ul li{
+}
+
+ul li {
     padding: 10px 10px;
     background-color: rgba(0, 0, 0, 0.473);
 }
-#butGames{
+
+#butGames {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     gap: 1px;
-    }
+}

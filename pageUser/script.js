@@ -99,11 +99,11 @@ tableOC.addEventListener("click", () => {
         table.innerHTML = ""
         tableOC.value = 2
         table.setAttribute("style", "padding:0px;")
-        imgTable.src = "img/abrir.png"
+        imgTable.src = "/global/img/abrir.png"
     } else {
         openTableChampion(table)
         tableOC.value = 1
-        imgTable.src = "img/fechar.png"
+        imgTable.src = "/global/img/fechar.png"
     }
 })
 const dayGameOC = document.querySelector("#dayGameOC")
@@ -112,11 +112,11 @@ dayGameOC.addEventListener("click", () => {
         game.innerHTML = ""
         dayGameOC.value = 2
         game.setAttribute("style", "padding:0px;")
-        imgGame.src = "img/abrir.png"
+        imgGame.src = "/global/img/abrir.png"
     } else {
         openDayGame(game)
         dayGameOC.value = 1
-        imgGame.src = "img/fechar.png"
+        imgGame.src = "/global/img/fechar.png"
     }
 })
 const gamesOC = document.querySelector("#gamesOC")
@@ -127,12 +127,12 @@ gamesOC.addEventListener("click", () => {
         gamesOC.value = 2
         games.setAttribute("style", "padding:0px;")
         dateGames.setAttribute("style", "padding:0px;")
-        imgGames.src = "img/abrir.png"
+        imgGames.src = "/global/img/abrir.png"
     } else {
         dateGames.insertAdjacentHTML("afterbegin", `<li>Não há nenhuma seleção</li>`)
         openGames(games)
         gamesOC.value = 1
-        imgGames.src = "img/fechar.png"
+        imgGames.src = "/global/img/fechar.png"
     }
 })
 
