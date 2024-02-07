@@ -18,7 +18,7 @@ function openTableChampion() {
     <li>9</li>
     <li>10</li>
     `)
-    table.setAttribute("style", "padding:5px;")
+    table.setAttribute("style", "padding:5px; margin-bottom: 10px;")
 }
 function openDayGame() {
 
@@ -33,7 +33,7 @@ function openDayGame() {
     <p> E [0] x F [0] (05/02/2023 17 hrs)</p>
     </li>
     `)
-    game.setAttribute("style", "padding:5px;")
+    game.setAttribute("style", "padding:5px; margin-bottom: 10px;")
 }
 function openGames() {
     games.insertAdjacentHTML("afterbegin", `
@@ -48,7 +48,7 @@ function openGames() {
     last.addEventListener("click", () => {
         lastGame()
     })
-    games.setAttribute("style", "padding:5px;")
+    games.setAttribute("style", "padding:5px; margin-bottom: 10px;")
 }
 
 const dateGames = document.querySelector("#dateGames")
@@ -68,7 +68,7 @@ function nextGame() {
     <p> B [1] x E [3] (04/02/2023 15 hrs)</p>
     </li>
     `)
-    dateGamesGames.setAttribute("style", "padding:5px;")
+    dateGames.setAttribute("style", "padding:5px; margin-bottom: 10px;")
 }
 function lastGame() {
     dateGames.innerHTML = ""
@@ -85,12 +85,12 @@ function lastGame() {
     <p> B [0] x F [0] (06/02/2023 17 hrs)</p>
     </li>
     `)
-    dateGames.setAttribute("style", "padding:5px;")
+    dateGames.setAttribute("style", "padding:5px; margin-bottom: 10px;")
 }
 
-const imgTable = document.querySelector("imgTable")
-const imgGame = document.querySelector("imgGame")
-const imgGames = document.querySelector("imgGames")
+const imgTable = document.querySelector("#imgTable")
+const imgGame = document.querySelector("#imgGame")
+const imgGames = document.querySelector("#imgGames")
 
 const tableOC = document.querySelector("#tableOC")
 tableOC.addEventListener("click", () => {
@@ -99,10 +99,11 @@ tableOC.addEventListener("click", () => {
         table.innerHTML = ""
         tableOC.value = 2
         table.setAttribute("style", "padding:0px;")
-        imgTable.src = "/img/fechar.png"
+        imgTable.src = "img/abrir.png"
     } else {
         openTableChampion(table)
         tableOC.value = 1
+        imgTable.src = "img/fechar.png"
     }
 })
 const dayGameOC = document.querySelector("#dayGameOC")
@@ -111,9 +112,11 @@ dayGameOC.addEventListener("click", () => {
         game.innerHTML = ""
         dayGameOC.value = 2
         game.setAttribute("style", "padding:0px;")
+        imgGame.src = "img/abrir.png"
     } else {
         openDayGame(game)
         dayGameOC.value = 1
+        imgGame.src = "img/fechar.png"
     }
 })
 const gamesOC = document.querySelector("#gamesOC")
@@ -124,10 +127,12 @@ gamesOC.addEventListener("click", () => {
         gamesOC.value = 2
         games.setAttribute("style", "padding:0px;")
         dateGames.setAttribute("style", "padding:0px;")
+        imgGames.src = "img/abrir.png"
     } else {
         dateGames.insertAdjacentHTML("afterbegin", `<li>Não há nenhuma seleção</li>`)
         openGames(games)
         gamesOC.value = 1
+        imgGames.src = "img/fechar.png"
     }
 })
 
