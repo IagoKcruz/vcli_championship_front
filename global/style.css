@@ -4,12 +4,15 @@
     box-sizing: border-box;
     font-size: 1rem;
 }
+::-webkit-scrollbar {
+    width: 0px;
+}
 body{
     background-color: black;
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 20px;   
 }
 header{
     width: 100%;
