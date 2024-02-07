@@ -68,10 +68,22 @@ aside{
 ul{
     width: 98%;
     margin: 0 auto;
+    background-color: hsl(0, 0%, 96%);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 li{ 
     width: 100%;
+    padding: 10px 10px;
+    background-color: rgb(214, 214, 214);
     list-style: none;
+}
+div {
+    background-color:whitesmoke;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 button{
     padding: 5px;

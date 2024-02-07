@@ -2,7 +2,6 @@ const table = document.querySelector("#tableCampionUl")
 const game = document.querySelector("#dayGamesUl")
 const games = document.querySelector("#butGames")
 
-
 openDayGame(game)
 openTableChampion(table)
 openGames(games, dateGames)
