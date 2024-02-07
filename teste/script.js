@@ -17,7 +17,6 @@ function criarRodadas(times) {
   
   const times = ["Time1", "Time2", "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10"];
   timesreverso = times.toReversed()
-  console.log(timesreverso)
   const rodadas = criarRodadas(times);
   
   for (const rodada of rodadas) {

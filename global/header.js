@@ -16,13 +16,12 @@ menu.addEventListener("click",()=>{
    <button id="back">VOLTAR</button>
    </aside>
    `)
-})
-const butBack = document.querySelector("#back")
-butBack.addEventListener("click",()=>{ 
-    back("pageUser")
+   const aside = document.querySelector("aside")
+   const butBack = document.querySelector("#back")
+   butBack.addEventListener("click",()=>{ 
+      
+      aside.remove()
 })
 
-function back(action){
-   console.log(action)
-   window.location.href = `./${action}`
-}
+})
+

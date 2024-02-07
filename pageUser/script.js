@@ -1,9 +1,11 @@
 const table = document.querySelector("#tableCampionUl")
 const game = document.querySelector("#dayGamesUl")
 const games = document.querySelector("#butGames")
+
+
 openDayGame(game)
 openTableChampion(table)
-openGames(games)
+openGames(games, dateGames)
 
 function openTableChampion() {
     table.insertAdjacentHTML("afterbegin", `
@@ -35,11 +37,13 @@ function openDayGame() {
     `)
     game.setAttribute("style", "padding:5px; margin-bottom: 10px;")
 }
-function openGames() {
+
+function openGames(games) {
     games.insertAdjacentHTML("afterbegin", `
     <button id="next">Próximos Jogos</button>
     <button id="last">Jogos Anteriores</button>
     `)
+
     const next = document.querySelector("#next")
     const last = document.querySelector("#last")
     next.addEventListener("click", () => {
@@ -51,7 +55,7 @@ function openGames() {
     games.setAttribute("style", "padding:5px; margin-bottom: 10px;")
 }
 
-const dateGames = document.querySelector("#dateGames")
+
 
 function nextGame() {
     dateGames.innerHTML = ""
@@ -94,7 +98,6 @@ const imgGames = document.querySelector("#imgGames")
 
 const tableOC = document.querySelector("#tableOC")
 tableOC.addEventListener("click", () => {
-    console.log(tableOC.value)
     if (tableOC.value == 1) {
         table.innerHTML = ""
         tableOC.value = 2
@@ -126,10 +129,11 @@ gamesOC.addEventListener("click", () => {
         dateGames.innerHTML = ""
         gamesOC.value = 2
         games.setAttribute("style", "padding:0px;")
-        dateGames.setAttribute("style", "padding:0px;")
+        dateGames.setAttribute("style", "padding:0px; margin-bottom: 0px;")
         imgGames.src = "/global/img/abrir.png"
     } else {
-        dateGames.insertAdjacentHTML("afterbegin", `<li>Não há nenhuma seleção</li>`)
+        dateGames.insertAdjacentHTML("afterbegin", `<p id="comment">Não há nenhuma seleção</p>`)
+        dateGames.setAttribute("style", "padding:10px; margin-bottom: 10px;")
         openGames(games)
         gamesOC.value = 1
         imgGames.src = "/global/img/fechar.png"

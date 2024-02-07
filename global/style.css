@@ -5,6 +5,7 @@
     font-size: 1rem;
 }
 body{
+    background-color: black;
     position: relative;
     display: flex;
     flex-direction: column;

@@ -20,5 +20,4 @@ export function toastify(type, msg){
         `)
         toast.classList.add("error")
     }
-    // console.log(toast)
 }
