@@ -2,9 +2,9 @@ const table = document.querySelector("#tableCampionUl")
 const game = document.querySelector("#dayGamesUl")
 const games = document.querySelector("#butGames")
 
-openDayGame(game)
-openTableChampion(table)
-openGames(games, dateGames)
+openDayGame()
+openTableChampion()
+openGames()
 
 function openTableChampion() {
     table.insertAdjacentHTML("afterbegin", `
@@ -37,7 +37,7 @@ function openDayGame() {
     game.setAttribute("style", "padding:5px; margin-bottom: 10px;")
 }
 
-function openGames(games) {
+function openGames() {
     games.insertAdjacentHTML("afterbegin", `
     <button id="next">Próximos Jogos</button>
     <button id="last">Jogos Anteriores</button>

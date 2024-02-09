@@ -7,9 +7,9 @@ const imgGames = document.querySelector("#imgGames")
 const gamesUl = document.querySelector("#gamesUl")
 const functionsDiv = document.querySelector("#functionsDiv")
 
-tableTeams(tableTeamsUl)
-games(gamesUl)
-actions(functionsDiv)
+tableTeams()
+games()
+actions()
 
 function tableTeams() {
     tableTeamsUl.insertAdjacentHTML("afterbegin", `
@@ -71,21 +71,20 @@ gamesOC.addEventListener("click", () => {
 
 function actions() {
     functionsDiv.insertAdjacentHTML("afterbegin", `
-    <button id="newTeam">
-    <img src="">
+    <button class="buttonsAdmin" id="newTeam">
     <p>NOVO TIME</p>
     </button>
-    <button id="newPlayer">
-    <img src="">
+    <button class="buttonsAdmin" id="newPlayer">
     <p>NOVO JOGADOR</p>
     </button>
     `)
 }
 
-const newPlayer = document.querySelector("newPlayer")
+const newPlayer = document.querySelector("#newPlayer")
 newPlayer.addEventListener("click", () => {
     const div = document.createElement("div")
     div.classList.add("modal")
+    console.log(main)
     main.appendChild(div)
     div.insertAdjacentHTML("afterbegin", `
     <form id="formPlayer">
@@ -125,8 +124,8 @@ newPlayer.addEventListener("click", () => {
     // });
 })
 
-const newTeam = document.querySelector("newTeam")
-newTeam.addEventListener("click", (main) => {
+const newTeam = document.querySelector("#newTeam")
+newTeam.addEventListener("click", () => {
     const div = document.createElement("div")
     div.classList.add("modal")
     main.appendChild(div)
