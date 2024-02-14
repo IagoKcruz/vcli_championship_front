@@ -21,6 +21,7 @@ actions()
 function tableTeams() {
     tableTeamsUl.insertAdjacentHTML("afterbegin", `
     <li>GRE (Gremio)</li>
+    <li> int (inter)</li>
     `)
     tableTeamsUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
 }
