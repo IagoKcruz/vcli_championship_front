@@ -2,7 +2,6 @@
 const tableDiv = document.querySelector("#tableCampion")
 
 export function tableChampion() {
-    tableDiv.innerHTML = "";
     tableDiv.insertAdjacentHTML("afterbegin", `
     <button value="1" class="openclose" id="tableOC">
     <p>TABELA DO CAMPEONATO</p>
