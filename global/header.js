@@ -7,8 +7,8 @@ body.insertAdjacentHTML("afterbegin", `
 `)
 
 const menu = document.querySelector("#menu")
-menu.addEventListener("click",()=>{
-   body.insertAdjacentHTML("afterbegin", `
+menu.addEventListener("click", () => {
+  body.insertAdjacentHTML("afterbegin", `
    <aside>
    <a href="">JOGADORES</a>
    <a href="">TIMES</a>
@@ -16,12 +16,11 @@ menu.addEventListener("click",()=>{
    <button id="back">VOLTAR</button>
    </aside>
    `)
-   const aside = document.querySelector("aside")
-   const butBack = document.querySelector("#back")
-   butBack.addEventListener("click",()=>{ 
-      
-      aside.remove()
-})
+  const aside = document.querySelector("aside")
+  const butBack = document.querySelector("#back")
+  butBack.addEventListener("click", () => {
+    aside.remove()
+  })
 
 })
 

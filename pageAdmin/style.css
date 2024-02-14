@@ -2,10 +2,11 @@
     flex-direction: column;
     justify-content: center;
     background-color: transparent;
+    gap: 10px;
     & .buttonsAdmin{
     background-color: white;
-    border: solid 3px black;
-    border-radius: 10px;
+    border: solid 3px white;
+    border-radius: 5px;
     font-weight: 800;
 }
 }
