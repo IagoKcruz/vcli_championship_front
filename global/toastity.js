@@ -21,3 +21,12 @@ export function toastify(type, msg){
         toast.classList.add("error")
     }
 }
+
+export function modal(){
+    const modalDiv = document.querySelector(".modal")
+    modalDiv.addEventListener("click",(event)=>{
+        if(event.target.tagName != "FORM"){
+            modalDiv.remove()
+        }
+    })
+}

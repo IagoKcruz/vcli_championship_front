@@ -1,26 +1,15 @@
-const table = document.querySelector("#tableCampionUl")
+import { openTableChampion, tableChampion, tableChampionOC } from "../global/tableChampion.js"
+
 const game = document.querySelector("#dayGamesUl")
 const games = document.querySelector("#butGames")
 
 openDayGame()
-openTableChampion()
 openGames()
 
-function openTableChampion() {
-    table.insertAdjacentHTML("afterbegin", `
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>4</li>
-    <li>5</li>
-    <li>6</li>
-    <li>7</li>
-    <li>8</li>
-    <li>9</li>
-    <li>10</li>
-    `)
-    table.setAttribute("style", "padding:5px; margin-bottom: 10px;")
-}
+tableChampion()
+openTableChampion()
+tableChampionOC()
+
 function openDayGame() {
 
     game.insertAdjacentHTML("afterbegin", `
@@ -91,23 +80,8 @@ function lastGame() {
     dateGames.setAttribute("style", "padding:5px; margin-bottom: 10px;")
 }
 
-const imgTable = document.querySelector("#imgTable")
 const imgGame = document.querySelector("#imgGame")
 const imgGames = document.querySelector("#imgGames")
-
-const tableOC = document.querySelector("#tableOC")
-tableOC.addEventListener("click", () => {
-    if (tableOC.value == 1) {
-        table.innerHTML = ""
-        tableOC.value = 2
-        table.setAttribute("style", "padding:0px;")
-        imgTable.src = "/global/img/abrir.png"
-    } else {
-        openTableChampion(table)
-        tableOC.value = 1
-        imgTable.src = "/global/img/fechar.png"
-    }
-})
 const dayGameOC = document.querySelector("#dayGameOC")
 dayGameOC.addEventListener("click", () => {
     if (dayGameOC.value == 1) {

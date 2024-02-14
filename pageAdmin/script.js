@@ -1,3 +1,6 @@
+import { openTableChampion, tableChampion, tableChampionOC } from "../global/tableChampion.js"
+import { modal } from "../global/toastity.js"
+
 const main = document.querySelector("main")
 const teamsOC = document.querySelector("#teamsOC")
 const imgTeams = document.querySelector("#imgTeams")
@@ -6,6 +9,10 @@ const gamesOC = document.querySelector("#gamesOC")
 const imgGames = document.querySelector("#imgGames")
 const gamesUl = document.querySelector("#gamesUl")
 const functionsDiv = document.querySelector("#functionsDiv")
+
+tableChampion()
+openTableChampion()
+tableChampionOC()
 
 tableTeams()
 games()
@@ -87,6 +94,7 @@ newPlayer.addEventListener("click", () => {
     console.log(main)
     main.appendChild(div)
     div.insertAdjacentHTML("afterbegin", `
+    <button id="exitPlayer">X</button>
     <form id="formPlayer">
     <div>
         <label>Nome</label>
@@ -108,6 +116,7 @@ newPlayer.addEventListener("click", () => {
     </div>
     </form>
     `)
+    modal()
     // const position = document.querySelector("position")
     // const positionDB = positionDataBase()
     // positionDB.forEach(item => {
@@ -122,6 +131,10 @@ newPlayer.addEventListener("click", () => {
     //     <option value="${item.id}">${item.descr}</option>
     //     `)
     // });
+    const butExit = document.querySelector("#exitPlayer")
+    butExit.addEventListener("click",()=>{
+        div.remove();
+    })
 })
 
 const newTeam = document.querySelector("#newTeam")
@@ -129,7 +142,8 @@ newTeam.addEventListener("click", () => {
     const div = document.createElement("div")
     div.classList.add("modal")
     main.appendChild(div)
-    div.insertAdjacentHTML("afterbegin", `
+    div.insertAdjacentHTML("afterbegin", `  
+    <button id="exitTeam">X</button>
     <form id="formTeam">
         <div>
             <label>Nome</label>
@@ -145,6 +159,11 @@ newTeam.addEventListener("click", () => {
         </div>
     </form>
     `)
+    modal()
+    const butExit = document.querySelector("#exitTeam")
+    butExit.addEventListener("click",()=>{
+        div.remove();
+    })
 })
 
 // <select id="status">

@@ -1,14 +1,11 @@
-
 #functionsDiv{
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    gap: 50px;
     background-color: transparent;
     & .buttonsAdmin{
     background-color: white;
-    padding: 10px;
     border: solid 3px black;
-    border-radius: 50px;
+    border-radius: 10px;
     font-weight: 800;
 }
 }
