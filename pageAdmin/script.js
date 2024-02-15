@@ -2,9 +2,6 @@ import { openTableChampion, tableChampion, tableChampionOC } from "../global/tab
 import { modal } from "../global/toastity.js"
 
 const main = document.querySelector("main")
-const teamsOC = document.querySelector("#teamsOC")
-const imgTeams = document.querySelector("#imgTeams")
-const tableTeamsUl = document.querySelector("#tableTeamsUl")
 const gamesOC = document.querySelector("#gamesOC")
 const imgGames = document.querySelector("#imgGames")
 const gamesUl = document.querySelector("#gamesUl")
@@ -14,11 +11,27 @@ tableChampion()
 openTableChampion()
 tableChampionOC()
 
+teamDiv()
 tableTeams()
 games()
 actions()
+UlTeamOC()
 
-function tableTeams() {
+
+export function teamDiv(){
+    const teams = document.querySelector("#teams")
+    teams.insertAdjacentHTML("afterbegin", `
+    <button value="1" class="openclose" id="teamsOC">
+    <p>TIMES</p>
+    <img src="/global/img/fechar.png" id="imgTeams" alt="abrir">
+    </button>
+    <ul id="tableTeamsUl">
+    </ul>
+    `)
+}
+
+export function tableTeams() {
+    const tableTeamsUl = document.querySelector("#tableTeamsUl")
     tableTeamsUl.insertAdjacentHTML("afterbegin", `
     <li>GRE (Gremio)</li>
     <li> int (inter)</li>
@@ -26,7 +39,11 @@ function tableTeams() {
     tableTeamsUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
 }
 
-teamsOC.addEventListener("click", () => {
+export function UlTeamOC(){
+    const tableTeamsUl = document.querySelector("#tableTeamsUl")
+    const teamsOC = document.querySelector("#teamsOC")
+    const imgTeams = document.querySelector("#imgTeams")
+    teamsOC.addEventListener("click", () => {
     if (teamsOC.value == 1) {
         teamsOC.value = 2
         tableTeamsUl.innerHTML = ""
@@ -37,8 +54,8 @@ teamsOC.addEventListener("click", () => {
         teamsOC.value = 1
         imgTeams.src = "/global/img/fechar.png"
     }
-})
-
+})    
+}
 
 function games() {
     gamesUl.insertAdjacentHTML("afterbegin", `
@@ -83,7 +100,6 @@ const newPlayer = document.querySelector("#newPlayer")
 newPlayer.addEventListener("click", () => {
     const div = document.createElement("div")
     div.classList.add("modal")
-    console.log(main)
     main.appendChild(div)
     div.insertAdjacentHTML("afterbegin", `
     <button id="exitPlayer">X</button>
@@ -136,7 +152,6 @@ newPlayer.addEventListener("click", () => {
             position: document.querySelector("#position").value,
             team: document.querySelector("#team").value
         }
-        console.log(formPlayer)
         event.preventDefault()
         insertPlayerDataBase(formPlayer)
     })
@@ -212,7 +227,6 @@ newTeam.addEventListener("click", () => {
             tag: document.querySelector("#tag").value,
             shield: document.querySelector("#shield").value,
         }
-        console.log(formTeam)
         event.preventDefault()
         insertPlayerDataBase(formTeam)
     })

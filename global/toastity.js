@@ -25,7 +25,6 @@ export function toastify(type, msg){
 export function modal(){
     const modalDiv = document.querySelector(".modal")
     modalDiv.addEventListener("click",(event)=>{
-    console.log(event.target)
         if(event.target.tagName == "DIV"){
             modalDiv.remove()
         }
