@@ -95,7 +95,7 @@ updatePlayer.addEventListener("click", () => {
     const butInative = document.querySelector("#inative")
     butInative.addEventListener("click",(event)=>{
         event.preventDefault()
-        inativection()
+        inativeAction()
     })
 })
 
@@ -125,13 +125,14 @@ function inativeAction(){
     const div = document.createElement("div")
     div.classList.add("modal")
     main.appendChild(div)
-    div.insertAdjacentHTML("afterbegin", `  
+    div.insertAdjacentHTML("afterbegin", `
+    <button id="exitConfirm">OK</button>  
     <div>
     <label>CONFIRMAR ALTERAÇÃO</label>
     <button id="confirmInative">OK</button>
     </div>
     `)
-    const confirmInative = document.querySelector("#confirmUpdate")
+    const confirmInative = document.querySelector("#confirmInative")
     confirmInative.addEventListener("click",()=>{
         console.log("banco de dados")
         window.location.reload()
