@@ -101,9 +101,11 @@ newPlayer.addEventListener("click", () => {
         <input type="number" id="age" min="18" oninput="validity.valid||(value='');">
     </div>
     <div>
+        <label>Posição</label>
         <select id="position"></select>
     </div>
     <div>
+        <label>Time</label>
         <select id="team"></select>
     </div>
     </form>
