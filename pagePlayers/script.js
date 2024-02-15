@@ -104,10 +104,10 @@ function updateAction(){
     div.classList.add("modal")
     main.appendChild(div)
     div.insertAdjacentHTML("afterbegin", `  
-    <button id="exitConfirm">OK</button>
     <div>
     <label>CONFIRMAR ALTERAÇÃO</label>
-    <button id="confirmUpdate">OK</button>
+    <button id="confirmUpdate">SIM</button>
+    <button id="exitConfirm">NÃO</button>
     </div>
     `)
     const confirmUpdate = document.querySelector("#confirmUpdate")
@@ -126,10 +126,10 @@ function inativeAction(){
     div.classList.add("modal")
     main.appendChild(div)
     div.insertAdjacentHTML("afterbegin", `
-    <button id="exitConfirm">OK</button>  
     <div>
-    <label>CONFIRMAR ALTERAÇÃO</label>
-    <button id="confirmInative">OK</button>
+    <label>CONFIRMAR INATIVIDADE PARA O JOGADOR</label>
+    <button id="confirmInative">SIM</button>
+    <button id="exitConfirm">NÃO</button> 
     </div>
     `)
     const confirmInative = document.querySelector("#confirmInative")
