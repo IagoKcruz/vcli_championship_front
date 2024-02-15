@@ -1,4 +1,5 @@
 import { openTableChampion, tableChampion, tableChampionOC } from "../global/tableChampion.js"
+import { UlTeamOC, tableTeams, teamDiv } from "../global/teams.js"
 import { modal } from "../global/toastity.js"
 
 const main = document.querySelector("main")
@@ -7,55 +8,16 @@ const imgGames = document.querySelector("#imgGames")
 const gamesUl = document.querySelector("#gamesUl")
 const functionsDiv = document.querySelector("#functionsDiv")
 
+teamDiv()
+tableTeams()
+UlTeamOC()
+
 tableChampion()
 openTableChampion()
 tableChampionOC()
 
-teamDiv()
-tableTeams()
 games()
 actions()
-UlTeamOC()
-
-
-export function teamDiv(){
-    const teams = document.querySelector("#teams")
-    teams.insertAdjacentHTML("afterbegin", `
-    <button value="1" class="openclose" id="teamsOC">
-    <p>TIMES</p>
-    <img src="/global/img/fechar.png" id="imgTeams" alt="abrir">
-    </button>
-    <ul id="tableTeamsUl">
-    </ul>
-    `)
-}
-
-export function tableTeams() {
-    const tableTeamsUl = document.querySelector("#tableTeamsUl")
-    tableTeamsUl.insertAdjacentHTML("afterbegin", `
-    <li>GRE (Gremio)</li>
-    <li> int (inter)</li>
-    `)
-    tableTeamsUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
-}
-
-export function UlTeamOC(){
-    const tableTeamsUl = document.querySelector("#tableTeamsUl")
-    const teamsOC = document.querySelector("#teamsOC")
-    const imgTeams = document.querySelector("#imgTeams")
-    teamsOC.addEventListener("click", () => {
-    if (teamsOC.value == 1) {
-        teamsOC.value = 2
-        tableTeamsUl.innerHTML = ""
-        tableTeamsUl.setAttribute("style", "padding:0px;")
-        imgTeams.src = "/global/img/abrir.png"
-    } else {
-        tableTeams(tableTeamsUl)
-        teamsOC.value = 1
-        imgTeams.src = "/global/img/fechar.png"
-    }
-})    
-}
 
 function games() {
     gamesUl.insertAdjacentHTML("afterbegin", `
