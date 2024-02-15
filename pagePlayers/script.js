@@ -49,55 +49,28 @@ playersOC.addEventListener("click", () => {
     }
 })
 
-const updatePlayer = document.querySelector("#playerLi")
-updatePlayer.addEventListener("click", () => {
+
+function updateAction(){
     const div = document.createElement("div")
     div.classList.add("modal")
     main.appendChild(div)
     div.insertAdjacentHTML("afterbegin", `  
-    <button id="exitPlayer">X</button>
-    <form id="formPlayer">
     <div>
-        <label>Nome</label>
-        <input type="text" id="name">
+    <label>CONFIRMAR ALTERAÇÃO</label>
+    <button id="confirmUpdate">SIM</button>
+    <button id="exitConfirm">NÃO</button>
     </div>
-    <div>
-        <label>Foto</label>
-        <input type="text" id="photo">
-    </div>
-    <div>
-        <label>Idade</label>
-        <input type="number" id="age" min="18" oninput="validity.valid||(value='');">
-    </div>
-    <div>
-        <label>Posição</label>
-        <select id="position"></select>
-    </div>
-    <div>
-        <label>Time</label>
-        <select id="team"></select>
-    </div>
-    <div>
-    <button id="update">ALTERAR</button>
-    <button id="inative">INATIVAR</button>
-    </div>
-    </form>
     `)
-    const butExit = document.querySelector("#exitPlayer")
-    butExit.addEventListener("click",()=>{
+    const confirmUpdate = document.querySelector("#confirmUpdate")
+    confirmUpdate.addEventListener("click",()=>{
+        console.log("banco de dados")
+        window.location.reload()
+    })
+    const exitConfirm = document.querySelector("#exitConfirm")
+    exitConfirm.addEventListener("click",()=>{
         div.remove();
     })
-    const butUpdate = document.querySelector("#update")
-    butUpdate.addEventListener("click",(event)=>{
-        event.preventDefault()
-        updateAction()
-    })
-    const butInative = document.querySelector("#inative")
-    butInative.addEventListener("click",(event)=>{
-        event.preventDefault()
-        inativeAction()
-    })
-})
+}
 
 function updateAction(){
     const div = document.createElement("div")
