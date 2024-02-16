@@ -1,6 +1,7 @@
 import { openTableChampion, tableChampion, tableChampionOC } from "../global/tableChampion.js"
 import { UlTeamOC, tableTeams, teamDiv } from "../global/teams.js"
-import { modal } from "../global/toastity.js"
+import { modal, toastify } from "../global/toastity.js"
+import { validationInsertTeam } from "./validation.js"
 
 const main = document.querySelector("main")
 const gamesOC = document.querySelector("#gamesOC")
@@ -173,10 +174,6 @@ newTeam.addEventListener("click", () => {
             <label>TAG(abreviação)</label>
             <input type="text" id="tag">
         </div>
-        <div>
-            <label>Brasão</label>
-            <input type="text" id="shield">
-        </div>
         <button type="submit">INSERIR</button>
     </form>
     `)
@@ -187,10 +184,13 @@ newTeam.addEventListener("click", () => {
         {
             name: document.querySelector("#name").value,
             tag: document.querySelector("#tag").value,
-            shield: document.querySelector("#shield").value,
         }
         event.preventDefault()
-        insertTeamDataBase(formTeam)
+        const validation = validationInsertTeam(formTeam)
+        console.log(validation)
+        if(validation){
+            insertTeamDataBase(formTeam)
+        }
     })
     const butExit = document.querySelector("#exitTeam")
     butExit.addEventListener("click", () => {
@@ -210,24 +210,28 @@ function insertTeamDataBase(form) {
         <div>
         <p> NOME: ${form.name}</p>
         <p> IDADE: ${form.tag}</p>
-        <p> POSIÇÃO: ${form.shield}</p>
         </div>
         <div>
         <button id="insertTeam">INSERIR</button>
         <button id="cancelTeam">CANCELAR</button>
         </div>
         `)
-    const updateTeam = document.querySelector("#updatePlayer")
+    const updateTeam = document.querySelector("#updateTeam")
     updateTeam.addEventListener("click", (event) => {
         div.remove()
     })
-    const insertTeam = document.querySelector("#insertPlayer")
+    const insertTeam = document.querySelector("#insertTeam")
     insertTeam.addEventListener("click", (event) => {
-        //updateAction()
+        const dataBase = insertTeamDataBase(form)
+        if(dataBase.status == 201){
+            toastify(erro,"Time cadastrado")
+        }else{
+            toastify(erro,"Erro ao cadastrar time")
+        }
     })
-    const cancelTeam = document.querySelector("#cancelPlayer")
+    const cancelTeam = document.querySelector("#cancelTeam")
     cancelTeam.addEventListener("click", (event) => {
-        //inativeAction()
+        div.remove()
     })
 }
 

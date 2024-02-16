@@ -1,3 +1,21 @@
+const my_headers ={
+    "Content-Type": "a"
+}
+const url = "http://localhost:3001/"
+
+export async function insertTeamModel(team){
+    const bodyJson = JSON.stringify(team)
+    const res = await fetch(
+        url+"/insertTeam",
+    {
+        headers: my_headers,
+        method: "POST",
+        body:bodyJson
+    })
+    return res;
+}
+
+
 export function teamDiv() {
     const teams = document.querySelector("#teams")
     teams.insertAdjacentHTML("afterbegin", `
