@@ -35,6 +35,7 @@ export function showRounds(games, rounds){
         ul.id = "roundsUl"
         divRounds.appendChild(ul)
         games.forEach((item, index) => {
+            console.log(index)
             if(rounds-5 != 0){
                 rounds = rounds - 5
             }

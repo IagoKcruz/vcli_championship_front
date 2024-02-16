@@ -49,28 +49,43 @@ playersOC.addEventListener("click", () => {
     }
 })
 
-
-function updateAction(){
+const updatePlayer = document.querySelector("#playerLi")
+updatePlayer.addEventListener("click", () => {
     const div = document.createElement("div")
     div.classList.add("modal")
     main.appendChild(div)
     div.insertAdjacentHTML("afterbegin", `  
+    <button id="exitPlayer">X</button>
     <div>
-    <label>CONFIRMAR ALTERAÇÃO</label>
-    <button id="confirmUpdate">SIM</button>
-    <button id="exitConfirm">NÃO</button>
+    <img src="" alt="">
     </div>
+    <div>
+    <p> NOME: </p>
+    <p> IDADE: </p>
+    <p> IDADE: </p>
+    <p> POSIÇÃO: </p>
+    </div>
+    <div>
+    <button id="update">ALTERAR</button>
+    <button id="inative">INATIVAR</button>
+    </div>
+    </form>
     `)
-    const confirmUpdate = document.querySelector("#confirmUpdate")
-    confirmUpdate.addEventListener("click",()=>{
-        console.log("banco de dados")
-        window.location.reload()
-    })
-    const exitConfirm = document.querySelector("#exitConfirm")
-    exitConfirm.addEventListener("click",()=>{
+    const butExit = document.querySelector("#exitPlayer")
+    butExit.addEventListener("click",()=>{
         div.remove();
     })
-}
+    const butUpdate = document.querySelector("#update")
+    butUpdate.addEventListener("click",(event)=>{
+        event.preventDefault()
+        updateAction()
+    })
+    const butInative = document.querySelector("#inative")
+    butInative.addEventListener("click",(event)=>{
+        event.preventDefault()
+        inativeAction()
+    })
+})
 
 function updateAction(){
     const div = document.createElement("div")
