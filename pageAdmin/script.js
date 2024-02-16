@@ -190,7 +190,7 @@ newTeam.addEventListener("click", () => {
             shield: document.querySelector("#shield").value,
         }
         event.preventDefault()
-        insertPlayerDataBase(formTeam)
+        insertTeamDataBase(formTeam)
     })
     const butExit = document.querySelector("#exitTeam")
     butExit.addEventListener("click", () => {
