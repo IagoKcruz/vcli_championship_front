@@ -1,43 +1,24 @@
 import { openTableChampion, tableChampion, tableChampionOC } from "../global/tableChampion.js"
-import { modal } from "../global/toastity.js"
+import { UlTeamOC, insertTeamModel, tableTeams, teamDiv } from "../global/teams.js"
+import { modal, toastify } from "../global/toastity.js"
+import { validationInsertTeam } from "./validation.js"
 
 const main = document.querySelector("main")
-const teamsOC = document.querySelector("#teamsOC")
-const imgTeams = document.querySelector("#imgTeams")
-const tableTeamsUl = document.querySelector("#tableTeamsUl")
 const gamesOC = document.querySelector("#gamesOC")
 const imgGames = document.querySelector("#imgGames")
 const gamesUl = document.querySelector("#gamesUl")
 const functionsDiv = document.querySelector("#functionsDiv")
 
+teamDiv()
+tableTeams()
+UlTeamOC()
+
 tableChampion()
 openTableChampion()
 tableChampionOC()
 
-tableTeams()
 games()
 actions()
-
-function tableTeams() {
-    tableTeamsUl.insertAdjacentHTML("afterbegin", `
-    <li>GRE (Gremio)</li>
-    `)
-    tableTeamsUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
-}
-
-teamsOC.addEventListener("click", () => {
-    if (teamsOC.value == 1) {
-        teamsOC.value = 2
-        tableTeamsUl.innerHTML = ""
-        tableTeamsUl.setAttribute("style", "padding:0px;")
-        imgTeams.src = "/global/img/abrir.png"
-    } else {
-        tableTeams(tableTeamsUl)
-        teamsOC.value = 1
-        imgTeams.src = "/global/img/fechar.png"
-    }
-})
-
 
 function games() {
     gamesUl.insertAdjacentHTML("afterbegin", `
@@ -82,7 +63,6 @@ const newPlayer = document.querySelector("#newPlayer")
 newPlayer.addEventListener("click", () => {
     const div = document.createElement("div")
     div.classList.add("modal")
-    console.log(main)
     main.appendChild(div)
     div.insertAdjacentHTML("afterbegin", `
     <button id="exitPlayer">X</button>
@@ -100,11 +80,14 @@ newPlayer.addEventListener("click", () => {
         <input type="number" id="age" min="18" oninput="validity.valid||(value='');">
     </div>
     <div>
+        <label>Posição</label>
         <select id="position"></select>
     </div>
     <div>
+        <label>Time</label>
         <select id="team"></select>
     </div>
+    <button type="submit">INSERIR</button>
     </form>
     `)
     modal()
@@ -122,11 +105,58 @@ newPlayer.addEventListener("click", () => {
     //     <option value="${item.id}">${item.descr}</option>
     //     `)
     // });
+    const form = document.querySelector("form")
+    form.addEventListener("submit", (event) => {
+        const formPlayer =
+        {
+            name: document.querySelector("#name").value,
+            photo: document.querySelector("#photo").value,
+            age: document.querySelector("#age").value,
+            position: document.querySelector("#position").value,
+            team: document.querySelector("#team").value
+        }
+        event.preventDefault()
+        insertPlayerDataBase(formPlayer)
+    })
     const butExit = document.querySelector("#exitPlayer")
-    butExit.addEventListener("click",()=>{
+    butExit.addEventListener("click", () => {
         div.remove();
     })
 })
+
+function insertPlayerDataBase(form) {
+    const div = document.createElement("div")
+    div.classList.add("modal")
+    main.appendChild(div)
+    div.insertAdjacentHTML("afterbegin", `  
+        <button id="updatePlayer">VOLTAR</button>
+        <div>
+        <img src="" alt="">
+        </div>
+        <div>
+        <p> NOME: ${form.name}</p>
+        <p> IDADE: ${form.age}</p>
+        <p> POSIÇÃO: ${form.position}</p>
+        <p> TIME: ${form.team}</p>
+        </div>
+        <div>
+        <button id="insertPlayer">INSERIR</button>
+        <button id="cancelPlayer">CANCELAR</button>
+        </div>
+        `)
+    const updatePlayer = document.querySelector("#updatePlayer")
+    updatePlayer.addEventListener("click", (event) => {
+        div.remove()
+    })
+    const insertPlayer = document.querySelector("#insertPlayer")
+    insertPlayer.addEventListener("click", (event) => {
+        //updateAction()
+    })
+    const cancelPlayer = document.querySelector("#cancelPlayer")
+    cancelPlayer.addEventListener("click", (event) => {
+        //inativeAction()
+    })
+}
 
 const newTeam = document.querySelector("#newTeam")
 newTeam.addEventListener("click", () => {
@@ -144,18 +174,73 @@ newTeam.addEventListener("click", () => {
             <label>TAG(abreviação)</label>
             <input type="text" id="tag">
         </div>
-        <div>
-            <label>Brasão</label>
-            <input type="text" id="shield">
-        </div>
+        <button type="submit">INSERIR</button>
     </form>
     `)
     modal()
+    const form = document.querySelector("form")
+    form.addEventListener("submit", (event) => {
+        const formTeam =
+        {
+            name: document.querySelector("#name").value,
+            tag: document.querySelector("#tag").value,
+        }
+        event.preventDefault()
+        const validation = validationInsertTeam(formTeam)
+        console.log(validation)
+        if(validation){
+            insertTeamDataBase(formTeam)
+        }
+    })
     const butExit = document.querySelector("#exitTeam")
-    butExit.addEventListener("click",()=>{
+    butExit.addEventListener("click", () => {
         div.remove();
     })
 })
+
+function insertTeamDataBase(form) {
+    const div = document.createElement("div")
+    div.classList.add("modal")
+    main.appendChild(div)
+    div.insertAdjacentHTML("afterbegin", `  
+        <button id="updateTeam">VOLTAR</button>
+        <div>
+        <img src="" alt="">
+        </div>
+        <div>
+        <p> NOME: ${form.name}</p>
+        <p> IDADE: ${form.tag}</p>
+        </div>
+        <div>
+        <button id="insertTeam">INSERIR</button>
+        <button id="cancelTeam">CANCELAR</button>
+        </div>
+        `)
+    const updateTeam = document.querySelector("#updateTeam")
+    updateTeam.addEventListener("click", (event) => {
+        div.remove()
+    })
+    const insertTeam = document.querySelector("#insertTeam")
+    insertTeam.addEventListener("click", async (event) => {
+        const dataBase =  await insertTeamModel(form)
+        console.log(dataBase)
+        if(dataBase.status == 201){
+            setTimeout(() => {
+                window.location.href = "./pageAdmin"
+            }, 5000);
+            toastify("erro","Time cadastrado")
+        }else{
+            setTimeout(() => {
+                window.location.href = "./"
+            }, 5000);
+            toastify("erro","Erro ao cadastrar time ou time já existente")
+        }
+    })
+    const cancelTeam = document.querySelector("#cancelTeam")
+    cancelTeam.addEventListener("click", (event) => {
+        div.remove()
+    })
+}
 
 // <select id="status">
 // <option value="holder">TITULAR</option>

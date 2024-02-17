@@ -1,10 +1,9 @@
 
-const tableDiv = document.querySelector("#tableCampion")
-
 export function tableChampion() {
+    const tableDiv = document.querySelector("#tableChampion")
     tableDiv.insertAdjacentHTML("afterbegin", `
     <button value="1" class="openclose" id="tableOC">
-    <p>TABELA DO CAMPEONATO</p>
+    <p>TABELA</p>
     <img src="/global/img/fechar.png" id="imgTable" alt="abrir">
     </button>
     <ul id="tableCampionUl">

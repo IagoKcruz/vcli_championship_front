@@ -1,5 +1,5 @@
 export function toastify(type, msg){
-    const body  = document.querySelector('main')
+    const body  = document.querySelector('body')
     body.insertAdjacentHTML("afterbegin",`
     <div class="toastify">
         <p>${msg}</p>
@@ -25,7 +25,7 @@ export function toastify(type, msg){
 export function modal(){
     const modalDiv = document.querySelector(".modal")
     modalDiv.addEventListener("click",(event)=>{
-        if(event.target.tagName != "FORM"){
+        if(event.target.tagName == "DIV"){
             modalDiv.remove()
         }
     })

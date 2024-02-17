@@ -7,21 +7,24 @@ body.insertAdjacentHTML("afterbegin", `
 `)
 
 const menu = document.querySelector("#menu")
-menu.addEventListener("click",()=>{
-   body.insertAdjacentHTML("afterbegin", `
+menu.addEventListener("click", () => {
+
+  body.insertAdjacentHTML("afterbegin", `
    <aside>
-   <a href="">JOGADORES</a>
+   <a href="../pagePlayers">JOGADORES</a>
    <a href="">TIMES</a>
-   <a href="">PARTIDAS</a>
+   <a href="../pageAdmin">HOME</a>
+   <a href="../pageChampion">RODADAS</a>
    <button id="back">VOLTAR</button>
    </aside>
    `)
-   const aside = document.querySelector("aside")
-   const butBack = document.querySelector("#back")
-   butBack.addEventListener("click",()=>{ 
-      
-      aside.remove()
-})
+  const aside = document.querySelector("aside")
+  const butBack = document.querySelector("#back")
+  butBack.addEventListener("click", () => {
+    aside.remove()
+    window.history.back()
+  })
 
 })
 
+//${session == 1?"../pageAdmin":"../pageUser"}
