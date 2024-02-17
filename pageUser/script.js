@@ -3,6 +3,7 @@ import { openTableChampion, tableChampion, tableChampionOC } from "../global/tab
 
 const game = document.querySelector("#dayGamesUl")
 const games = document.querySelector("#butGames")
+const dateGames = document.querySelector("#dateGames")
 
 openDayGame()
 openGames()
@@ -40,14 +41,17 @@ async function openDayGame() {
 async function openGames() {
     const league = await validationLeague()
     if (!league) {
-        games.insertAdjacentHTML("afterbegin", `
+        games.remove()
+        dateGames.insertAdjacentHTML("afterbegin", `
+        <li>
         <p>NENHUMA LIGA ATIVA NO MOMENTO</p>
+        </li>
         `)
         games.setAttribute("style", "padding:5px; margin-bottom: 10px;")
     } else {
         games.insertAdjacentHTML("afterbegin", `
-    <button id="next">Próximos Jogos</button>
-    <button id="last">Jogos Anteriores</button>
+        <button id="next">Próximos Jogos</button>
+        <button id="last">Jogos Anteriores</button>
     `)
 
         const next = document.querySelector("#next")
@@ -63,7 +67,6 @@ async function openGames() {
     }
 
 }
-
 
 
 function nextGame() {

@@ -110,7 +110,6 @@ newPlayer.addEventListener("click", async() => {
     })
     const position = document.querySelector("#position")
     const positionDB = await listPosition()
-    console.log(positionDB)
     positionDB.forEach(item => {
         position.insertAdjacentHTML("afterbegin",`
         <option value="${item.idPosition}">${item.description}</option>
@@ -170,7 +169,6 @@ function insertPlayerDataBase(form) {
     const insertPlayer = document.querySelector("#insertPlayer")
     insertPlayer.addEventListener("click", async(event) => {
         const dataBase =  await insertPlayerModel(form)
-        console.log(dataBase)
         if(dataBase.status == 201){
             setTimeout(() => {
                 window.location.href = "./"
@@ -250,7 +248,6 @@ function insertTeamDataBase(form) {
     const insertTeam = document.querySelector("#insertTeam")
     insertTeam.addEventListener("click", async (event) => {
         const dataBase =  await insertTeamModel(form)
-        console.log(dataBase)
         if(dataBase.status == 201){
             setTimeout(() => {
                 window.location.href = "./"
