@@ -1,7 +1,8 @@
 import { openTableChampion, tableChampion, tableChampionOC } from "../global/tableChampion.js"
-import { UlTeamOC, insertTeamModel, tableTeams, teamDiv } from "../global/teams.js"
+import { UlTeamOC, insertTeamModel, listTeam, tableTeams, teamDiv } from "../global/teams.js"
+import { insertPlayerModel, listPosition } from "../global/player.js"
 import { modal, toastify } from "../global/toastity.js"
-import { validationInsertTeam } from "./validation.js"
+import { validationInsertPlayer, validationInsertTeam } from "./validation.js"
 
 const main = document.querySelector("main")
 const gamesOC = document.querySelector("#gamesOC")
@@ -60,7 +61,7 @@ function actions() {
 }
 
 const newPlayer = document.querySelector("#newPlayer")
-newPlayer.addEventListener("click", () => {
+newPlayer.addEventListener("click", async() => {
     const div = document.createElement("div")
     div.classList.add("modal")
     main.appendChild(div)
@@ -87,24 +88,32 @@ newPlayer.addEventListener("click", () => {
         <label>Time</label>
         <select id="team"></select>
     </div>
+    <div>
+        <label>SITUAÇÃO</label>
+        <select id="status">
+            <option value="holder">TITULAR</option>
+            <option value="reserve">RESERVA</option>
+        </select>
+    </div>
     <button type="submit">INSERIR</button>
     </form>
     `)
     modal()
-    // const position = document.querySelector("position")
-    // const positionDB = positionDataBase()
-    // positionDB.forEach(item => {
-    //     position.insertAdjacentHTML("beforebegin",`
-    //     <option value="${item.id}">${item.descr}</option>
-    //     `)
-    // });
-    // const team = document.querySelector("team")
-    // const teamDB = teamDataBase()
-    // teamDB.forEach(item => {
-    //     team.insertAdjacentHTML("beforebegin",`
-    //     <option value="${item.id}">${item.descr}</option>
-    //     `)
-    // });
+    const position = document.querySelector("#position")
+    const positionDB = await listPosition()
+    console.log(positionDB)
+    positionDB.forEach(item => {
+        position.insertAdjacentHTML("afterbegin",`
+        <option value="${item.idPosition}">${item.description}</option>
+        `)
+    });
+    const team = document.querySelector("#team")
+    const teamDB = await listTeam()
+    teamDB.forEach(item => {
+        team.insertAdjacentHTML("afterbegin",`
+        <option value="${item.idTeam}">${item.teamName}</option>
+        `)
+    });
     const form = document.querySelector("form")
     form.addEventListener("submit", (event) => {
         const formPlayer =
@@ -113,10 +122,14 @@ newPlayer.addEventListener("click", () => {
             photo: document.querySelector("#photo").value,
             age: document.querySelector("#age").value,
             position: document.querySelector("#position").value,
-            team: document.querySelector("#team").value
+            team: document.querySelector("#team").value,
+            status: document.querySelector("#status").value
         }
         event.preventDefault()
-        insertPlayerDataBase(formPlayer)
+        const validation = validationInsertPlayer(formPlayer)
+        if(validation){
+            insertPlayerDataBase(formPlayer)
+        }
     })
     const butExit = document.querySelector("#exitPlayer")
     butExit.addEventListener("click", () => {
@@ -138,6 +151,7 @@ function insertPlayerDataBase(form) {
         <p> IDADE: ${form.age}</p>
         <p> POSIÇÃO: ${form.position}</p>
         <p> TIME: ${form.team}</p>
+        <p> SITUAÇÃO: ${form.status}</p>
         </div>
         <div>
         <button id="insertPlayer">INSERIR</button>
@@ -149,8 +163,20 @@ function insertPlayerDataBase(form) {
         div.remove()
     })
     const insertPlayer = document.querySelector("#insertPlayer")
-    insertPlayer.addEventListener("click", (event) => {
-        //updateAction()
+    insertPlayer.addEventListener("click", async(event) => {
+        const dataBase =  await insertPlayerModel(form)
+        console.log(dataBase)
+        if(dataBase.status == 201){
+            setTimeout(() => {
+                window.location.href = "./"
+            }, 5000);
+            toastify("erro","Time cadastrado")
+        }else{
+            setTimeout(() => {
+                window.location.href = "./"
+            }, 5000);
+            toastify("erro","Erro ao cadastrar jogador ou jogador já existente")
+        }
     })
     const cancelPlayer = document.querySelector("#cancelPlayer")
     cancelPlayer.addEventListener("click", (event) => {
@@ -187,7 +213,6 @@ newTeam.addEventListener("click", () => {
         }
         event.preventDefault()
         const validation = validationInsertTeam(formTeam)
-        console.log(validation)
         if(validation){
             insertTeamDataBase(formTeam)
         }
@@ -226,7 +251,7 @@ function insertTeamDataBase(form) {
         console.log(dataBase)
         if(dataBase.status == 201){
             setTimeout(() => {
-                window.location.href = "./pageAdmin"
+                window.location.href = "./"
             }, 5000);
             toastify("erro","Time cadastrado")
         }else{
