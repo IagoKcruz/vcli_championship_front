@@ -5,7 +5,7 @@ const url = "http://localhost:3000/"
 
 export async function listTeam() {
     try {
-        const res = await fetch(url+"admin/team")
+        const res = await fetch(url+"admin/teams")
         const resJson = await res.json();
         return resJson
     } catch (error) {

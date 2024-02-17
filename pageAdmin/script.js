@@ -61,7 +61,7 @@ function actions() {
 }
 
 const newPlayer = document.querySelector("#newPlayer")
-newPlayer.addEventListener("click", () => {
+newPlayer.addEventListener("click", async() => {
     const div = document.createElement("div")
     div.classList.add("modal")
     main.appendChild(div)
@@ -90,7 +90,7 @@ newPlayer.addEventListener("click", () => {
     </div>
     <div>
         <label>SITUAÇÃO</label>
-        <select id="team">
+        <select id="status">
             <option value="holder">TITULAR</option>
             <option value="reserve">RESERVA</option>
         </select>
@@ -99,18 +99,19 @@ newPlayer.addEventListener("click", () => {
     </form>
     `)
     modal()
-    const position = document.querySelector("position")
-    const positionDB = listPosition()
+    const position = document.querySelector("#position")
+    const positionDB = await listPosition()
+    console.log(positionDB)
     positionDB.forEach(item => {
-        position.insertAdjacentHTML("beforebegin",`
-        <option value="${item.idTeam}">${item.teamName}</option>
+        position.insertAdjacentHTML("afterbegin",`
+        <option value="${item.idPosition}">${item.description}</option>
         `)
     });
-    const team = document.querySelector("team")
-    const teamDB = listTeam()
+    const team = document.querySelector("#team")
+    const teamDB = await listTeam()
     teamDB.forEach(item => {
-        team.insertAdjacentHTML("beforebegin",`
-        <option value="${item.idPosition}">${item.description}</option>
+        team.insertAdjacentHTML("afterbegin",`
+        <option value="${item.idTeam}">${item.teamName}</option>
         `)
     });
     const form = document.querySelector("form")

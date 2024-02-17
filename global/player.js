@@ -30,6 +30,7 @@ export async function listPosition() {
     try {
         const res = await fetch(url+"admin/listPosition")
         const resJson = await res.json();
+        console.log(resJson)
         return resJson
     } catch (error) {
         console.log(error)
