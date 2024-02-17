@@ -1,5 +1,5 @@
 import { openTableChampion, tableChampion, tableChampionOC } from "../global/tableChampion.js"
-import { UlTeamOC, tableTeams, teamDiv } from "../global/teams.js"
+import { UlTeamOC, insertTeamModel, tableTeams, teamDiv } from "../global/teams.js"
 import { modal, toastify } from "../global/toastity.js"
 import { validationInsertTeam } from "./validation.js"
 
@@ -221,12 +221,19 @@ function insertTeamDataBase(form) {
         div.remove()
     })
     const insertTeam = document.querySelector("#insertTeam")
-    insertTeam.addEventListener("click", (event) => {
-        const dataBase = insertTeamDataBase(form)
+    insertTeam.addEventListener("click", async (event) => {
+        const dataBase =  await insertTeamModel(form)
+        console.log(dataBase)
         if(dataBase.status == 201){
-            toastify(erro,"Time cadastrado")
+            setTimeout(() => {
+                window.location.href = "./pageAdmin"
+            }, 5000);
+            toastify("erro","Time cadastrado")
         }else{
-            toastify(erro,"Erro ao cadastrar time")
+            setTimeout(() => {
+                window.location.href = "./"
+            }, 5000);
+            toastify("erro","Erro ao cadastrar time ou time já existente")
         }
     })
     const cancelTeam = document.querySelector("#cancelTeam")

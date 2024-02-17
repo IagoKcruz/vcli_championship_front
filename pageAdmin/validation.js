@@ -14,7 +14,7 @@ export function validationInsertTeam(team){
         msg = "Inserir SIGLA do time"
         toastify(erro, msg)
         return false;
-    }else if(team.tag.length > 4){
+    }else if(team.tag.length > 3){
         erro = "erro"
         msg = "Inserir uma sigla menor"
         toastify(erro, msg)

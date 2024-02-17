@@ -146,7 +146,7 @@ button {
     height: 20px;
     width: 100%;
     background-color: whitesmoke;
-    animation: toastifyAnimation 5s ease;
+    animation: toastifyAnimation 10s ease;
 }
 
 @keyframes toastifyAnimation {
