@@ -45,13 +45,17 @@ export function teamDiv() {
     `)
 }
 
-export function tableTeams() {
+export async function tableTeams() {
     const tableTeamsUl = document.querySelector("#tableTeamsUl")
-    tableTeamsUl.insertAdjacentHTML("afterbegin", `
-    <li>GRE (Gremio)</li>
-    <li> int (inter)</li>
-    `)
     tableTeamsUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
+    const teamDB = await listTeam()
+    teamDB.forEach(item => {
+        tableTeamsUl.insertAdjacentHTML("afterbegin", `
+        <li> ${item.teamName} | ${item.teamTag} </li>
+        `)
+    });
+
+    
 }
 
 export function UlTeamOC() {

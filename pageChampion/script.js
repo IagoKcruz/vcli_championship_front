@@ -29,13 +29,11 @@ if(!searchRounds()){
 }
 
 export function showRounds(games, rounds){
-    console.log(games)
         divRounds.innerHTML = "";
         const ul = document.createElement("ul")
         ul.id = "roundsUl"
         divRounds.appendChild(ul)
         games.forEach((item, index) => {
-            console.log(index)
             if(rounds-5 != 0){
                 rounds = rounds - 5
             }
@@ -118,7 +116,6 @@ function generateroundsChampion(){
     for (const game of round.games) {
     //inserir no banco
     games.push(`${game[0]} vs ${game[1]} (${round.round})`)
-    console.log(`${game[0]} vs ${game[1]} (${round.round})`);
     }
     }    
     const teamsReverse = teams.toReversed()
@@ -142,10 +139,9 @@ function generateRoundsReturn(teams){
     for (const round of rounds) {
     for (const game of round.games) {
     games.push(`${game[0]} vs ${game[1]} (${round.roundsReturn})`)
-    console.log(`${game[0]} vs ${game[1]} (${round.roundsReturn})`);
+
     }
     }    
-    console.log(games)
     showRounds(games, 5)
 }
 

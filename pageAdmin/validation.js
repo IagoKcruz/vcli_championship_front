@@ -3,7 +3,6 @@ import { toastify } from "../global/toastity.js";
 let erro, msg;
 
 export function validationInsertTeam(team){
-    console.log(team)
     // if(team.shield == ""){
     //     erro = "senha"
     //     msg = "Inserir Escudo"
@@ -31,7 +30,6 @@ export function validationInsertTeam(team){
 }
 
 export function validationInsertPlayer(player){
-    console.log(player)
     // if(player.shield == ""){
     //     erro = "senha"
     //     msg = "Inserir Escudo"

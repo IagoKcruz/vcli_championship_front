@@ -1,3 +1,7 @@
+const my_headers = {
+    "Content-Type": "application/json"
+}
+const url = "http://localhost:3000/"
 
 export function tableChampion() {
     const tableDiv = document.querySelector("#tableChampion")

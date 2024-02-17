@@ -3,11 +3,9 @@ import { UlTeamOC, insertTeamModel, listTeam, tableTeams, teamDiv } from "../glo
 import { insertPlayerModel, listPosition } from "../global/player.js"
 import { modal, toastify } from "../global/toastity.js"
 import { validationInsertPlayer, validationInsertTeam } from "./validation.js"
+import { validationLeague } from "../global/game.js"
 
 const main = document.querySelector("main")
-const gamesOC = document.querySelector("#gamesOC")
-const imgGames = document.querySelector("#imgGames")
-const gamesUl = document.querySelector("#gamesUl")
 const functionsDiv = document.querySelector("#functionsDiv")
 
 teamDiv()
@@ -21,21 +19,28 @@ tableChampionOC()
 games()
 actions()
 
-function games() {
+async function games() {
+    const gamesUl = document.querySelector("#gamesUl")
+    const league = await validationLeague()
+    if(!league){
     gamesUl.insertAdjacentHTML("afterbegin", `
     <li>
-    <p> A [0] x B [0] (05/02/2023 15 hrs)</p>
-    </li>
-    <li>
-    <p> C [0] x D [0] (05/02/2023 16 hrs)</p>
-    </li>
-    <li>
-    <p> E [0] x F [0] (05/02/2023 17 hrs)</p>
+    <p>NENHUMA LIGA ATIVA NO MOMENTO</p>
     </li>
     `)
     gamesUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
+    }else{
+        gamesUl.insertAdjacentHTML("afterbegin", `
+        <li>
+        <p> A [0] x B [0] (05/02/2023 15 hrs)</p>
+        </li>
+        `)
+        gamesUl.setAttribute("style", "padding:5px; margin-bottom: 10px;") 
+    }
 }
 
+const gamesOC = document.querySelector("#gamesOC")
+const imgGames = document.querySelector("#imgGames")
 gamesOC.addEventListener("click", () => {
     if (gamesOC.value == 1) {
         gamesOC.value = 2
@@ -99,6 +104,10 @@ newPlayer.addEventListener("click", async() => {
     </form>
     `)
     modal()
+    const butExit = document.querySelector("#exitPlayer")
+    butExit.addEventListener("click", () => {
+        div.remove();
+    })
     const position = document.querySelector("#position")
     const positionDB = await listPosition()
     console.log(positionDB)
@@ -130,10 +139,6 @@ newPlayer.addEventListener("click", async() => {
         if(validation){
             insertPlayerDataBase(formPlayer)
         }
-    })
-    const butExit = document.querySelector("#exitPlayer")
-    butExit.addEventListener("click", () => {
-        div.remove();
     })
 })
 
@@ -172,9 +177,6 @@ function insertPlayerDataBase(form) {
             }, 5000);
             toastify("erro","Time cadastrado")
         }else{
-            setTimeout(() => {
-                window.location.href = "./"
-            }, 5000);
             toastify("erro","Erro ao cadastrar jogador ou jogador já existente")
         }
     })
