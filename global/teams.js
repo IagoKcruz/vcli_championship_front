@@ -1,18 +1,27 @@
-const my_headers ={
-    "Content-Type": "a"
+const my_headers = {
+    "Content-Type": "application/json"
 }
-const url = "http://localhost:3001/"
+const url = "http://localhost:3000/"
 
-export async function insertTeamModel(team){
-    const bodyJson = JSON.stringify(team)
-    const res = await fetch(
-        url+"/insertTeam",
-    {
-        headers: my_headers,
-        method: "POST",
-        body:bodyJson
-    })
-    return res;
+export async function insertTeamModel(team) {
+    try {
+        const items = {
+            teamName: team.name,
+            teamTag: team.tag
+        }
+        const bodyJson = JSON.stringify(items)
+        const res = await fetch(
+            url + "admin/insertTeam",
+            {
+                headers: my_headers,
+                method: "POST",
+                body: bodyJson
+            })
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 
 

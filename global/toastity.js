@@ -1,5 +1,5 @@
 export function toastify(type, msg){
-    const body  = document.querySelector('main')
+    const body  = document.querySelector('body')
     body.insertAdjacentHTML("afterbegin",`
     <div class="toastify">
         <p>${msg}</p>
