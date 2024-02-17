@@ -3,6 +3,16 @@ const my_headers = {
 }
 const url = "http://localhost:3000/"
 
+export async function listTeam() {
+    try {
+        const res = await fetch(url+"admin/team")
+        const resJson = await res.json();
+        return resJson
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export async function insertTeamModel(team) {
     try {
         const items = {
@@ -23,8 +33,6 @@ export async function insertTeamModel(team) {
     }
 
 }
-
-
 export function teamDiv() {
     const teams = document.querySelector("#teams")
     teams.insertAdjacentHTML("afterbegin", `

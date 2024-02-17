@@ -29,3 +29,35 @@ export function validationInsertTeam(team){
         return true;
     }
 }
+
+export function validationInsertPlayer(player){
+    console.log(player)
+    // if(player.shield == ""){
+    //     erro = "senha"
+    //     msg = "Inserir Escudo"
+    //     toastify(erro, msg)
+    // }else 
+    if(player.name == ""){
+        erro = "erro"
+        msg = "Inserir NOME do jogador"
+        toastify(erro, msg)
+        return false;
+    }else if(player.age == ""){
+        erro = "erro"
+        msg = "Inserir IDADE do jogador"
+        toastify(erro, msg)
+        return false;
+    }else if(player.position == ""){
+        erro = "erro"
+        msg = "Inserir POSIÇÃO do jogador"
+        toastify(erro, msg)
+        return false;
+    }else if(player.team == ""){
+        erro = "erro"
+        msg = "Inserir TEMA do jogador"
+        toastify(erro, msg)
+        return false;
+    }else{
+        return true;
+    }
+}
