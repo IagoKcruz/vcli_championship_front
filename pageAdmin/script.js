@@ -22,20 +22,20 @@ actions()
 async function games() {
     const gamesUl = document.querySelector("#gamesUl")
     const league = await validationLeague()
-    if(!league){
-    gamesUl.insertAdjacentHTML("afterbegin", `
+    if (!league) {
+        gamesUl.insertAdjacentHTML("afterbegin", `
     <li>
     <p>NENHUMA LIGA ATIVA NO MOMENTO</p>
     </li>
     `)
-    gamesUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
-    }else{
+        gamesUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
+    } else {
         gamesUl.insertAdjacentHTML("afterbegin", `
         <li>
         <p> A [0] x B [0] (05/02/2023 15 hrs)</p>
         </li>
         `)
-        gamesUl.setAttribute("style", "padding:5px; margin-bottom: 10px;") 
+        gamesUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
     }
 }
 
@@ -66,7 +66,7 @@ function actions() {
 }
 
 const newPlayer = document.querySelector("#newPlayer")
-newPlayer.addEventListener("click", async() => {
+newPlayer.addEventListener("click", async () => {
     const div = document.createElement("div")
     div.classList.add("modal")
     main.appendChild(div)
@@ -111,14 +111,14 @@ newPlayer.addEventListener("click", async() => {
     const position = document.querySelector("#position")
     const positionDB = await listPosition()
     positionDB.forEach(item => {
-        position.insertAdjacentHTML("afterbegin",`
+        position.insertAdjacentHTML("afterbegin", `
         <option value="${item.idPosition}">${item.description}</option>
         `)
     });
     const team = document.querySelector("#team")
     const teamDB = await listTeam()
     teamDB.forEach(item => {
-        team.insertAdjacentHTML("afterbegin",`
+        team.insertAdjacentHTML("afterbegin", `
         <option value="${item.idTeam}">${item.teamName}</option>
         `)
     });
@@ -135,16 +135,32 @@ newPlayer.addEventListener("click", async() => {
         }
         event.preventDefault()
         const validation = validationInsertPlayer(formPlayer)
-        if(validation){
-            const countValidation = validationCountPlayer(formPlayer)
-            if(countValidation){
-                insertPlayerDataBase(formPlayer)
-            } 
+        if (validation) {
+            insertPlayerDataBase(formPlayer)
+            // const countValidation = validationCountPlayer(formPlayer)
+            // if(countValidation){
+            //     insertPlayerDataBase(formPlayer)
+            // } 
         }
     })
 })
 
-function insertPlayerDataBase(form) {
+async function insertPlayerDataBase(form) {
+    let posicao, team
+    const positionDB = await listPosition()
+    positionDB.forEach(item => {
+        if (item.idPosition == form.position) {
+            posicao = item.description
+        }
+    })
+    const teamDB = await listTeam()
+    teamDB.forEach(item => {
+        if (form.team == item.idTeam) {
+            team = item.teamName
+        }
+
+    });
+    console.log(posicao, team)
     const div = document.createElement("div")
     div.classList.add("modal")
     main.appendChild(div)
@@ -156,8 +172,8 @@ function insertPlayerDataBase(form) {
         <div>
         <p> NOME: ${form.name}</p>
         <p> IDADE: ${form.age}</p>
-        <p> POSIÇÃO: ${form.position}</p>
-        <p> TIME: ${form.team}</p>
+        <p> POSIÇÃO: ${posicao}</p>
+        <p> TIME: ${team}</p>
         <p> SITUAÇÃO: ${form.status}</p>
         </div>
         <div>
@@ -170,15 +186,15 @@ function insertPlayerDataBase(form) {
         div.remove()
     })
     const insertPlayer = document.querySelector("#insertPlayer")
-    insertPlayer.addEventListener("click", async(event) => {
-        const dataBase =  await insertPlayerModel(form)
-        if(dataBase.status == 201){
+    insertPlayer.addEventListener("click", async (event) => {
+        const dataBase = await insertPlayerModel(form)
+        if (dataBase.status == 201) {
             setTimeout(() => {
                 window.location.href = "./"
             }, 5000);
-            toastify("erro","Time cadastrado")
-        }else{
-            toastify("erro","Erro ao cadastrar jogador ou jogador já existente")
+            toastify("erro", "Time cadastrado")
+        } else {
+            toastify("erro", "Erro ao cadastrar jogador ou jogador já existente")
         }
     })
     const cancelPlayer = document.querySelector("#cancelPlayer")
@@ -216,7 +232,7 @@ newTeam.addEventListener("click", () => {
         }
         event.preventDefault()
         const validation = validationInsertTeam(formTeam)
-        if(validation){
+        if (validation) {
             insertTeamDataBase(formTeam)
         }
     })
@@ -250,17 +266,17 @@ function insertTeamDataBase(form) {
     })
     const insertTeam = document.querySelector("#insertTeam")
     insertTeam.addEventListener("click", async (event) => {
-        const dataBase =  await insertTeamModel(form)
-        if(dataBase.status == 201){
+        const dataBase = await insertTeamModel(form)
+        if (dataBase.status == 201) {
             setTimeout(() => {
                 window.location.href = "./"
             }, 5000);
-            toastify("erro","Time cadastrado")
-        }else{
+            toastify("erro", "Time cadastrado")
+        } else {
             setTimeout(() => {
                 window.location.href = "./"
             }, 5000);
-            toastify("erro","Erro ao cadastrar time ou time já existente")
+            toastify("erro", "Erro ao cadastrar time ou time já existente")
         }
     })
     const cancelTeam = document.querySelector("#cancelTeam")

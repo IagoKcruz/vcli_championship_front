@@ -36,6 +36,18 @@ export async function listPosition() {
     }
 }
 
+export async function listPlayerInTimeModel(idTeam) {
+    try {
+        console.log(idTeam)
+        const res = await fetch(url+`admin/listPlayersInTeam/idTeam=${idTeam}`)
+        const resJson = await res.json();
+        return resJson
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
 
 
 
