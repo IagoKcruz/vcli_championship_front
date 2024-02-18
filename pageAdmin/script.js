@@ -2,7 +2,7 @@ import { openTableChampion, tableChampion, tableChampionOC } from "../global/tab
 import { UlTeamOC, insertTeamModel, listTeam, tableTeams, teamDiv } from "../global/teams.js"
 import { insertPlayerModel, listPosition } from "../global/player.js"
 import { modal, toastify } from "../global/toastity.js"
-import { validationInsertPlayer, validationInsertTeam } from "./validation.js"
+import { validationCountPlayer, validationInsertPlayer, validationInsertTeam } from "./validation.js"
 import { validationLeague } from "../global/game.js"
 
 const main = document.querySelector("main")
@@ -136,7 +136,10 @@ newPlayer.addEventListener("click", async() => {
         event.preventDefault()
         const validation = validationInsertPlayer(formPlayer)
         if(validation){
-            insertPlayerDataBase(formPlayer)
+            const countValidation = validationCountPlayer(formPlayer)
+            if(countValidation){
+                insertPlayerDataBase(formPlayer)
+            } 
         }
     })
 })

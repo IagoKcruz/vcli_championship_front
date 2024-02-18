@@ -1,3 +1,4 @@
+import { listPlayerInTimeModel } from "../global/player.js";
 import { toastify } from "../global/toastity.js";
 
 let erro, msg;
@@ -58,4 +59,19 @@ export function validationInsertPlayer(player){
     }else{
         return true;
     }
+}
+
+export async function validationCountPlayer(player){
+    console.log(player.team)
+    const dataBase = await listPlayerInTimeModel(player.team)
+    console.log(dataBase)
+    if(dataBase.length > 12){
+        erro = "erro"
+        msg = "Inserir TEMA do jogador"
+        toastify(erro, msg)
+        return false;
+    }else if(dataBase.length > 5){
+        
+    }
+  
 }
