@@ -14,7 +14,7 @@ tableChampionOC()
 
 async function openDayGame() {
     const league = await validationLeague()
-    if (!league) {
+    if (league[0].active == "false") {
     game.insertAdjacentHTML("afterbegin", `
     <li>
     <p>NENHUMA LIGA ATIVA NO MOMENTO</p>
@@ -40,7 +40,7 @@ async function openDayGame() {
 
 async function openGames() {
     const league = await validationLeague()
-    if (!league) {
+    if (league[0].active == "false") {
         games.remove()
         dateGames.insertAdjacentHTML("afterbegin", `
         <li>
@@ -124,7 +124,7 @@ async function OpenCloseSection(){
     const imgGames = document.querySelector("#imgGames")
     const gamesOC = document.querySelector("#gamesOC")
     const league = await validationLeague()
-    if (!league){
+    if (league[0].active == "false"){
         gamesOC.addEventListener("click", () => {
             if (gamesOC.value == 1) {
                 games.innerHTML = ""

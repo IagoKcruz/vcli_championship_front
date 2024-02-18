@@ -22,7 +22,8 @@ actions()
 async function games() {
     const gamesUl = document.querySelector("#gamesUl")
     const league = await validationLeague()
-    if (!league) {
+    console.log(league)
+    if (league[0].active == "false") {
         gamesUl.insertAdjacentHTML("afterbegin", `
     <li>
     <p>NENHUMA LIGA ATIVA NO MOMENTO</p>
