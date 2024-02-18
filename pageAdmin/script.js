@@ -146,6 +146,9 @@ newPlayer.addEventListener("click", async () => {
 })
 
 async function insertPlayerDataBase(form) {
+    const div = document.createElement("div")
+    div.classList.add("modal")
+    main.appendChild(div)
     let posicao, team
     const positionDB = await listPosition()
     positionDB.forEach(item => {
@@ -159,11 +162,7 @@ async function insertPlayerDataBase(form) {
             team = item.teamName
         }
 
-    });
-    console.log(posicao, team)
-    const div = document.createElement("div")
-    div.classList.add("modal")
-    main.appendChild(div)
+    })
     div.insertAdjacentHTML("afterbegin", `  
         <button id="updatePlayer">VOLTAR</button>
         <div>
@@ -186,13 +185,17 @@ async function insertPlayerDataBase(form) {
         div.remove()
     })
     const insertPlayer = document.querySelector("#insertPlayer")
-    insertPlayer.addEventListener("click", async (event) => {
+    console.log("cheguei")
+    console.log(insertPlayer,form)
+    insertPlayer.addEventListener("click", async() => {
+        console.log("cheguei",form)
         const dataBase = await insertPlayerModel(form)
+        console.log(dataBase)
         if (dataBase.status == 201) {
             setTimeout(() => {
                 window.location.href = "./"
             }, 5000);
-            toastify("erro", "Time cadastrado")
+            toastify("erro", "Jogador cadastrado")
         } else {
             toastify("erro", "Erro ao cadastrar jogador ou jogador já existente")
         }

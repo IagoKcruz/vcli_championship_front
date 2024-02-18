@@ -5,6 +5,7 @@ const url = "http://localhost:3000/"
 
 export async function insertPlayerModel(player) {
     try {
+        console.log(player)
         const items = {
             playerName: player.name,
             idTeam: player.team,
@@ -38,20 +39,9 @@ export async function listPosition() {
 
 export async function listPlayerInTimeModel(idTeam) {
     try {
-        const itemData = {
-            idTeam:idTeam
-        }
-        const bodyJson = JSON.stringify(itemData)
-        console.log(bodyJson)
-        const res = await fetch(
-            url + `admin/listPlayersInTeam`,
-            {
-                method: "GET",
-                headers: my_headers,
-                body: bodyJson
-            })
-            const resJson = await res.json();
-            return resJson
+        const res = await fetch(url+`admin/listPlayersInTeam/${idTeam}`)
+        const resJson = await res.json();
+        return resJson
     } catch (error) {
         console.log(error)
     }
