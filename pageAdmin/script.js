@@ -22,7 +22,6 @@ actions()
 async function games() {
     const gamesUl = document.querySelector("#gamesUl")
     const league = await validationLeague()
-    console.log(league)
     if (league[0].active == "false") {
         gamesUl.insertAdjacentHTML("afterbegin", `
     <li>
@@ -138,10 +137,10 @@ newPlayer.addEventListener("click", async () => {
         const validation = validationInsertPlayer(formPlayer)
         if (validation) {
             insertPlayerDataBase(formPlayer)
-            // const countValidation = validationCountPlayer(formPlayer)
-            // if(countValidation){
-            //     insertPlayerDataBase(formPlayer)
-            // } 
+            const countValidation = validationCountPlayer(formPlayer)
+            if(countValidation){
+                insertPlayerDataBase(formPlayer)
+            } 
         }
     })
 })

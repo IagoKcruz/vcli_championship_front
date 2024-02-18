@@ -38,10 +38,20 @@ export async function listPosition() {
 
 export async function listPlayerInTimeModel(idTeam) {
     try {
-        console.log(idTeam)
-        const res = await fetch(url+`admin/listPlayersInTeam/idTeam=${idTeam}`)
-        const resJson = await res.json();
-        return resJson
+        const itemData = {
+            idTeam:idTeam
+        }
+        const bodyJson = JSON.stringify(itemData)
+        console.log(bodyJson)
+        const res = await fetch(
+            url + `admin/listPlayersInTeam`,
+            {
+                method: "GET",
+                headers: my_headers,
+                body: bodyJson
+            })
+            const resJson = await res.json();
+            return resJson
     } catch (error) {
         console.log(error)
     }

@@ -23,7 +23,6 @@ export async function validationLeague(){
 }
 
 export async function insertGameModel(game) {
-    console.log(game.round, game)
     try {
         const items = {
             teamHome: game.home,
@@ -36,7 +35,7 @@ export async function insertGameModel(game) {
             {
                 headers: my_headers,
                 method: "POST",
-                body: bodyJson
+                body: `${bodyJson}`
             })
         return res;
     } catch (error) {

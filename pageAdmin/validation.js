@@ -62,16 +62,20 @@ export function validationInsertPlayer(player){
 }
 
 export async function validationCountPlayer(player){
-    console.log(player.team)
     const dataBase = await listPlayerInTimeModel(player.team)
     console.log(dataBase)
     if(dataBase.length > 12){
         erro = "erro"
-        msg = "Inserir TEMA do jogador"
+        msg = "Time com a quantidade de jogadores completa"
         toastify(erro, msg)
         return false;
-    }else if(dataBase.length > 5){
-        
+    }else if(dataBase.status.length > 5){
+        erro = "erro"
+        msg = "Time com a quantidade de titulares completa"
+        toastify(erro, msg)
+        return false;
+    }else{
+        return true
     }
   
 }
