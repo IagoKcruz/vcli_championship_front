@@ -1,3 +1,6 @@
+const my_headers = {
+    "Content-Type": "application/json"
+}
 const url = "http://localhost:3000/"
 
 export async function listLeagueModel() {
@@ -13,8 +16,30 @@ export async function listLeagueModel() {
 export async function validationLeague(){
     const leagueDb = await listLeagueModel()
     if(leagueDb[0].active =='false'){
-        return false
+        return leagueDb
     }else{
-        return true
+        return leagueDb
+    }
+}
+
+export async function insertGameModel(game) {
+    console.log(game.round, game)
+    try {
+        const items = {
+            teamHome: game.home,
+            teamAwai: game.awai,
+            league: game.league,
+        }
+        const bodyJson = JSON.stringify(items)
+        const res = await fetch(
+            url + "admin/insertGame",
+            {
+                headers: my_headers,
+                method: "POST",
+                body: bodyJson
+            })
+        return res;
+    } catch (error) {
+        console.log(error)
     }
 }
