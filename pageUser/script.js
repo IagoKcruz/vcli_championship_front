@@ -47,7 +47,8 @@ async function openGames() {
         <p>NENHUMA LIGA ATIVA NO MOMENTO</p>
         </li>
         `)
-        games.setAttribute("style", "padding:5px; margin-bottom: 10px;")
+        dateGames.setAttribute("style", "padding:5px; margin-bottom: 10px;")
+        OpenCloseSection()
     } else {
         games.insertAdjacentHTML("afterbegin", `
         <button id="next">Próximos Jogos</button>
@@ -119,25 +120,45 @@ dayGameOC.addEventListener("click", () => {
     }
 })
 
-function OpenCloseSection(){
+async function OpenCloseSection(){
     const imgGames = document.querySelector("#imgGames")
     const gamesOC = document.querySelector("#gamesOC")
-    gamesOC.addEventListener("click", () => {
-        if (gamesOC.value == 1) {
-            games.innerHTML = ""
-            dateGames.innerHTML = ""
-            gamesOC.value = 2
-            games.setAttribute("style", "padding:0px;")
-            dateGames.setAttribute("style", "padding:0px; margin-bottom: 0px;")
-            imgGames.src = "/global/img/abrir.png"
-        } else {
-            dateGames.insertAdjacentHTML("afterbegin", `<p id="comment">Não há nenhuma seleção</p>`)
-            dateGames.setAttribute("style", "padding:10px; margin-bottom: 10px;")
-            openGames(games)
-            gamesOC.value = 1
-            imgGames.src = "/global/img/fechar.png"
-        }
-    })
+    const league = await validationLeague()
+    if (!league){
+        gamesOC.addEventListener("click", () => {
+            if (gamesOC.value == 1) {
+                games.innerHTML = ""
+                dateGames.innerHTML = ""
+                gamesOC.value = 2
+                games.setAttribute("style", "padding:0px;")
+                dateGames.setAttribute("style", "padding:0px; margin-bottom: 0px;")
+                imgGames.src = "/global/img/abrir.png"
+            } else {
+                dateGames.insertAdjacentHTML("afterbegin", `<li><p>NENHUMA LIGA ATIVA NO MOMENTO</p></li>`)
+                dateGames.setAttribute("style", "padding:5px; margin-bottom: 10px;")
+                gamesOC.value = 1
+                imgGames.src = "/global/img/fechar.png"
+            }
+        })
+    }else{
+        gamesOC.addEventListener("click", () => {
+            if (gamesOC.value == 1) {
+                games.innerHTML = ""
+                dateGames.innerHTML = ""
+                gamesOC.value = 2
+                games.setAttribute("style", "padding:0px;")
+                dateGames.setAttribute("style", "padding:0px; margin-bottom: 0px;")
+                imgGames.src = "/global/img/abrir.png"
+            } else {
+                dateGames.insertAdjacentHTML("afterbegin", `<p id="comment">Não há nenhuma seleção</p>`)
+                dateGames.setAttribute("style", "padding:10px; margin-bottom: 10px;")
+                openGames(games)
+                gamesOC.value = 1
+                imgGames.src = "/global/img/fechar.png"
+            }
+        })
+    }
+
 }
 
 
