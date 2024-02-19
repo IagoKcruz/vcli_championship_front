@@ -12,53 +12,45 @@
 <body>
     <main>
         <section id="teams">
-            <div class="team" id="teamHome">
-                <p>0</p>
+            <section id="teamHome">
                 <p>GREMIO</p>
-            </div>
-            <span>X</span>
-            <div class="team" id="teamAwai">
-                <p>INTERNACIONAL</p>
                 <p>0</p>
-            </div>
+            </section>
+            <span>X</span>
+            <section id="teamAwai">
+                <p>0</p>
+                <p>INTERNACIONAL</p>
+            </section>
         </section>
-        <section>
-            <button class="butTeam" id="butTeamHome">TeamHome</button>
-            <button class="butTeam" id="butTeamAwai">TeamAwai</button>
-        </section>
-        <section>
+        <div id="sectionPlayer">
+            <section>
+                <button class="butTeam" id="butTeamHome">TeamHome</button>
+                <button class="butTeam" id="butTeamAwai">TeamAwai</button>
+            </section>
             <ul class="playersUl" id="playersHome">
                 <li>
                     <p>JOGADOR 1</p>
                     <div>
-                        <div class="actions">
-                            <p>CARTÃO</p><button class="butActions">-</button>
-                            <p>0</p><button class="butActions">+</button>
-                        </div>
-                        <div class="actions">
-                            <p>GOLS</p><button class="butActions">-</button>
-                            <p>0</p><button class="butActions">+</button>
-                        </div>
+                        <section class="showInfos">
+                            <p>CARTÃO</p>
+                            <div class="actions">
+                            <button class="butActions">-</button>
+                            <p>0</p><button class="butActions">+</button>                                
+                            </div>
+                        </section>
+                        <section class="showInfos">
+                            <p>GOLS</p>
+                            <div class="actions">
+                                <button class="butActions">-</button>
+                                <p>0</p><button class="butActions">+</button>                                
+                            </div>   
+                        </section>
                     </div>
                 </li>
             </ul>
-            <ul class="playersUl" id="playersAwai">
-                <li>
-                    <p>JOGADOR 2</p>
-                    <div>
-                        <div class="actions">
-                            <p>CARTÃO</p><button class="butActions">-</button>
-                            <p>0</p><button class="butActions">+</button>
-                        </div>
-                        <div class="actions">
-                            <p>GOLS</p><button class="butActions">-</button>
-                            <p>0</p><button class="butActions">+</button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </section>
-        <button id="finishGame">FINALIZAR PARTIDA</button>
+            <button id="finishGame">FINALIZAR PARTIDA</button>
+        </div>
+
     </main>
     <script type="module" src="../global/header.js"></script>
 </body>
