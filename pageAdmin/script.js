@@ -136,7 +136,6 @@ newPlayer.addEventListener("click", async () => {
         event.preventDefault()
         const validation = validationInsertPlayer(formPlayer)
         if (validation) {
-            insertPlayerDataBase(formPlayer)
             const countValidation = validationCountPlayer(formPlayer)
             if(countValidation){
                 insertPlayerDataBase(formPlayer)
