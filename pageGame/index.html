@@ -5,11 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOGO</title>
+    <link rel="stylesheet" href="../global/style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
     <main>
+        <section id="teams">
+            <div class="team" id="teamHome">
+                <p>0</p>
+                <p>GREMIO</p>
+            </div>
+            <span>X</span>
+            <div class="team" id="teamAwai">
+                <p>INTERNACIONAL</p>
+                <p>0</p>
+            </div>
+        </section>
+        <section>
+            <button class="butTeam" id="butTeamHome">TeamHome</button>
+            <button class="butTeam" id="butTeamAwai">TeamAwai</button>
+        </section>
+        <section>
+            <ul class="playersUl" id="playersHome">
+                <li>
+                    <p>JOGADOR 1</p>
+                    <div>
+                        <div class="actions">
+                            <p>CARTÃO</p><button class="butActions">-</button>
+                            <p>0</p><button class="butActions">+</button>
+                        </div>
+                        <div class="actions">
+                            <p>GOLS</p><button class="butActions">-</button>
+                            <p>0</p><button class="butActions">+</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="playersUl" id="playersAwai">
+                <li>
+                    <p>JOGADOR 2</p>
+                    <div>
+                        <div class="actions">
+                            <p>CARTÃO</p><button class="butActions">-</button>
+                            <p>0</p><button class="butActions">+</button>
+                        </div>
+                        <div class="actions">
+                            <p>GOLS</p><button class="butActions">-</button>
+                            <p>0</p><button class="butActions">+</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <button id="finishGame">FINALIZAR PARTIDA</button>
     </main>
+    <script type="module" src="../global/header.js"></script>
 </body>
 
 </html>

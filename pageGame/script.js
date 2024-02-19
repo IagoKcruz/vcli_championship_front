@@ -23,7 +23,7 @@ main.insertAdjacentHTML("afterbegin",`
 <button id="butTeamAwai">TeamAwai</button>
 </section>
 <section>
-<ul id="playersHome">
+<ul class="playersUl" id="playersHome">
     <li>
         <p>NOME</p>
         <div id="actions">
@@ -34,7 +34,7 @@ main.insertAdjacentHTML("afterbegin",`
         </div>
     </li>
 </ul>
-<ul id="playersAwai">
+<ul class="playersUl" id="playersAwai">
     <li>
         <p>NOME</p>
         <div id="actions">
