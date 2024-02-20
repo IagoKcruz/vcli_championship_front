@@ -13,6 +13,16 @@ export async function listTeam() {
     }
 }
 
+export async function listOneTeam(idTeam) {
+    try {
+        const res = await fetch(url+`admin/team/${idTeam}`)
+        const resJson = await res.json();
+        return resJson
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export async function insertTeamModel(team) {
     try {
         const items = {
@@ -45,6 +55,7 @@ export function teamDiv() {
     `)
 }
 
+
 export async function tableTeams() {
     const tableTeamsUl = document.querySelector("#tableTeamsUl")
     tableTeamsUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
@@ -54,9 +65,18 @@ export async function tableTeams() {
         <li> ${item.teamName} | ${item.teamTag} </li>
         `)
     });
-
-    
 }
+// tableTeamsUl.insertAdjacentHTML("afterbegin", `
+// <li>
+// <section>        
+// <p>${item.teamName} [${item.teamTag}]</p>
+// </section>
+// <button>
+// <p>GERENCIAR TIME</p>
+// <img src=""../global/img/proximo.png"" alt=""> 
+// </button>
+// </li>
+// `)
 
 export function UlTeamOC() {
     const tableTeamsUl = document.querySelector("#tableTeamsUl")
