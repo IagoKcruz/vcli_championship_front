@@ -62,7 +62,7 @@ export async function tableTeams() {
     const teamDB = await listTeam()
     teamDB.forEach(item => {
         tableTeamsUl.insertAdjacentHTML("afterbegin", `
-        <li> ${item.teamName} | ${item.teamTag} </li>
+        <li id="${item.idTeam}"> ${item.teamName} | ${item.teamTag} </li>
         `)
     });
 }

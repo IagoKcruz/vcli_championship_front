@@ -1,8 +1,11 @@
-import { UlPlayerOC, playersDiv, showPlayers } from "../global/player.js"
+import { UlTeamOC, tableTeams, teamDiv } from "../global/teams";
 
-const main = document.querySelector("main")
+teamDiv()
+await tableTeams()
+UlTeamOC()
 
-
-playersDiv()
-showPlayers()
-UlPlayerOC()
+async function liPlayers(){
+    const playerLi = document.querySelectorAll("li")
+    console.log(playerLi)
+}
+liPlayers()
