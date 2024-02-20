@@ -102,7 +102,7 @@ function lastPage(rounds) {
 
 let games = [];
 
-function generateRoundsChampion(teams, league) {
+async function generateRoundsChampion(teams, league) {
     //pegar id no banco
     //const teams = ["Time1", "Time2", "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10"];
     const rounds = [];
@@ -123,7 +123,7 @@ function generateRoundsChampion(teams, league) {
                 round: round.round,
                 league: league
             }
-            const insertGame = insertGameModel(gameDB)
+            const insertGame = await insertGameModel(gameDB)
             if(!insertGame){
                 //chama o toastify avisando que deu problema
                 break
@@ -134,7 +134,7 @@ function generateRoundsChampion(teams, league) {
     const teamsReverse = teams.toReversed()
     generateRoundsReturn(teamsReverse, league)
 }
-function generateRoundsReturn(teams, league) {
+async function generateRoundsReturn(teams, league) {
     //pegar id no banco
     const rounds = [];
     let roundsReturn = 9
@@ -156,7 +156,7 @@ function generateRoundsReturn(teams, league) {
                 away: game[1],
                 league: league
             }
-            const insertGame = insertGameModel(gameDB)
+            const insertGame = await insertGameModel(gameDB)
             if(!insertGame){
                 //chama o toastify avisando que deu problema
                 break

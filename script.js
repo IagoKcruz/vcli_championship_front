@@ -1,6 +1,8 @@
 import { toastify } from "../global/toastity.js"
 import { registerDataBase } from "../global/userGlobal.js"
-
+import { erro500 } from "./global/erro500.js"
+const erro = await erro500()
+if(erro) return
 const registerbut = document.querySelector("button")
 registerbut.addEventListener("click",()=>{
     registerForm()

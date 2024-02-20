@@ -12,6 +12,17 @@ export async function listLeagueModel() {
         console.log(error)
     }
 }
+export async function showGame(game) {
+    try {
+        const res = await fetch(url+`admin/listGame/${game}`)
+        const resJson = await res.json();
+        return resJson
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
 
 export async function validationLeague(){
     const leagueDb = await listLeagueModel()

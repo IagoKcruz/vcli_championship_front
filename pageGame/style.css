@@ -1,0 +1,38 @@
+img{
+    width: 18px;
+}
+#teamHome{
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    & p{
+        text-align: right;
+        margin-right: 10px;
+    }
+    & img{
+        width: 60px;
+    }
+}
+#teamAwai{
+    align-items: center;
+    justify-content: flex-start ;
+    gap: 20px;
+    & p{
+        text-align: left;
+        margin-left: 10px;
+    }
+    & img{
+        width: 60px;
+    }   
+}
+span{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.butActions{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}

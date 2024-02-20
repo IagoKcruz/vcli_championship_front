@@ -30,12 +30,18 @@ export function validationInsertTeam(team){
     }
 }
 
+export async function validationCountTeam(player){
+    const dataBase = await (player.team)
+    if(dataBase.length > 9){
+        erro = "erro"
+        msg = "Campeonato com a quantidade de times completa"
+        toastify(erro, msg)
+        return false;
+    }
+  
+}
+
 export function validationInsertPlayer(player){
-    // if(player.shield == ""){
-    //     erro = "senha"
-    //     msg = "Inserir Escudo"
-    //     toastify(erro, msg)
-    // }else 
     if(player.name == ""){
         erro = "erro"
         msg = "Inserir NOME do jogador"

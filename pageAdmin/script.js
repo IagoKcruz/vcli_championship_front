@@ -2,7 +2,7 @@ import { openTableChampion, tableChampion, tableChampionOC } from "../global/tab
 import { UlTeamOC, insertTeamModel, listTeam, tableTeams, teamDiv } from "../global/teams.js"
 import { insertPlayerModel, listPosition } from "../global/player.js"
 import { modal, toastify } from "../global/toastity.js"
-import { validationCountPlayer, validationInsertPlayer, validationInsertTeam } from "./validation.js"
+import { validationCountPlayer, validationCountTeam, validationInsertPlayer, validationInsertTeam } from "./validation.js"
 import { validationLeague } from "../global/game.js"
 
 const main = document.querySelector("main")
@@ -76,10 +76,6 @@ newPlayer.addEventListener("click", async () => {
     <div>
         <label>Nome</label>
         <input type="text" id="name">
-    </div>
-    <div>
-        <label>Foto</label>
-        <input type="text" id="photo">
     </div>
     <div>
         <label>Idade</label>
@@ -184,10 +180,7 @@ async function insertPlayerDataBase(form) {
         div.remove()
     })
     const insertPlayer = document.querySelector("#insertPlayer")
-    console.log("cheguei")
-    console.log(insertPlayer,form)
     insertPlayer.addEventListener("click", async() => {
-        console.log("cheguei",form)
         const dataBase = await insertPlayerModel(form)
         console.log(dataBase)
         if (dataBase.status == 201) {
@@ -235,7 +228,10 @@ newTeam.addEventListener("click", () => {
         event.preventDefault()
         const validation = validationInsertTeam(formTeam)
         if (validation) {
-            insertTeamDataBase(formTeam)
+            const countValidation = validationCountTeam(formTeam)
+            if(countValidation){
+                insertTeamDataBase(formTeam)
+            }             
         }
     })
     const butExit = document.querySelector("#exitTeam")
