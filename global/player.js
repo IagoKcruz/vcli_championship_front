@@ -47,6 +47,16 @@ export async function listPlayerInTimeModel(idTeam) {
     }
 }
 
+export async function searchPlayerController(idPlayer) {
+    try {
+        const res = await fetch(url+`admin//searchPlayerByName/${idPlayer}`)
+        const resJson = await res.json();
+        return resJson
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export function playersDiv(idTeam) {
     const tableDiv = document.querySelector("#players"+idTeam)
     tableDiv.insertAdjacentHTML("afterbegin", `

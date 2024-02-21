@@ -15,7 +15,7 @@ export async function listTeam() {
 
 export async function listOneTeam(idTeam) {
     try {
-        const res = await fetch(url+`admin/team/${idTeam}`)
+        const res = await fetch(url+`admin/searchTeamByName/${idTeam}`)
         const resJson = await res.json();
         return resJson
     } catch (error) {
@@ -62,7 +62,7 @@ export async function tableTeams() {
     const teamDB = await listTeam()
     teamDB.forEach(item => {
         tableTeamsUl.insertAdjacentHTML("afterbegin", `
-        <li id="${item.idTeam}"> ${item.teamName} | ${item.teamTag} </li>
+        <li id="${item.idTeam}"> ${item.teamName} | ${item.teamTag} <img src="/global/img/abrir.png" id="imgTeams${item.idTeam}"></li>
         `)
     });
 }

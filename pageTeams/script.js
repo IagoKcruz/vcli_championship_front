@@ -7,21 +7,28 @@ UlTeamOC()
 
 async function liPlayers(){
     const playerLi = document.querySelectorAll("li")
-    console.log(playerLi)
     playerLi.forEach(item => {
         item.addEventListener("click",async()=>{
-            const id = document.querySelector(`#players${item.id}`)
-            if(id){
-                id.remove()
-            }else{
+            const butImage = document.querySelector(`#imgTeams${item.id}`)
+            butImage.src = "/global/img/fechar.png"
             item.insertAdjacentHTML("beforeend",`
             <div id="players${item.id}">
             </div>
             `)
             playersDiv(item.id)
-            showPlayers(item.id)                
-            }
+            showPlayers(item.id)
+            close(item.id)
         })
     });
+
 }
 liPlayers()
+
+function close(idBut){
+    const butImage = document.querySelector(`#imgTeams${idBut}`)
+    const id = document.querySelector(`#players${idBut}`)
+    butImage.addEventListener("click",()=>{
+        id.remove()     
+        
+    })   
+}

@@ -156,7 +156,6 @@ async function insertPlayerDataBase(form) {
         if (form.team == item.idTeam) {
             team = item.teamName
         }
-
     })
     div.insertAdjacentHTML("afterbegin", `  
         <button id="updatePlayer">VOLTAR</button>
@@ -282,10 +281,3 @@ function insertTeamDataBase(form) {
         div.remove()
     })
 }
-
-// <select id="status">
-// <option value="holder">TITULAR</option>
-// <option value="reserve">RESERVA</option>
-// <option value="injured">LESIONADO</option>
-// <option value="suspended"></option>
-// </select>
