@@ -21,8 +21,15 @@ export async function showGame(game) {
         console.log(error)
     }
 }
-
-
+export async function listGamesController(round) {
+    try {
+        const res = await fetch(url+`admin/listGames/${round}`)
+        const resJson = await res.json();
+        return resJson
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export async function validationLeague(){
     const leagueDb = await listLeagueModel()
@@ -37,10 +44,11 @@ export async function insertGameModel(game) {
     try {
         const items = {
             teamHome: game.home,
-            teamAwai: game.awai,
-            league: game.league,
+            teamAway: game.away,
+            round: game.round,
+            league: game.league
         }
-        const bodyJson = JSON.stringify(items)
+        const bodyJson = JSON.stringify(items);console.log(bodyJson)
         const res = await fetch(
             url + "admin/insertGame",
             {
@@ -52,4 +60,21 @@ export async function insertGameModel(game) {
     } catch (error) {
         console.log(error)
     }
+}
+
+export async function listGames(round){
+    const ul = document.querySelector("#roundUl")
+    ul.innerHTML = ""
+    const games = await listGamesController(round)
+    games.forEach((item) => {
+    ul.insertAdjacentHTML("afterend", `
+        <li>
+        <section>
+        <p> ${item.idTeamHome} </p>x
+        <p> ${item.idTeamAway} </p>
+        <p> ${item.round} </p>
+        </section>
+        </li>
+        `)
+    });
 }

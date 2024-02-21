@@ -1,10 +1,11 @@
-import { insertGameModel, validationLeague } from "../global/game.js";
+import { insertGameModel, listGames, listGamesController, validationLeague } from "../global/game.js";
 import { listTeam, tableTeams } from "../global/teams.js";
 
 const main = document.querySelector("main")
 
 const divRounds = document.querySelector("#rounds")
 let selectDataBase = await validationLeague()
+let roundGame = 1
 searchRounds()
 
 async function searchRounds() {
@@ -34,7 +35,7 @@ async function searchRounds() {
             const insertRounds = document.querySelector("#insertRounds")
             insertRounds.addEventListener("click", async (event) => {
                 div.remove()
-                let teams =[]
+                let teams = []
                 const teamsDataBase = await listTeam();
                 if (teamsDataBase) {
                     for (let i = 0; i < teamsDataBase.length; i++) {
@@ -54,49 +55,41 @@ async function searchRounds() {
         })
         tableTeams()
     } else {
-        showRounds()
+        showRounds(roundGame)
     }
 }
 
-export function showRounds(games, rounds) {
+
+export async function showRounds(round) {
     divRounds.innerHTML = "";
-    const ul = document.createElement("ul")
-    ul.id = "roundsUl"
-    divRounds.appendChild(ul)
-    games.forEach((item, index) => {
-        if (rounds - 5 != 0) {
-            rounds = rounds - 5
-        }
-        if (index < rounds) {
-            ul.insertAdjacentHTML("afterbegin", `
-                <li>
-                <p>${item}</p>
-                </li>
-                `)
-        }
-    });
+    console.log(round)
     divRounds.insertAdjacentHTML("afterbegin", `
         <div id="actions">
         <button id="next">PRÓXMOS</button>
         <button id="last">ANTERIORES</button> 
+        <ul id="roundUl">
+        </ul>
         </div>
         `)
+    listGames(round)
     const next = document.querySelector("#next")
     next.addEventListener("click", () => {
-        rounds = rounds + 5
-        nextPage(rounds)
+        if(round > 17){
+            next.setAttribute('disabled', '')
+        }else{
+            round = round + 1
+            showRounds(round) 
+        }
     })
     const last = document.querySelector("#last")
     last.addEventListener("click", () => {
-        rounds = rounds - 5
-        lastPage(rounds)
+        if(round == 1){
+            next.setAttribute('disabled', '')
+        }else{
+            round = round - 1
+            showRounds(round) 
+        }
     })
-}
-function nextPage(rounds) {
-    showRounds(games, rounds)
-}
-function lastPage(rounds) {
-    showRounds(games, rounds)
 }
 
 
@@ -124,7 +117,7 @@ async function generateRoundsChampion(teams, league) {
                 league: league
             }
             const insertGame = await insertGameModel(gameDB)
-            if(!insertGame){
+            if (!insertGame) {
                 //chama o toastify avisando que deu problema
                 break
             }
@@ -154,10 +147,13 @@ async function generateRoundsReturn(teams, league) {
             const gameDB = {
                 home: game[0],
                 away: game[1],
+                round: round.roundsReturn,
                 league: league
             }
             const insertGame = await insertGameModel(gameDB)
-            if(!insertGame){
+            console.log(`${game[0]} vs ${game[1]} (${round.roundsReturn})`)
+            console.log(insertGame)
+            if (!insertGame) {
                 //chama o toastify avisando que deu problema
                 break
             }
@@ -165,7 +161,7 @@ async function generateRoundsReturn(teams, league) {
 
         }
     }
-    showRounds(games, 5)
+    showRounds()
 }
 
 
