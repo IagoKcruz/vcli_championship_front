@@ -3,10 +3,11 @@ import { UlTeamOC, insertTeamModel, listTeam, tableTeams, teamDiv } from "../glo
 import { insertPlayerModel, listPosition } from "../global/player.js"
 import { modal, toastify } from "../global/toastity.js"
 import { validationCountPlayer, validationCountTeam, validationInsertPlayer, validationInsertTeam } from "./validation.js"
-import { validationLeague } from "../global/game.js"
+import { searchRounds, validationLeague } from "../global/game.js"
 
 const main = document.querySelector("main")
 const functionsDiv = document.querySelector("#functionsDiv")
+const games = document.querySelector("#games")
 
 teamDiv()
 tableTeams()
@@ -16,10 +17,10 @@ tableChampion()
 openTableChampion()
 tableChampionOC()
 
-games()
+gamesChampion()
 actions()
 
-async function games() {
+async function gamesChampion() {
     const gamesUl = document.querySelector("#gamesUl")
     const league = await validationLeague()
     if (league[0].active == "false") {
@@ -30,25 +31,31 @@ async function games() {
     `)
         gamesUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
     } else {
-        gamesUl.insertAdjacentHTML("afterbegin", `
-        <li>
-        <p> A [0] x B [0] (05/02/2023 15 hrs)</p>
-        </li>
+        gamesUl.innerHTML = ""
+        games.insertAdjacentHTML("beforeend", `
+        <div id="rounds">
+        </div>
         `)
-        gamesUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
+        searchRounds()
     }
 }
-
+const divRounds = document.querySelector("#rounds")
+const gamesUl = document.querySelector("#gamesUl")
 const gamesOC = document.querySelector("#gamesOC")
 const imgGames = document.querySelector("#imgGames")
 gamesOC.addEventListener("click", () => {
-    if (gamesOC.value == 1) {
+    if (gamesOC.value == 1 && gamesUl) {
         gamesOC.value = 2
         gamesUl.innerHTML = ""
         gamesUl.setAttribute("style", "padding:0px;")
         imgGames.src = "/global/img/abrir.png"
-    } else {
-        games(gamesUl)
+    } 
+    if(gamesOC.value == 1 && divRounds){
+        divRounds.innerHTML = ""
+        gamesOC.value = 2
+        imgGames.src = "/global/img/abrir.png"
+    }else {
+        gamesChampion()
         gamesOC.value = 1
         imgGames.src = "/global/img/fechar.png"
     }

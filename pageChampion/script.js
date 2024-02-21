@@ -1,97 +1,9 @@
-import { insertGameModel, listGames, listGamesController, validationLeague } from "../global/game.js";
+import { insertGameModel, searchRounds, } from "../global/game.js";
 import { listTeam, tableTeams } from "../global/teams.js";
 
 const main = document.querySelector("main")
 
-const divRounds = document.querySelector("#rounds")
-let selectDataBase = await validationLeague()
-let roundGame = 1
 searchRounds()
-
-async function searchRounds() {
-    if (selectDataBase[0].active == "false") {
-        divRounds.insertAdjacentHTML("afterbegin", `
-        <div>
-        <ul id="tableTeamsUl">
-        </ul>
-        <button id="generateRounds">GERAR RODADAS DO CAMPEONATO</button>
-        </div>
-        `
-        )
-        const butGenerate = document.querySelector("#generateRounds")
-        butGenerate.addEventListener("click", () => {
-            const div = document.createElement("div")
-            div.classList.add("modal")
-            main.appendChild(div)
-            div.insertAdjacentHTML("afterbegin", `  
-        <div>
-        <p>DESEJA CRIAR AS RODADAS DO CAMPEONATO?</p>
-        </div>
-        <div>
-        <button id="insertRounds">GERAR</button>
-        <button id="cancelRounds">CANCELAR</button>
-        </div>
-        `)
-            const insertRounds = document.querySelector("#insertRounds")
-            insertRounds.addEventListener("click", async (event) => {
-                div.remove()
-                let teams = []
-                const teamsDataBase = await listTeam();
-                if (teamsDataBase) {
-                    for (let i = 0; i < teamsDataBase.length; i++) {
-                        console.log(teamsDataBase[i])
-                        teams.push(teamsDataBase[i].idTeam)
-                    }
-                    console.log(teams)
-                    selectDataBase = await validationLeague()
-                    console.log(selectDataBase[0].idLeague)
-                    generateRoundsChampion(teams, selectDataBase[0].idLeague)
-                }
-            })
-            const cancelRounds = document.querySelector("#cancelRounds")
-            cancelRounds.addEventListener("click", (event) => {
-                div.remove()
-            })
-        })
-        tableTeams()
-    } else {
-        showRounds(roundGame)
-    }
-}
-
-
-export async function showRounds(round) {
-    divRounds.innerHTML = "";
-    console.log(round)
-    divRounds.insertAdjacentHTML("afterbegin", `
-        <div id="actions">
-        <button id="next">PRÓXMOS</button>
-        <button id="last">ANTERIORES</button> 
-        <ul id="roundUl">
-        </ul>
-        </div>
-        `)
-    listGames(round)
-    const next = document.querySelector("#next")
-    next.addEventListener("click", () => {
-        if(round > 17){
-            next.setAttribute('disabled', '')
-        }else{
-            round = round + 1
-            showRounds(round) 
-        }
-    })
-    const last = document.querySelector("#last")
-    last.addEventListener("click", () => {
-        if(round == 1){
-            next.setAttribute('disabled', '')
-        }else{
-            round = round - 1
-            showRounds(round) 
-        }
-    })
-}
-
 
 let games = [];
 

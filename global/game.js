@@ -1,3 +1,5 @@
+import { tableTeams } from "./teams.js";
+
 const my_headers = {
     "Content-Type": "application/json"
 }
@@ -62,6 +64,118 @@ export async function insertGameModel(game) {
     }
 }
 
+export async function updatePointController(idGame, goalHome, goalAway, cardHome, cardAway) {
+    try {
+        const items = {
+            idGame: idGame,
+            teamHome: goalHome,
+            teamAway: goalAway,
+            cardHome: cardHome,
+            cardAway: cardAway
+        }
+        const bodyJson = JSON.stringify(items);console.log(bodyJson)
+        const res = await fetch(
+            url + "admin/updateGame",
+            {
+                headers: my_headers,
+                method: "POST",
+                body: `${bodyJson}`
+            })
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export async function searchRounds() {
+    const main = document.querySelector("main")
+    let selectDataBase = await validationLeague()
+    let roundGame = 1
+    const divRounds = document.querySelector("#rounds")
+    if (selectDataBase[0].active == "false") {
+        divRounds.insertAdjacentHTML("afterbegin", `
+        <div>
+        <ul id="tableTeamsUl">
+        </ul>
+        <button id="generateRounds">GERAR RODADAS DO CAMPEONATO</button>
+        </div>
+        `
+        )
+        const butGenerate = document.querySelector("#generateRounds")
+        butGenerate.addEventListener("click", () => {
+            const div = document.createElement("div")
+            div.classList.add("modal")
+            main.appendChild(div)
+            div.insertAdjacentHTML("afterbegin", `  
+        <div>
+        <p>DESEJA CRIAR AS RODADAS DO CAMPEONATO?</p>
+        </div>
+        <div>
+        <button id="insertRounds">GERAR</button>
+        <button id="cancelRounds">CANCELAR</button>
+        </div>
+        `)
+            const insertRounds = document.querySelector("#insertRounds")
+            insertRounds.addEventListener("click", async (event) => {
+                div.remove()
+                let teams = []
+                const teamsDataBase = await listTeam();
+                if (teamsDataBase) {
+                    for (let i = 0; i < teamsDataBase.length; i++) {
+                        console.log(teamsDataBase[i])
+                        teams.push(teamsDataBase[i].idTeam)
+                    }
+                    console.log(teams)
+                    selectDataBase = await validationLeague()
+                    console.log(selectDataBase[0].idLeague)
+                    generateRoundsChampion(teams, selectDataBase[0].idLeague)
+                }
+            })
+            const cancelRounds = document.querySelector("#cancelRounds")
+            cancelRounds.addEventListener("click", (event) => {
+                div.remove()
+            })
+        })
+        tableTeams()
+    } else {
+        showRounds(roundGame)
+    }
+}
+
+
+export async function showRounds(round) {
+    const divRounds = document.querySelector("#rounds")
+    divRounds.innerHTML = "";
+    divRounds.insertAdjacentHTML("afterbegin", `
+        <div id="actions">
+        <button id="next">PRÓXMOS</button>
+        <button id="last">ANTERIORES</button> 
+        <ul id="roundUl">
+        </ul>
+        </div>
+        `)
+    divRounds.setAttribute("style", "padding: 5px 15px 15px 15px;")
+    listGames(round)
+    const next = document.querySelector("#next")
+    next.addEventListener("click", () => {
+        if(round > 17){
+            next.setAttribute('disabled', '')
+        }else{
+            round = round + 1
+            showRounds(round) 
+        }
+    })
+    const last = document.querySelector("#last")
+    last.addEventListener("click", () => {
+        if(round == 1){
+            last.setAttribute('disabled', '')
+        }else{
+            round = round - 1
+            showRounds(round) 
+        }
+    })
+}
+
 export async function listGames(round){
     const ul = document.querySelector("#roundUl")
     ul.innerHTML = ""
@@ -70,9 +184,7 @@ export async function listGames(round){
     ul.insertAdjacentHTML("afterend", `
         <li>
         <section>
-        <p> ${item.idTeamHome} </p>x
-        <p> ${item.idTeamAway} </p>
-        <p> ${item.round} </p>
+        <p> ${item.idTeamHome} [${item.goalHome}] X [${item.goalAway}] ${item.idTeamAway} Rodada:${item.round}</p>
         </section>
         </li>
         `)
