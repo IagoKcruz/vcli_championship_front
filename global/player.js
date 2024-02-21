@@ -80,15 +80,16 @@ export async function showPlayers(idTeam) {
     }else{
         dataBase.forEach(item => {
             playersUl.insertAdjacentHTML("afterbegin", `
-            <li id="playerLi">
+            <li id="playerLi${item.idPlayer}">
             <div>
             <img src="" alt="">
             </div>
             <div>
             <p> NOME: ${item.playerName}</p>
             <p> IDADE: ${item.age}</p>
-            <p> TIME: ${item.team}</p>
-            <p> POSIÇÃO: ${item.position}</p>
+            <p> TIME: ${item.teamName}</p>
+            <p> POSIÇÃO: ${item.description}</p>
+            <p> STATUS: ${item.status}</p>
             </div>
             <li>
             `)

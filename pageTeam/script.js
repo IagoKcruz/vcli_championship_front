@@ -26,35 +26,16 @@ export async function divTeam(){
     }
     playersDiv(teamDB[0].idTeam)
     showPlayers(teamDB[0].idTeam)
+
 }
 
 export async function updatePlayer() {
-    const item = searchPlayerController()
-    if(item.length > 0){
     const main = document.querySelector("main")
-    const playerLi = document.querySelector("#playerLi")
+    const item = searchPlayerController()
+    console.log(item)
+    if(item.length > 0){
+    const playerLi = document.querySelector("#playerLi"+item.idPlayer)
     playerLi.addEventListener("click", async() => {
-        let posicao, teamDb;
-        const position = document.querySelector("#position")
-        const positionDB = await listPosition()
-        positionDB.forEach(item => {
-            position.insertAdjacentHTML("beforebegin", `
-            <option value="${item.idPosition}">${item.description}</option>
-            `)
-            if (item.idPosition == form.position) {
-                posicao = item.description
-            }
-        });
-        const team = document.querySelector("#team")
-        const teamDB = await listTeam()
-        teamDB.forEach(item => {
-            team.insertAdjacentHTML("beforebegin", `
-            <option value="${item.idTeam}">${item.teamName}</option>
-            `)
-            if (form.team == item.idTeam) {
-                teamDb = item.teamName
-            }
-        });
         const div = document.createElement("div")
         div.classList.add("modal")
         main.appendChild(div)
@@ -116,7 +97,8 @@ export async function updatePlayer() {
             event.preventDefault()
             inativeAction()
         })
-    })
+
+    })        
     }else{
         const div = document.createElement("div")
         div.classList.add("modal")
@@ -127,6 +109,7 @@ export async function updatePlayer() {
         </div>
         `)
     }
+
 }
 
 
