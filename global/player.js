@@ -72,7 +72,7 @@ export async function showPlayers(idTeam) {
     console.log(dataBase)
     if(dataBase.length == 0){
             playersUl.insertAdjacentHTML("beforeend", `
-            <li>
+            <li >
             <p> NENHUM JOGADOR ENCONTRADO </p>
             </li>
             `)

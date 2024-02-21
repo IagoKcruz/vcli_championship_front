@@ -62,7 +62,9 @@ export async function tableTeams() {
     const teamDB = await listTeam()
     teamDB.forEach(item => {
         tableTeamsUl.insertAdjacentHTML("afterbegin", `
-        <li id="${item.idTeam}"> ${item.teamName} | ${item.teamTag} <img src="/global/img/abrir.png" id="imgTeams${item.idTeam}"></li>
+        <li id="${item.idTeam}" value="0" > ${item.teamName} | ${item.teamTag}     
+        <img src="/global/img/abrir.png"  id="imgTeams${item.idTeam}" alt="abrir">
+        </li>
         `)
     });
 }
