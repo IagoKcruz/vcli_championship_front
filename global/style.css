@@ -26,32 +26,18 @@ header {
     padding: 20px 20px 0px 20px;
     background-color: #006e00;
     display: flex;
+    padding: 25px;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0px 6px 71px 20px rgba(0, 0, 0, 0.76);
-    & #headerTitle{
-        background-color: transparent;
-    }
-    & div, section{
-        background-color: transparent;
-    }
-}
-#spaceSearch{
-    align-items: center;
-    margin-top: 20px;
-    justify-content: center;
-    & #iconSearch{
-        width: 20px;
-    }
-}
-#headerTitle{
-    align-items: center;
-    justify-content: center;
-}
-#menu {
+    & #menu {
     position: absolute;
     top: 5px;
     left: 5px;
+    }
 }
+
 main {
     margin: 0 auto;
     max-width: 1200px;

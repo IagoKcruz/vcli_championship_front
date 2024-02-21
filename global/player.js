@@ -47,52 +47,44 @@ export async function listPlayerInTimeModel(idTeam) {
     }
 }
 
-export function playersDiv() {
-    const tableDiv = document.querySelector("#players")
+export function playersDiv(idTeam) {
+    const tableDiv = document.querySelector("#players"+idTeam)
     tableDiv.insertAdjacentHTML("afterbegin", `
-    <button value="1" class="openclose" id="playersOC">
-    <p>JOGADORES</p>
-    <img src="/global/img/fechar.png" id="imgPlayers" alt="abrir">
-    </button>
-    <ul id="playersUl">
+    <ul id="playersUl${idTeam}">
     </ul>
     `)
+    tableDiv.setAttribute("style", "padding: 10px; margin-top: 10px;") 
 }
 
-export async function showPlayers() {
-    const playersUl = document.querySelector("#playersUl")
-    playersUl.insertAdjacentHTML("afterbegin", `
-    <li id="playerLi">
-    <div>
-    <img src="" alt="">
-    </div>
-    <div>
-    <p> NOME: </p>
-    <p> IDADE: </p>
-    <p> IDADE: </p>
-    <p> POSIÇÃO: </p>
-    </div>
-    <li>
-    `)
-    playersUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
-}
+export async function showPlayers(idTeam) {
+    const playersUl = document.querySelector("#playersUl"+idTeam)
+    const dataBase = await listPlayerInTimeModel(idTeam)
+    console.log(dataBase)
+    if(dataBase.length == 0){
+            playersUl.insertAdjacentHTML("beforeend", `
+            <li>
+            <p> NENHUM JOGADOR ENCONTRADO </p>
+            </li>
+            `)
+            playersUl.setAttribute("style", "padding: 10px;")            
+    }else{
+        dataBase.forEach(item => {
+            playersUl.insertAdjacentHTML("afterbegin", `
+            <li id="playerLi">
+            <div>
+            <img src="" alt="">
+            </div>
+            <div>
+            <p> NOME: ${item.playerName}</p>
+            <p> IDADE: ${item.age}</p>
+            <p> TIME: ${item.team}</p>
+            <p> POSIÇÃO: ${item.position}</p>
+            </div>
+            <li>
+            `)
+            playersUl.setAttribute("style", "padding:10px;")
+        })
+    }
 
-export function UlPlayerOC(){
-    const playersUl = document.querySelector("#playersUl")
-    const imgPlayers = document.querySelector("#imgPlayers")
-    const playersOC = document.querySelector("#playersOC")
-    playersOC.addEventListener("click", () => {
-        if (playersOC.value == 1) {
-            playersUl.innerHTML = ""
-            playersOC.value = 2
-            playersUl.setAttribute("style", "padding:0px;")
-            imgPlayers.src = "/global/img/abrir.png"
-        } else {
-            showPlayers()
-            playersOC.value = 1
-            imgPlayers.src = "/global/img/fechar.png"
-        }
-})    
 }
-
 

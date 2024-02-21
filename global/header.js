@@ -1,15 +1,8 @@
 const body = document.body
 body.insertAdjacentHTML("afterbegin", `
   <header>
-  <div id="headerTitle">
   <button id="menu">MENU</button>
   <p>CAMPEONATO</p>
-  <div>
-  <section id="spaceSearch">
-  <img id="iconSearch" src="../global/img/lupa.png">
-  <input class="inputSearch" type="text" id="search">
-  <input class="inputSearch" type="date">
-  </section>
   </header>
 `)
 
@@ -18,8 +11,7 @@ menu.addEventListener("click", () => {
 
   body.insertAdjacentHTML("afterbegin", `
    <aside>
-   <a href="../pagePlayers">JOGADORES</a>
-   <a href="">TIMES</a>
+   <a href="../pageTeams">TIMES/JOGADORES</a>
    <a href="../pageAdmin">HOME</a>
    <a href="../pageChampion">RODADAS</a>
    <button id="back">VOLTAR</button>

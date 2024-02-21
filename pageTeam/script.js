@@ -23,10 +23,11 @@ export async function divTeam(){
         </div>
         `)
     }
+    playersDiv(teamDB[0].idTeam)
+    showPlayers(teamDB[0].idTeam)
 }
 
-playersDiv()
-showPlayers()
+
 
 export async function updatePlayer() {
     const playerLi = document.querySelector("#playerLi")

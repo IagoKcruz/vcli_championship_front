@@ -25,14 +25,14 @@ main.insertAdjacentHTML("afterbegin",`
     </span>
     <div>
         <section class="butActions">                        
-            <button id="butGoalAwai">+</button>
+            <button id="butGoalHome">+</button>
             <label>GOLS</label>                        
-            <button id="butGoalAwai">-</button>
+            <button id="butGoalHome">-</button>
         </section>
         <section class="butActions">
-            <button id="butGoalAwai">+</button>
+            <button id="morecardHome">+</button>
             <label>CARTÕES</label>                     
-            <button id="butGoalAwai">-</button>
+            <button id="lessCardHome">-</button>
         </section>
     </div>
 </div>
@@ -52,14 +52,14 @@ main.insertAdjacentHTML("afterbegin",`
     </span>
     <div>
         <section class="butActions">                        
-            <button id="moretGoalAwai">+</button>
+            <button id="moreGoalAwai">+</button>
             <label>GOLS</label>                        
             <button id="lassGoalAwai">-</button>
         </section>
         <section class="butActions">
             <button id="moreCardAwai">+</button>
             <label>CARTÕES</label>                     
-            <button id="lessGoalAwai">-</button>
+            <button id="lessCardAwai">-</button>
         </section>
     </div>
 </div>
