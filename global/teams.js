@@ -1,3 +1,7 @@
+//import { showPlayersInTeam } from "../pageTeams/script.js";
+
+import { playersDiv, showPlayers } from "./player.js";
+
 const my_headers = {
     "Content-Type": "application/json"
 }
@@ -53,17 +57,69 @@ export function teamDiv() {
     <ul id="tableTeamsUl">
     </ul>
     `)
+
 }
 
 
 export async function tableTeams() {
     const tableTeamsUl = document.querySelector("#tableTeamsUl")
-    tableTeamsUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
+    tableTeamsUl.setAttribute("style", "margin-bottom: 10px;")
     const teamDB = await listTeam()
     teamDB.forEach(item => {
         tableTeamsUl.insertAdjacentHTML("afterbegin", `
-        <li id="${item.idTeam}" value="0" > ${item.teamName} | ${item.teamTag}     
+        <li id="${item.idTeam}" class="teamLi" value="0" >
+        <section id="sectionLi${item.idTeam}">
+        ${item.teamName} | ${item.teamTag}     
         <img src="/global/img/abrir.png"  id="imgTeams${item.idTeam}" alt="abrir">
+        </section>
+        </li>
+        `)
+        const playerLi = document.querySelector(".teamLi")
+        playerLi.setAttribute("style", " display: flex; flex-direction: column;")
+        
+    });
+    const playerLi = document.querySelectorAll("li")
+    playerLi.forEach(item => {
+    item.addEventListener("click",async()=>{
+            if(item.value == 0){
+                const butImage = document.querySelector(`#imgTeams${item.id}`)
+                const section = document.querySelector(`#sectionLi${item.id}`)
+                butImage.src = "/global/img/fechar.png"
+                item.insertAdjacentHTML("beforeend",`
+                <div id="players${item.id}">
+                </div>
+                `)
+                const id = document.querySelector(`#players${item.id}`)
+                id.innerHTML = ""
+                playersDiv(item.id)
+                showPlayers(item.id)
+                item.value = 1
+                section.addEventListener("click",()=>{
+                    butImage.src = "/global/img/abrir.png"
+                    console.log(item.value)
+                id.remove()   
+                })   
+            }else{
+                item.value = 0
+            }  
+        })
+}); 
+}
+
+export async function tableTeamsToGenerateRounds() {
+    const tableTeamsUl = document.querySelector("#tableTeamsUl")
+    tableTeamsUl.setAttribute("style", "margin-bottom: 10px;")
+    const teamDB = await listTeam()
+    teamDB.forEach(item => {
+        tableTeamsUl.insertAdjacentHTML("afterbegin", `
+        <li id="${item.idTeam}" value="0" > 
+        <section>
+        <p>${item.teamName} | ${item.teamTag}</p>     
+        <section>
+        <button id="active" value="1">ATIVO</button>
+        <button id="inative" value="0">INATIVO</button>
+        </section>
+        </section>
         </li>
         `)
     });
@@ -91,7 +147,25 @@ export function UlTeamOC() {
             tableTeamsUl.setAttribute("style", "padding:0px;")
             imgTeams.src = "/global/img/abrir.png"
         } else {
-            tableTeams(tableTeamsUl)
+            tableTeams()
+            teamsOC.value = 1
+            imgTeams.src = "/global/img/fechar.png"
+        }
+    })
+}
+
+export function xeTeamsToGenerateRounds() {
+    const tableTeamsUl = document.querySelector("#tableTeamsUl")
+    const teamsOC = document.querySelector("#teamsOC")
+    const imgTeams = document.querySelector("#imgTeams")
+    teamsOC.addEventListener("click", () => {
+        if (teamsOC.value == 1) {
+            teamsOC.value = 2
+            tableTeamsUl.innerHTML = ""
+            tableTeamsUl.setAttribute("style", "padding:0px;")
+            imgTeams.src = "/global/img/abrir.png"
+        } else {
+            UlTeamOCToGenerateRounds()
             teamsOC.value = 1
             imgTeams.src = "/global/img/fechar.png"
         }

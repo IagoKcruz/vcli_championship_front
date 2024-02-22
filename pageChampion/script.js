@@ -1,15 +1,11 @@
 import { insertGameModel, searchRounds, } from "../global/game.js";
-import { listTeam, tableTeams } from "../global/teams.js";
 
 const main = document.querySelector("main")
 
 searchRounds()
 
-let games = [];
 
-async function generateRoundsChampion(teams, league) {
-    //pegar id no banco
-    //const teams = ["Time1", "Time2", "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10"];
+export async function generateRoundsChampion(teams, league) {
     const rounds = [];
     for (let round = 1; round < teams.length; round++) {
         const games = [];
@@ -30,10 +26,8 @@ async function generateRoundsChampion(teams, league) {
             }
             const insertGame = await insertGameModel(gameDB)
             if (!insertGame) {
-                //chama o toastify avisando que deu problema
-                break
+                return false
             }
-            games.push(`${game[0]} vs ${game[1]} (${round.round})`)
         }
     }
     const teamsReverse = teams.toReversed()
@@ -63,17 +57,12 @@ async function generateRoundsReturn(teams, league) {
                 league: league
             }
             const insertGame = await insertGameModel(gameDB)
-            console.log(`${game[0]} vs ${game[1]} (${round.roundsReturn})`)
-            console.log(insertGame)
             if (!insertGame) {
-                //chama o toastify avisando que deu problema
                 break
             }
-            games.push(`${game[0]} vs ${game[1]} (${round.roundsReturn})`)
-
         }
     }
-    showRounds()
+    searchRounds()
 }
 
 

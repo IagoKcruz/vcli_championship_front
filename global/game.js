@@ -1,4 +1,5 @@
-import { tableTeams } from "./teams.js";
+import { generateRoundsChampion } from "../pageChampion/script.js";
+import { listTeam, tableTeamsToGenerateRounds } from "./teams.js";
 
 const my_headers = {
     "Content-Type": "application/json"
@@ -7,7 +8,7 @@ const url = "http://localhost:3000/"
 
 export async function listLeagueModel() {
     try {
-        const res = await fetch(url+"admin/listLeague")
+        const res = await fetch("http://localhost:3000/admin/listLeague")
         const resJson = await res.json();
         return resJson
     } catch (error) {
@@ -136,7 +137,7 @@ export async function searchRounds() {
                 div.remove()
             })
         })
-        tableTeams()
+        tableTeamsToGenerateRounds()
     } else {
         showRounds(roundGame)
     }
@@ -154,7 +155,7 @@ export async function showRounds(round) {
         </ul>
         </div>
         `)
-    divRounds.setAttribute("style", "padding: 5px 15px 15px 15px;")
+    divRounds.setAttribute("style", "padding: 10px;")
     listGames(round)
     const next = document.querySelector("#next")
     next.addEventListener("click", () => {
@@ -178,6 +179,21 @@ export async function showRounds(round) {
 
 export async function listGames(round){
     const ul = document.querySelector("#roundUl")
+    ul.innerHTML = ""
+    const games = await listGamesController(round)
+    games.forEach((item) => {
+    ul.insertAdjacentHTML("afterend", `
+        <li>
+        <section>
+        <p> ${item.idTeamHome} [${item.goalHome}] X [${item.goalAway}] ${item.idTeamAway} Rodada:${item.round}</p>
+        </section>
+        </li>
+        `)
+    });
+}
+
+export async function listRound(round){
+    const ul = document.querySelector("#roundOne")
     ul.innerHTML = ""
     const games = await listGamesController(round)
     games.forEach((item) => {

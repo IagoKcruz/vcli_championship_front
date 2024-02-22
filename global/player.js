@@ -1,4 +1,4 @@
-import { listTeam } from "./teams.js"
+import { validationCountUpdate, validationInsertPlayer } from "../pageAdmin/validation.js"
 
 const my_headers = {
     "Content-Type": "application/json"
@@ -65,8 +65,7 @@ export function playersDiv(idTeam) {
     tableDiv.insertAdjacentHTML("afterbegin", `
     <ul id="playersUl${idTeam}">
     </ul>
-    `)
-    tableDiv.setAttribute("style", "padding: 10px; margin-top: 10px;") 
+    `) 
 }
 
 export async function showPlayers(idTeam) {
@@ -75,11 +74,11 @@ export async function showPlayers(idTeam) {
     console.log(dataBase)
     if(dataBase.length == 0){
             playersUl.insertAdjacentHTML("beforeend", `
-            <li >
+            <li>
             <p> NENHUM JOGADOR ENCONTRADO </p>
             </li>
             `)
-            playersUl.setAttribute("style", "padding: 10px;")            
+            playersUl.setAttribute("style", "padding: 5px 5px;")            
     }else{
         dataBase.forEach(item => {
             playersUl.insertAdjacentHTML("afterbegin", `
@@ -97,9 +96,8 @@ export async function showPlayers(idTeam) {
             </li>
             `)
             })
-            playersUl.setAttribute("style", "padding:10px;")
+            playersUl.setAttribute("style", "padding:5px;")
             const playerLi = document.querySelectorAll(".playersClass")
-            console.log(playerLi)
             playerLi.forEach(item => {
             item.addEventListener("click",()=>{
                 showUpdate(item.value)
@@ -138,11 +136,10 @@ async function showUpdate(id){
         <select id="position"></select>
         </div>
         <div>
-        <label>Time ${item[0].teamName}</label>
-        <select id="team"></select>
+        <label>Time :${item[0].description}</label>
         </div>
         <div>
-        <label>SITUAÇÃO: ${item.status}</label>
+        <label>SITUAÇÃO: ${item[0].status}</label>
         <select id="status">
             <option value="holder">TITULAR</option>
             <option value="reserve">RESERVA</option>
@@ -150,13 +147,12 @@ async function showUpdate(id){
         </div>
         <div>
         <button id="update">ALTERAR</button>
-        <button id="inative">INATIVAR</button>
         </div>
         </form>
         `)
         const butExit = document.querySelector("#exitPlayer")
         butExit.addEventListener("click", () => {
-            div.remove();
+            window.location.href = "./"
         })
         const position = document.querySelector("#position")
         const positionDB = await listPosition()
@@ -165,33 +161,27 @@ async function showUpdate(id){
             <option value="${item.idPosition}">${item.description}</option>
             `)
         });
-        const team = document.querySelector("#team")
-        const teamDB = await listTeam()
-        teamDB.forEach(item => {
-            team.insertAdjacentHTML("afterbegin", `
-            <option value="${item.idTeam}">${item.teamName}</option>
-            `)
-        });
         const butUpdate = document.querySelector("#update")
-        butUpdate.addEventListener("click", (event) => {
+        butUpdate.addEventListener("click", async(event) => {
+            event.preventDefault()
             const formPlayer =
             {
                 name: document.querySelector("#name").value,
-                photo: document.querySelector("#photo").value,
                 age: document.querySelector("#age").value,
                 position: document.querySelector("#position").value,
-                team: document.querySelector("#team").value,
+                team: item[0].teamName,
+                idTeam: item[0].idTeam,
                 status: document.querySelector("#status").value
             }
-            //banco de dados
-            event.preventDefault()
-            updateAction()
+            const validation = validationInsertPlayer(formPlayer)
+            if (validation){
+                const count = await validationCountUpdate(formPlayer)
+                console.log(count)
+                if(count){
+                    updateAction(formPlayer)
+                } 
+            }
         })
-        const butInative = document.querySelector("#inative")
-        butInative.addEventListener("click", (event) => {
-            event.preventDefault()
-            inativeAction()
-        }) 
     }else{
         const div = document.createElement("div")
         div.classList.add("modal")
@@ -204,11 +194,30 @@ async function showUpdate(id){
     }
 }
 
-function updateAction() {
+async function updateAction(form) {
+    let posicao
+    const main = document.querySelector("main")
     const div = document.createElement("div")
     div.classList.add("modal")
     main.appendChild(div)
+    const positionDB = await listPosition()
+    positionDB.forEach(item => {
+        if (item.idPosition == form.position) {
+            posicao = item.description
+        }
+    })
     div.insertAdjacentHTML("afterbegin", `  
+    <div>
+    <div>
+    <img src="" alt="">
+    </div>
+    <div>
+    <p> NOME: ${form.name}</p>
+    <p> IDADE: ${form.age}</p>
+    <p> POSIÇÃO: ${posicao}</p>
+    <p> TIME: ${form.team}</p>
+    <p> SITUAÇÃO: ${form.status}</p>
+    </div>
     <div>
     <label>CONFIRMAR ALTERAÇÃO</label>
     <button id="confirmUpdate">SIM</button>
@@ -216,31 +225,19 @@ function updateAction() {
     </div>
     `)
     const confirmUpdate = document.querySelector("#confirmUpdate")
-    confirmUpdate.addEventListener("click", () => {
-        console.log("banco de dados")
-        window.location.reload()
-    })
-    const exitConfirm = document.querySelector("#exitConfirm")
-    exitConfirm.addEventListener("click", () => {
-        div.remove();
-    })
-}
-
-function inativeAction() {
-    const div = document.createElement("div")
-    div.classList.add("modal")
-    main.appendChild(div)
-    div.insertAdjacentHTML("afterbegin", `
-    <div>
-    <label>CONFIRMAR INATIVIDADE PARA O JOGADOR</label>
-    <button id="confirmInative">SIM</button>
-    <button id="exitConfirm">NÃO</button> 
-    </div>
-    `)
-    const confirmInative = document.querySelector("#confirmInative")
-    confirmInative.addEventListener("click", () => {
-        console.log("banco de dados")
-        window.location.reload()
+    confirmUpdate.addEventListener("click", async() => {
+        const dataBase = await insertPlayerModel(form)
+        console.log(dataBase)
+        if (dataBase.status == 201) {
+            cancelPlayer.setAttribute('disabled', '')
+            updatePlayer.setAttribute('disabled', '')
+            setTimeout(() => {
+                window.location.href = "./"
+            }, 5000);
+            toastify("erro", "Jogador cadastrado")
+        } else {
+            toastify("erro", "Erro ao alterar jogador tente novamente mais tarde")
+        }
     })
     const exitConfirm = document.querySelector("#exitConfirm")
     exitConfirm.addEventListener("click", () => {

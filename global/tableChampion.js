@@ -29,7 +29,7 @@ export function openTableChampion() {
     <li>9</li>
     <li>10</li>
     `)
-    table.setAttribute("style", "padding:5px; margin-bottom: 10px;")
+    table.setAttribute("style", "margin-bottom: 10px;")
 }
 export function tableChampionOC() {
     const table = document.querySelector("#tableCampionUl")

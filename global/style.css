@@ -83,12 +83,13 @@ aside {
 }
 
 ul {
-    width: 98%;
+    width: 100%;
     margin: 0 auto;
     background-color: hsl(0, 0%, 96%);
     display: flex;
     flex-direction: column;
     gap: 5px;
+    padding: 0px 10px;
 }
 
 li {

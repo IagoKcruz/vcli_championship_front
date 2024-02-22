@@ -1,17 +1,30 @@
 import { openTableChampion, tableChampion, tableChampionOC } from "../global/tableChampion.js"
-import { UlTeamOC, insertTeamModel, listTeam, tableTeams, teamDiv } from "../global/teams.js"
+import { insertTeamModel, listTeam, tableTeamsToGenerateRounds, teamDiv,  } from "../global/teams.js"
 import { insertPlayerModel, listPosition } from "../global/player.js"
 import { modal, toastify } from "../global/toastity.js"
 import { validationCountPlayer, validationCountTeam, validationInsertPlayer, validationInsertTeam } from "./validation.js"
 import { searchRounds, validationLeague } from "../global/game.js"
 
 const main = document.querySelector("main")
-const functionsDiv = document.querySelector("#functionsDiv")
-const games = document.querySelector("#games")
 
+main.insertAdjacentHTML("afterbegin",`
+`)
+
+
+const functionsDiv = document.querySelector("#functionsDiv")
+
+showTeam()
+async function showTeam(){
+const team = document.querySelector("#teams")
+const league = await validationLeague()
+if (league[0].active == "false") {
 teamDiv()
-tableTeams()
-UlTeamOC()
+tableTeamsToGenerateRounds()
+UlTeamOCToGenerateRounds()
+}else{
+    team.remove()
+}
+}
 
 tableChampion()
 openTableChampion()
@@ -21,36 +34,23 @@ gamesChampion()
 actions()
 
 async function gamesChampion() {
-    const gamesUl = document.querySelector("#gamesUl")
+    const gamesDiv = document.querySelector("#rounds")
     const league = await validationLeague()
     if (league[0].active == "false") {
-        gamesUl.insertAdjacentHTML("afterbegin", `
-    <li>
-    <p>NENHUMA LIGA ATIVA NO MOMENTO</p>
-    </li>
+        gamesDiv.insertAdjacentHTML("afterbegin", `
+        <p>NENHUMA LIGA ATIVA NO MOMENTO</p>
     `)
-        gamesUl.setAttribute("style", "padding:5px; margin-bottom: 10px;")
+    gamesDiv.setAttribute("style", "padding:0px 10px 10px 10px; margin-bottom: 20px;")
     } else {
-        gamesUl.innerHTML = ""
-        games.insertAdjacentHTML("beforeend", `
-        <div id="rounds">
-        </div>
-        `)
         searchRounds()
     }
 }
 const divRounds = document.querySelector("#rounds")
-const gamesUl = document.querySelector("#gamesUl")
 const gamesOC = document.querySelector("#gamesOC")
 const imgGames = document.querySelector("#imgGames")
 gamesOC.addEventListener("click", () => {
-    if (gamesOC.value == 1 && gamesUl) {
-        gamesOC.value = 2
-        gamesUl.innerHTML = ""
-        gamesUl.setAttribute("style", "padding:0px;")
-        imgGames.src = "/global/img/abrir.png"
-    } 
-    if(gamesOC.value == 1 && divRounds){
+    if(gamesOC.value == 1){
+        divRounds.setAttribute("style", "padding:0px;")
         divRounds.innerHTML = ""
         gamesOC.value = 2
         imgGames.src = "/global/img/abrir.png"
@@ -86,7 +86,7 @@ newPlayer.addEventListener("click", async () => {
     </div>
     <div>
         <label>Idade</label>
-        <input type="number" id="age" min="18" oninput="validity.valid||(value='');">
+        <input type="number" id="age" min="18" oninput="validity.valid||(value='');" value="18">
     </div>
     <div>
         <label>Posição</label>
@@ -126,24 +126,27 @@ newPlayer.addEventListener("click", async () => {
         `)
     });
     const form = document.querySelector("form")
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async(event) => {
+        console.log("aqui")
+        event.preventDefault()
         const formPlayer =
         {
             name: document.querySelector("#name").value,
-            photo: document.querySelector("#photo").value,
             age: document.querySelector("#age").value,
             position: document.querySelector("#position").value,
             team: document.querySelector("#team").value,
             status: document.querySelector("#status").value
         }
-        event.preventDefault()
-        const validation = validationInsertPlayer(formPlayer)
-        if (validation) {
-            const countValidation = validationCountPlayer(formPlayer)
-            if(countValidation){
-                insertPlayerDataBase(formPlayer)
-            } 
-        }
+         
+         const validation = validationInsertPlayer(formPlayer)
+         if (validation) {
+            console.log("aqui 2")
+             const countValidation =  await validationCountPlayer(formPlayer)
+             console.log(formPlayer.status)
+             if(countValidation){
+                 insertPlayerDataBase(formPlayer)
+             } 
+         }
     })
 })
 
@@ -185,11 +188,17 @@ async function insertPlayerDataBase(form) {
     updatePlayer.addEventListener("click", (event) => {
         div.remove()
     })
+    const cancelPlayer = document.querySelector("#cancelPlayer")
+    cancelPlayer.addEventListener("click", (event) => {
+            window.location.href = "./"
+    })
     const insertPlayer = document.querySelector("#insertPlayer")
     insertPlayer.addEventListener("click", async() => {
         const dataBase = await insertPlayerModel(form)
         console.log(dataBase)
         if (dataBase.status == 201) {
+            cancelPlayer.setAttribute('disabled', '')
+            updatePlayer.setAttribute('disabled', '')
             setTimeout(() => {
                 window.location.href = "./"
             }, 5000);
@@ -198,10 +207,7 @@ async function insertPlayerDataBase(form) {
             toastify("erro", "Erro ao cadastrar jogador ou jogador já existente")
         }
     })
-    const cancelPlayer = document.querySelector("#cancelPlayer")
-    cancelPlayer.addEventListener("click", (event) => {
-        //inativeAction()
-    })
+
 }
 
 const newTeam = document.querySelector("#newTeam")

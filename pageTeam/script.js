@@ -23,10 +23,6 @@ export async function divTeam(){
             <p>${teamDB[0].teamName}</p>
             <img src="" alt="">
             </section>
-            <section>
-            <button id="active" value="1">ATIVO</button>
-            <button id="inative" value="0">INATIVO</button>
-            </section>
         </section>
         <div id="players${teamDB[0].idTeam}">
         </div>
