@@ -1,16 +1,16 @@
 import { toastify } from "../global/toastity.js"
-import { registerDataBase } from "../global/userGlobal.js"
-import { erro500 } from "./global/erro500.js"
-const erro = await erro500()
-if(erro) return
-const registerbut = document.querySelector("button")
-registerbut.addEventListener("click",()=>{
+import { login } from "./global/userGlobal.js"
+
+const registerform = document.querySelector("form")
+registerform.addEventListener("submit",(event)=>{
+    event.preventDefault()
     registerForm()
 })
 
-function registerForm(){
-    const email = document.querySelector("#email").value
-    const pass = document.querySelector("#senha").value
+async function registerForm(){
+    console.log("cheguei")
+    const email = document.querySelector("#name").value
+    const pass = document.querySelector("#pass").value
     let erro;
     let msg;
 
@@ -27,9 +27,18 @@ function registerForm(){
         msg = "Inserir senha"
         toastify(erro, msg)
     }else{
-        dataBase = login(email, pass)
-        if(dataBase){
-            window.location.href = "./pageUser"
+        const dataBase = await login(email, pass)
+        if(dataBase.token){
+        localStorage.setItem("@token",dataBase.token)
+        localStorage.setItem("@token_user",JSON.stringify(dataBase.token))
+        setTimeout(()=>{
+            window.location.href = "./pageAdmin"
+        },1000)
+        }else{
+            erro = "senha"
+            msg = "Não encontrado usuario"
+            toastify(erro, msg)
         }
+
     }   
 } 

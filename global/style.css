@@ -14,7 +14,7 @@
 }
 
 body {
-    background-color: black;
+    background-color: grey;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@ body {
 header {
     width: 100%;
     padding: 20px 20px 0px 20px;
-    background-color: #006e00;
+    background-color: var(--color-basic);
     display: flex;
     padding: 25px;
     flex-direction: column;

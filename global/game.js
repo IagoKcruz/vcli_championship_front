@@ -89,7 +89,9 @@ export async function updatePointController(idGame, goalHome, goalAway, cardHome
 }
 
 export async function searchRounds() {
-    const main = document.querySelector("main")
+    const token = localStorage.getItem("@token_user");
+    if(token){
+        const main = document.querySelector("main")
     let selectDataBase = await validationLeague()
     let roundGame = 1
     const divRounds = document.querySelector("#rounds")
@@ -141,6 +143,18 @@ export async function searchRounds() {
     } else {
         showRounds(roundGame)
     }
+    }else{
+        if (selectDataBase[0].active == "false") {
+            divRounds.insertAdjacentHTML("afterbegin", `
+            <div>
+            <ul id="tableTeamsUl">
+            </ul>
+            <button id="generateRounds">GERAR RODADAS DO CAMPEONATO</button>
+            </div>
+            `
+        )}
+    }
+    
 }
 
 
@@ -181,6 +195,7 @@ export async function listGames(round){
     const ul = document.querySelector("#roundUl")
     ul.innerHTML = ""
     const games = await listGamesController(round)
+    console.log(games)
     games.forEach((item) => {
     ul.insertAdjacentHTML("afterend", `
         <li>

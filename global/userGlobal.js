@@ -1,7 +1,7 @@
 const my_headers ={
-    "Content-Type": "a"
+    "Content-Type": "application/json"
 }
-const url = "http://localhost:3001/"
+const url = "http://localhost:3000/"
 
 export async function registerDataBase(name, pass, email){
     const user = {
@@ -18,4 +18,21 @@ export async function registerDataBase(name, pass, email){
         body:bodyJson
     })
     return res;
+}
+export async function login(email, pass){
+
+    const user = {
+        password: pass,
+        userName: email
+    }
+        console.log("cheguei", user)
+    const bodyJson = JSON.stringify(user)
+    const token = await fetch(
+        url+"admin/login",
+    {
+        headers: my_headers,
+        method: "POST",
+        body:bodyJson
+    })
+    return token.json();
 }

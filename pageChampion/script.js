@@ -1,6 +1,5 @@
 import { insertGameModel, searchRounds, } from "../global/game.js";
 
-const main = document.querySelector("main")
 
 searchRounds()
 

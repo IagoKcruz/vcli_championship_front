@@ -5,11 +5,11 @@ import { modal, toastify } from "../global/toastity.js"
 import { validationCountPlayer, validationCountTeam, validationInsertPlayer, validationInsertTeam } from "./validation.js"
 import { searchRounds, validationLeague } from "../global/game.js"
 
+const token = localStorage.getItem("@token_user");
+if(token){
+
+
 const main = document.querySelector("main")
-
-main.insertAdjacentHTML("afterbegin",`
-`)
-
 
 const functionsDiv = document.querySelector("#functionsDiv")
 
@@ -20,7 +20,8 @@ const league = await validationLeague()
 if (league[0].active == "false") {
 teamDiv()
 tableTeamsToGenerateRounds()
-UlTeamOCToGenerateRounds()
+//UlTeamOCToGenerateRounds()
+
 }else{
     team.remove()
 }
@@ -293,4 +294,5 @@ function insertTeamDataBase(form) {
     cancelTeam.addEventListener("click", (event) => {
         div.remove()
     })
+}
 }

@@ -97,12 +97,16 @@ export async function showPlayers(idTeam) {
             `)
             })
             playersUl.setAttribute("style", "padding:5px;")
-            const playerLi = document.querySelectorAll(".playersClass")
+            const token = localStorage.getItem("@token_user");
+            if(token){
+                    const playerLi = document.querySelectorAll(".playersClass")
             playerLi.forEach(item => {
             item.addEventListener("click",()=>{
                 showUpdate(item.value)
             })
             })
+            }
+
         }
 
 }
