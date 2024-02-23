@@ -3,29 +3,13 @@ import { insertTeamModel, listTeam, tableTeamsToGenerateRounds, teamDiv,  } from
 import { insertPlayerModel, listPosition } from "../global/player.js"
 import { modal, toastify } from "../global/toastity.js"
 import { validationCountPlayer, validationCountTeam, validationInsertPlayer, validationInsertTeam } from "./validation.js"
-import { searchRounds, validationLeague } from "../global/game.js"
+import { validationLeague } from "../global/game.js"
 
 const token = localStorage.getItem("@token_user");
 if(token){
-
-
 const main = document.querySelector("main")
 
 const functionsDiv = document.querySelector("#functionsDiv")
-
-showTeam()
-async function showTeam(){
-const team = document.querySelector("#teams")
-const league = await validationLeague()
-if (league[0].active == "false") {
-teamDiv()
-tableTeamsToGenerateRounds()
-//UlTeamOCToGenerateRounds()
-
-}else{
-    team.remove()
-}
-}
 
 tableChampion()
 openTableChampion()
@@ -35,15 +19,9 @@ gamesChampion()
 actions()
 
 async function gamesChampion() {
-    const gamesDiv = document.querySelector("#rounds")
     const league = await validationLeague()
     if (league[0].active == "false") {
-        gamesDiv.insertAdjacentHTML("afterbegin", `
-        <p>NENHUMA LIGA ATIVA NO MOMENTO</p>
-    `)
-    gamesDiv.setAttribute("style", "padding:0px 10px 10px 10px; margin-bottom: 20px;")
-    } else {
-        searchRounds()
+    console.log("cheguei aqui")
     }
 }
 const divRounds = document.querySelector("#rounds")
@@ -56,7 +34,7 @@ gamesOC.addEventListener("click", () => {
         gamesOC.value = 2
         imgGames.src = "/global/img/abrir.png"
     }else {
-        gamesChampion()
+        searchRounds()
         gamesOC.value = 1
         imgGames.src = "/global/img/fechar.png"
     }
