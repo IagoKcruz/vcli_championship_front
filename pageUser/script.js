@@ -54,7 +54,7 @@ async function gamesChampion() {
         showRounds(1)
     }
 }
-const divRounds = document.querySelector("#rounds")
+const divRounds = document.querySelector("#generate")
 const gamesOC = document.querySelector("#gamesOC")
 const imgGames = document.querySelector("#imgGames")
 gamesOC.addEventListener("click", () => {

@@ -3,16 +3,13 @@ import { insertTeamModel, listTeam, } from "../global/teams.js"
 import { insertPlayerModel, listPosition } from "../global/player.js"
 import { modal, toastify } from "../global/toastity.js"
 import { validationCountPlayer, validationCountTeam, validationInsertPlayer, validationInsertTeam } from "./validation.js"
-import { showRounds, validationLeague } from "../global/game.js"
-import { pageChampion } from "../pageChampion/script.js"
+import { showRoundsAdmin, validationLeague } from "../global/game.js"
 
 
 
 const token = localStorage.getItem("@token_user");
 if(token){
     localStorage.removeItem("@team")
-const generate = document.querySelector("#generate")
-generate.innerHTML= ""
 
 const main = document.querySelector("main")
 main.insertAdjacentHTML("afterbegin", `
@@ -25,7 +22,7 @@ main.insertAdjacentHTML("afterbegin", `
         <p>JOGOS</p>
         <img src="/global/img/fechar.png" id="imgGames" alt="abrir">
     </button>
-    <div id="rounds"></div>
+    <div id="generate"></div>
 </div>
 `)
 const functionsDiv = document.querySelector("#functionsDiv")
@@ -36,7 +33,9 @@ tableChampionOC()
 
 gamesChampion()
 actions()
-const divRounds = document.querySelector("#rounds")
+
+const divRounds = document.querySelector("#generate")
+
 async function gamesChampion() {
     const league = await validationLeague()
     if (league[0].active == "false") {
@@ -50,10 +49,10 @@ async function gamesChampion() {
             divRounds.setAttribute("style", "padding:0px 10px 10px 10px;")
             const butGenerate = document.querySelector("#generateRounds")
             butGenerate.addEventListener("click",()=>{
-                pageChampion()
+                window.location.href = ".././pageChampion"
             })
     }else{
-        showRounds(1)
+        showRoundsAdmin(1)
     }
 }
 const gamesOC = document.querySelector("#gamesOC")

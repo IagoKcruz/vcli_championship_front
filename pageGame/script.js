@@ -4,40 +4,25 @@ import { toastify } from "../global/toastity.js"
 
 const main = document.querySelector("main")
 
-export async function pageGame(game){
-    window.location.href("./pageGame")
-    const GamedataBase = await showGame(game)
-    if (!GamedataBase) {
-    console.log("nao deu")
-    } else {
-    openGame(GamedataBase)
-    }
+const GamedataBase = await showGame(localStorage.getItem("@game"))
+if (!GamedataBase) {
+console.log("nao deu")
+} else {
+openGame(GamedataBase)
 }
 
-
-let teamHome, teamAway
-let cardHome = 0
-let cardAway = 0
-let goalHome = 0
-let goalAway = 0
-
 async function openGame(game) {
-    const teamDataBase = await listTeam()
-    teamDataBase.forEach(item => {
-        if (item.idTeam == game[0].idTeamHome) {
-            teamHome = item.teamName
-        } else if (item.idTeam == game[0].idTeamAway) {
-            teamAway = item.teamName
-        }
-    });
-    console.log(teamAway, teamHome)
+    let cardHome = 0
+    let cardAway = 0
+    let goalHome = 0
+    let goalAway = 0
     main.insertAdjacentHTML("afterbegin", `
-<div>
+<div  id="space1">
 <section>
-<div>
+<div class="space2">
     <section id="teamHome">
         <img src="../global/img/gol.png">
-        <p>${teamHome}</p>
+        <p>${game[0].teamNameHome}</p>
     </section>
     <span>
         <img src="../global/img/gol.png">
@@ -61,9 +46,9 @@ async function openGame(game) {
     </div>
 </div>
 <h1>x</h1>
-<div>
+<div class="space2">
     <section id="teamAwai">
-        <p>${teamAway}</p>
+        <p>${game[0].teamNameAway}</p>
         <img src="../global/img/gol.png">
     </section>
     <span>
@@ -98,14 +83,18 @@ FINALIZAR PARTIDA</button>
     const goalAwaiP = document.querySelector("#goalAway")
     const cardAwaiP = document.querySelector("#cardAway")
 
-
+    const lessCardHome = document.querySelector("#lessCardHome")
+    const lessGoalHome = document.querySelector("#lessGoalHome")
+    const lessGoalAway = document.querySelector("#lessGoalAway")
+    const lessCardAway = document.querySelector("#lessCardAway")
 
     const moreGoalAway = document.querySelector("#moreGoalAway")
     moreGoalAway.addEventListener("click", async () => {
+        lessGoalAway.removeAttribute('disabled')
         goalAway = goalAway + 1
         goalAwaiP.innerHTML = goalAway
     })
-    const lessGoalAway = document.querySelector("#lessGoalAway")
+    
     lessGoalAway.addEventListener("click", async () => {
         if (goalAway == 0) {
             lessGoalAway.setAttribute('disabled', '')
@@ -116,10 +105,11 @@ FINALIZAR PARTIDA</button>
     })
     const moreCardAway = document.querySelector("#moreCardAway")
     moreCardAway.addEventListener("click", async () => {
+        lessCardAway.removeAttribute('disabled')
         cardAway = cardAway + 1
         cardAwaiP.innerHTML = cardAway
     })
-    const lessCardAway = document.querySelector("#lessCardAway")
+    
     lessCardAway.addEventListener("click", async () => {
         if (cardAway == 0) {
             lessCardAway.setAttribute('disabled', '')
@@ -133,10 +123,11 @@ FINALIZAR PARTIDA</button>
 
     const moreGoalHome = document.querySelector("#moreGoalHome")
     moreGoalHome.addEventListener("click", async () => {
+        lessGoalHome.removeAttribute('disabled')
         goalHome = goalHome + 1
         goalHomeP.innerHTML = goalHome
     })
-    const lessGoalHome = document.querySelector("#lessGoalHome")
+    
     lessGoalHome.addEventListener("click", async () => {
         if (goalHome == 0) {
             lessGoalHome.setAttribute('disabled', '')
@@ -147,10 +138,11 @@ FINALIZAR PARTIDA</button>
     })
     const moreCardHome = document.querySelector("#moreCardHome")
     moreCardHome.addEventListener("click", async () => {
+        lessCardHome.removeAttribute('disabled')
         cardHome = cardHome + 1
         cardHomeP.innerHTML = cardHome
     })
-    const lessCardHome = document.querySelector("#lessCardHome")
+    
     lessCardHome.addEventListener("click", async () => {
         if (cardHome == 0) {
             lessCardHome.setAttribute('disabled', '')

@@ -14,7 +14,7 @@ export async function listLeagueModel() {
 }
 export async function showGame(game) {
     try {
-        const res = await fetch(url+`admin/listGame/${game}`)
+        const res = await fetch(url + `admin/listGame/${game}`)
         const resJson = await res.json();
         return resJson
     } catch (error) {
@@ -23,7 +23,7 @@ export async function showGame(game) {
 }
 export async function listGamesController(round) {
     try {
-        const res = await fetch(url+`admin/listGames/${round}`)
+        const res = await fetch(url + `admin/listGames/${round}`)
         const resJson = await res.json();
         return resJson
     } catch (error) {
@@ -31,11 +31,11 @@ export async function listGamesController(round) {
     }
 }
 
-export async function validationLeague(){
+export async function validationLeague() {
     const leagueDb = await listLeagueModel()
-    if(leagueDb[0].active =='false'){
+    if (leagueDb[0].active == 'false') {
         return leagueDb
-    }else{
+    } else {
         return leagueDb
     }
 }
@@ -73,7 +73,7 @@ export async function updatePointController(idGame, goalHome, goalAway, cardHome
             cardHome: cardHome,
             cardAway: cardAway
         }
-        const bodyJson = JSON.stringify(items);console.log(bodyJson)
+        const bodyJson = JSON.stringify(items); console.log(bodyJson)
         const res = await fetch(
             url + "admin/updateGame",
             {
@@ -163,49 +163,111 @@ export async function showRounds(round) {
     listGames(round)
     const next = document.querySelector("#next")
     next.addEventListener("click", () => {
-        if(round > 17){
+        if (round > 17) {
             next.setAttribute('disabled', '')
-        }else{
+        } else {
             round = round + 1
-            showRounds(round) 
+            showRounds(round)
         }
     })
     const last = document.querySelector("#last")
     last.addEventListener("click", () => {
-        if(round == 1){
+        if (round == 1) {
             last.setAttribute('disabled', '')
-        }else{
+        } else {
             round = round - 1
-            showRounds(round) 
+            showRounds(round)
+        }
+    })
+}
+export async function showRoundsAdmin(round) {
+    const divRounds = document.querySelector("#generate")
+    divRounds.innerHTML = "";
+    divRounds.insertAdjacentHTML("afterbegin", `
+        <div id="actions">
+        <button id="next">PRÓXMOS</button>
+        <button id="last">ANTERIORES</button> 
+        <ul id="roundUl">
+        </ul>
+        </div>
+        `)
+    divRounds.setAttribute("style", "padding: 10px;")
+    listGamesAdmin(round)
+    const next = document.querySelector("#next")
+    next.addEventListener("click", () => {
+        if (round > 17) {
+            next.setAttribute('disabled', '')
+        } else {
+            round = round + 1
+            showRounds(round)
+        }
+    })
+    const last = document.querySelector("#last")
+    last.addEventListener("click", () => {
+        if (round == 1) {
+            last.setAttribute('disabled', '')
+        } else {
+            round = round - 1
+            showRounds(round)
         }
     })
 }
 
-export async function listGames(round){
+export async function listGames(round) {
     const ul = document.querySelector("#roundUl")
     ul.innerHTML = ""
     const games = await listGamesController(round)
     console.log(games)
-    games.forEach((item) => {
-    ul.insertAdjacentHTML("afterend", `
+    games.forEach(async (item) => {
+        ul.insertAdjacentHTML("afterend", `
         <li>
-        <section>
+        <section class="showrounds">
         <p> ${item.idTeamHome} [${item.goalHome}] X [${item.goalAway}] ${item.idTeamAway} Rodada:${item.round}</p>
         </section>
         </li>
         `)
     });
-    
+
+}
+export async function listGamesAdmin(round) {
+    const ul = document.querySelector("#roundUl")
+    ul.innerHTML = ""
+    const games = await listGamesController(round)
+    console.log(games)
+    games.forEach(async (item) => {
+            ul.insertAdjacentHTML("afterend", `
+        <li class="listaGamesAdmin" id="${item.idGame}">
+        <section class="showrounds">
+        <p> ${item.idTeamHome} [${item.goalHome}] X [${item.goalAway}] ${item.idTeamAway} Rodada:${item.round}</p>
+        <button id="img${item.idGame}">MUDARJOGO</button>
+        </section>
+        </li>
+        `)
+            const playerLi = document.querySelectorAll("li.listaGamesAdmin")
+            playerLi.forEach(item => {
+                console.log(item)
+                const butImage = document.querySelector(`#img${item.id}`)
+                butImage.addEventListener("click", () => {
+                    console.log("aqui")
+                    localStorage.setItem("@game", item.id)
+                    localStorage.removeItem("@team")
+                    window.location.href = ".././pageGame"
+                })
+            });
+
+    });
+
 }
 
-export async function listRound(round){
+
+export async function listRound(round) {
     const ul = document.querySelector("#roundOne")
     ul.innerHTML = ""
     const games = await listGamesController(round)
     games.forEach((item) => {
-    ul.insertAdjacentHTML("afterend", `
+        ul.insertAdjacentHTML("afterend", `
         <li>
-        <section>
+        <section class="showrounds">
         <p> ${item.idTeamHome} [${item.goalHome}] X [${item.goalAway}] ${item.idTeamAway} Rodada:${item.round}</p>
         </section>
         </li>

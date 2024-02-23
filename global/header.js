@@ -15,6 +15,7 @@ menu.addEventListener("click", () => {
     <a href="../pageAdmin">HOME</a>
     <a href="../pageTeams">TIMES/JOGADORES</a>
     <a href="../pageChampion">RODADAS</a>
+    <a href="../sair">SAIR</a>
     <button id="back">VOLTAR</button>
     </aside>
     `)

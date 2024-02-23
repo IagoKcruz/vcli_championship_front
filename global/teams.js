@@ -10,6 +10,7 @@ export async function listTeam() {
     try {
         const res = await fetch(url + "admin/teams")
         const resJson = await res.json();
+        console.log(resJson)
         return resJson
     } catch (error) {
         console.log(error)
@@ -109,8 +110,6 @@ export async function tableTeamsToGenerateRounds() {
     const tableTeamsUl = document.querySelector("#tableTeamsUl")
     tableTeamsUl.setAttribute("style", "margin-bottom: 10px; margin-top: 15px;")
     const teamDB = await listTeam()
-    const league = await validationLeague()
-    if (league[0].active == "false") {
         teamDB.forEach(item => {
             tableTeamsUl.insertAdjacentHTML("afterbegin", `
             <li id="${item.idTeam}" value="0" > 
@@ -135,8 +134,6 @@ export async function tableTeamsToGenerateRounds() {
                 window.location.href = ".././pageTeam"
         })
     });
-
-    }
 }
 
 

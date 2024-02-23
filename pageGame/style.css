@@ -10,7 +10,7 @@ img{
         margin-right: 10px;
     }
     & img{
-        width: 60px;
+        width: 40px;
     }
 }
 #teamAwai{
@@ -22,7 +22,7 @@ img{
         margin-left: 10px;
     }
     & img{
-        width: 60px;
+        width: 40px;
     }   
 }
 span{
@@ -35,4 +35,13 @@ span{
     justify-content: center;
     align-items: center;
     gap: 15px;
+}
+#space1{
+    width: 400px;
+    gap: 10px;
+}
+.space2{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
