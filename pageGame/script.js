@@ -176,7 +176,8 @@ async function CountPointsTeam(idGame , goalAway, goalHome, cardAway, cardHome){
             if(!points){
                 toastify(erro,"Erro ao finalizar dados do jogo")
             }else{
-                console.log("jogo finalizado")
+                localStorage.removeItem("@game")
+                window.location.href = ".././pageAdmin"
             }
         })
         const notfinishGame = document.querySelector("#notFinish")

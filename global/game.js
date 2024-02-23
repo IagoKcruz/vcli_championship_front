@@ -68,8 +68,8 @@ export async function updatePointController(idGame, goalHome, goalAway, cardHome
     try {
         const items = {
             idGame: idGame,
-            teamHome: goalHome,
-            teamAway: goalAway,
+            goalHome: goalHome,
+            goalAway: goalAway,
             cardHome: cardHome,
             cardAway: cardAway
         }
@@ -78,7 +78,7 @@ export async function updatePointController(idGame, goalHome, goalAway, cardHome
             url + "admin/updateGame",
             {
                 headers: my_headers,
-                method: "POST",
+                method: "PATCH",
                 body: `${bodyJson}`
             })
         return res;
@@ -199,7 +199,7 @@ export async function showRoundsAdmin(round) {
             next.setAttribute('disabled', '')
         } else {
             round = round + 1
-            showRounds(round)
+            showRoundsAdmin(round)
         }
     })
     const last = document.querySelector("#last")
@@ -208,7 +208,7 @@ export async function showRoundsAdmin(round) {
             last.setAttribute('disabled', '')
         } else {
             round = round - 1
-            showRounds(round)
+            showRoundsAdmin(round)
         }
     })
 }
@@ -243,17 +243,17 @@ export async function listGamesAdmin(round) {
         </section>
         </li>
         `)
-            const playerLi = document.querySelectorAll("li.listaGamesAdmin")
-            playerLi.forEach(item => {
+        const playerLi = document.querySelectorAll("li.listaGamesAdmin")
+        playerLi.forEach(item => {
                 console.log(item)
                 const butImage = document.querySelector(`#img${item.id}`)
                 butImage.addEventListener("click", () => {
-                    console.log("aqui")
-                    localStorage.setItem("@game", item.id)
-                    localStorage.removeItem("@team")
-                    window.location.href = ".././pageGame"
-                })
-            });
+                console.log("aqui")
+                localStorage.setItem("@game", item.id)
+                localStorage.removeItem("@team")
+                window.location.href = ".././pageGame"
+            })
+        });
 
     });
 

@@ -268,9 +268,6 @@ function insertTeamDataBase(form) {
     div.insertAdjacentHTML("afterbegin", `  
         <button id="updateTeam">VOLTAR</button>
         <div>
-        <img src="" alt="">
-        </div>
-        <div>
         <p> NOME: ${form.name}</p>
         <p> IDADE: ${form.tag}</p>
         </div>
