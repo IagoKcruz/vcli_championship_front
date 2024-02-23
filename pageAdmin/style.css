@@ -13,3 +13,11 @@
 div{
     width: 100%;
 }
+#aviso{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & p{
+        margin-bottom: 10px;
+    }
+}

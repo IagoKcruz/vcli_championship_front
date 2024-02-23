@@ -2,10 +2,14 @@ import { validationLeague } from "../global/game.js"
 import { playersDiv, showPlayers } from "../global/player.js"
 import { listOneTeam } from "../global/teams.js"
 
-divTeam()
-export async function divTeam(){
+export async function pageTeam(team){
+    console.log(team)
+    divTeam(team)
+    window.location.href = ".././pageTeam"
+}
+export async function divTeam(team){
     const main = document.querySelector("main")
-    const teamDB = await listOneTeam(7) 
+    const teamDB = await listOneTeam(team) 
     console.log(teamDB[0].idTeam)
     if(!teamDB){
         main.insertAdjacentHTML("afterbegin",`

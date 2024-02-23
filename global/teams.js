@@ -1,5 +1,6 @@
 //import { showPlayersInTeam } from "../pageTeams/script.js";
 
+import { pageTeam } from "../pageTeam/script.js";
 import { validationLeague } from "./game.js";
 import { playersDiv, showPlayers } from "./player.js";
 
@@ -120,7 +121,7 @@ export async function tableTeamsToGenerateRounds() {
             <section>
             <p>${item.teamName} | ${item.teamTag}</p>     
             <section>
-            <button id="pageTeam">
+            <button id="pageTeam${item.idTeam}" value="${item.idTeam}">
             <p>GERENCIAR TIME</p>
             <img src=""../global/img/proximo.png"" alt=""> 
             </button>
@@ -128,8 +129,18 @@ export async function tableTeamsToGenerateRounds() {
             </section>
             </li>
             `)
+            tableTeamsUl.setAttribute("style", "padding:0px 10px 10px 10px; margin-bottom: 20px;")
         });
-        gamesDiv.setAttribute("style", "padding:0px 10px 10px 10px; margin-bottom: 20px;")
+        const playerLi = document.querySelectorAll("li")
+        playerLi.forEach(item => {
+        item.addEventListener("click", async () => {
+            const butPageTeam = document.querySelector(`#pageTeam${item.id}`)
+            butPageTeam.addEventListener("click",()=>{
+                pageTeam(item.id)
+            })
+        })
+    });
+
     }
 }
 

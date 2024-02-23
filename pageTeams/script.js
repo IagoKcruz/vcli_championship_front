@@ -1,6 +1,10 @@
-import { UlTeamOC, tableTeams, teamDiv } from "../global/teams.js";
+import { UlTeamOC, tableTeams, tableTeamsToGenerateRounds, teamDiv } from "../global/teams.js";
 
 teamDiv()
+const token = localStorage.getItem("@token_user");
+if(token){
+   await tableTeamsToGenerateRounds()    
+}
 await tableTeams()
 UlTeamOC()
 

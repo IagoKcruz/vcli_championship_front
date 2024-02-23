@@ -4,12 +4,17 @@ import { toastify } from "../global/toastity.js"
 
 const main = document.querySelector("main")
 
-const GamedataBase = await showGame(5)
-if (!GamedataBase) {
+export async function pageGame(game){
+    window.location.href("./pageGame")
+    const GamedataBase = await showGame(game)
+    if (!GamedataBase) {
     console.log("nao deu")
-} else {
+    } else {
     openGame(GamedataBase)
+    }
 }
+
+
 let teamHome, teamAway
 let cardHome = 0
 let cardAway = 0

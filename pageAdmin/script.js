@@ -1,14 +1,30 @@
 import { openTableChampion, tableChampion, tableChampionOC } from "../global/tableChampion.js"
-import { insertTeamModel, listTeam, tableTeamsToGenerateRounds, teamDiv,  } from "../global/teams.js"
+import { insertTeamModel, listTeam, } from "../global/teams.js"
 import { insertPlayerModel, listPosition } from "../global/player.js"
 import { modal, toastify } from "../global/toastity.js"
 import { validationCountPlayer, validationCountTeam, validationInsertPlayer, validationInsertTeam } from "./validation.js"
-import { validationLeague } from "../global/game.js"
+import { showRounds, validationLeague } from "../global/game.js"
+import { pageChampion } from "../pageChampion/script.js"
 
 const token = localStorage.getItem("@token_user");
 if(token){
-const main = document.querySelector("main")
+const generate = document.querySelector("#generate")
+generate.innerHTML= ""
 
+const main = document.querySelector("main")
+main.insertAdjacentHTML("afterbegin", `
+<div id="functionsDiv">
+</div>
+<div id="tableChampion">
+</div>
+<div id="games">
+    <button value="1" class="openclose" id="gamesOC">
+        <p>JOGOS</p>
+        <img src="/global/img/fechar.png" id="imgGames" alt="abrir">
+    </button>
+    <div id="rounds"></div>
+</div>
+`)
 const functionsDiv = document.querySelector("#functionsDiv")
 
 tableChampion()
@@ -17,14 +33,26 @@ tableChampionOC()
 
 gamesChampion()
 actions()
-
+const divRounds = document.querySelector("#rounds")
 async function gamesChampion() {
     const league = await validationLeague()
     if (league[0].active == "false") {
-    console.log("cheguei aqui")
+    divRounds.insertAdjacentHTML("beforeend", `
+            <div id="aviso">
+            <p>NENHUMA LIGA ATIVA NO MOMENTO</P>
+            <button id="generateRounds">IR PARA A TELA DE CRIAÇÃO</button>
+            </div>
+            `
+            )
+            divRounds.setAttribute("style", "padding:0px 10px 10px 10px;")
+            const butGenerate = document.querySelector("#generateRounds")
+            butGenerate.addEventListener("click",()=>{
+                pageChampion()
+            })
+    }else{
+        showRounds(1)
     }
 }
-const divRounds = document.querySelector("#rounds")
 const gamesOC = document.querySelector("#gamesOC")
 const imgGames = document.querySelector("#imgGames")
 gamesOC.addEventListener("click", () => {
@@ -34,7 +62,7 @@ gamesOC.addEventListener("click", () => {
         gamesOC.value = 2
         imgGames.src = "/global/img/abrir.png"
     }else {
-        searchRounds()
+        gamesChampion()
         gamesOC.value = 1
         imgGames.src = "/global/img/fechar.png"
     }
@@ -273,4 +301,6 @@ function insertTeamDataBase(form) {
         div.remove()
     })
 }
+}else{
+    window.location.protocol = ".././pageUser"
 }
