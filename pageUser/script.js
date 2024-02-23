@@ -1,5 +1,4 @@
 import { listRound, showRounds, validationLeague } from "../global/game.js"
-import { openTableChampion, tableChampion, tableChampionOC } from "../global/tableChampion.js"
 
 const game = document.querySelector("#round")
 
