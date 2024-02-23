@@ -43,18 +43,20 @@ export async function validationLeague(){
 export async function insertGameModel(game) {
     try {
         const items = {
-            teamHome: game.home,
-            teamAway: game.away,
+            idTeamHome: game.home,
+            idTeamAway: game.away,
             round: game.round,
-            league: game.league
+            idLeague: game.league
         }
-        const bodyJson = JSON.stringify(items);console.log(bodyJson)
+        const bodyJson = JSON.stringify(items)
+        console.log(bodyJson)
         const res = await fetch(
             url + "admin/insertGame",
             {
                 headers: my_headers,
                 method: "POST",
-                body: `${bodyJson}`
+                body: `${bodyJson}`,
+                autorization: ""
             })
         return res;
     } catch (error) {
@@ -195,14 +197,6 @@ export async function listGames(round){
     });
     
 }
-// ul.insertAdjacentHTML("afterend", `
-// <li>
-// <section>
-// <p> ${item.idTeamHome} [${item.goalHome}] X [${item.goalAway}] ${item.idTeamAway} Rodada:${item.round}</p>
-// </section>
-// <button id="dataJogo${item.idTeamHome}">DATA DO JOGO<button>
-// </li>
-// `)
 
 export async function listRound(round){
     const ul = document.querySelector("#roundOne")

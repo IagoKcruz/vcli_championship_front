@@ -1,5 +1,5 @@
 import { generateRoundsChampion, validationLeague } from "../global/game.js";
-import { listTeam, tableTeamsToGenerateRounds } from "../global/teams.js";
+import { listTeam, tableTeams, tableTeamsToGenerateRounds } from "../global/teams.js";
 
 export async function pageChampion(){
     window.location.href = ".././pageChampion"
@@ -11,7 +11,16 @@ main.insertAdjacentHTML("afterbegin",`
 </div>
 `)
  
-const token = localStorage.getItem("@token");
+async function tokenVal(){
+    const token = localStorage.getItem("@token");
+    if(token){
+        return true
+    }else{
+        return false
+    }
+}
+
+const token = await tokenVal()
 if(token){
     const divRounds = document.querySelector("#generate")
     divRounds.insertAdjacentHTML("afterbegin", `
@@ -22,6 +31,7 @@ if(token){
         </div>
         `
         )
+        divRounds.setAttribute("style", "padding:10px 0px;")
         tableTeamsToGenerateRounds()
         const butGenerate = document.querySelector("#generateRounds")
         butGenerate.addEventListener("click", () => {
@@ -59,6 +69,16 @@ if(token){
             })
             
         })
+}else{
+    const divRounds = document.querySelector("#generate")
+    divRounds.insertAdjacentHTML("afterbegin", `
+        <div>
+        <ul id="tableTeamsUl">
+        </ul>
+        </div>
+        `
+        )
+        tableTeams();
 }
 
 

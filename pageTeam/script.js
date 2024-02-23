@@ -2,16 +2,14 @@ import { validationLeague } from "../global/game.js"
 import { playersDiv, showPlayers } from "../global/player.js"
 import { listOneTeam } from "../global/teams.js"
 
-export async function pageTeam(team){
-    console.log(team)
-    divTeam(team)
-    window.location.href = ".././pageTeam"
-}
-export async function divTeam(team){
+divTeam()
+export async function divTeam(){
+    const teamStorage = localStorage.getItem("@team")
     const main = document.querySelector("main")
-    const teamDB = await listOneTeam(team) 
-    console.log(teamDB[0].idTeam)
-    if(!teamDB){
+    console.log(teamStorage)
+    const teamDB = await listOneTeam(teamStorage) 
+    console.log(teamDB.length)
+    if(teamDB.length == 0){
         main.insertAdjacentHTML("afterbegin",`
         <div>
             <p>NÃO FOI POSSIVEL ENCONTRAR TIME OU JOGADORES</p>
@@ -44,9 +42,9 @@ export async function divTeam(team){
             </div>
             `)
         }
-    }
     playersDiv(teamDB[0].idTeam)
     showPlayers(teamDB[0].idTeam)
+    }
 }
 
 

@@ -18,6 +18,12 @@ menu.addEventListener("click", () => {
     <button id="back">VOLTAR</button>
     </aside>
     `)
+    const aside = document.querySelector("aside")
+    const butBack = document.querySelector("#back")
+    butBack.addEventListener("click", () => {
+      aside.remove()
+      window.history.back()
+    })
   }
   body.insertAdjacentHTML("afterbegin", `
    <aside>

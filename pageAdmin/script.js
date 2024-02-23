@@ -6,8 +6,11 @@ import { validationCountPlayer, validationCountTeam, validationInsertPlayer, val
 import { showRounds, validationLeague } from "../global/game.js"
 import { pageChampion } from "../pageChampion/script.js"
 
+
+
 const token = localStorage.getItem("@token_user");
 if(token){
+    localStorage.removeItem("@team")
 const generate = document.querySelector("#generate")
 generate.innerHTML= ""
 

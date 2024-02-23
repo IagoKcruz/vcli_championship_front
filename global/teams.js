@@ -1,6 +1,3 @@
-//import { showPlayersInTeam } from "../pageTeams/script.js";
-
-import { pageTeam } from "../pageTeam/script.js";
 import { validationLeague } from "./game.js";
 import { playersDiv, showPlayers } from "./player.js";
 
@@ -25,7 +22,7 @@ export async function listOneTeam(idTeam) {
         const resJson = await res.json();
         return resJson
     } catch (error) {
-        console.log(error)
+        return false
     }
 }
 
@@ -112,7 +109,6 @@ export async function tableTeamsToGenerateRounds() {
     const tableTeamsUl = document.querySelector("#tableTeamsUl")
     tableTeamsUl.setAttribute("style", "margin-bottom: 10px; margin-top: 15px;")
     const teamDB = await listTeam()
-    const gamesDiv = document.querySelector("#rounds")
     const league = await validationLeague()
     if (league[0].active == "false") {
         teamDB.forEach(item => {
@@ -129,15 +125,14 @@ export async function tableTeamsToGenerateRounds() {
             </section>
             </li>
             `)
-            tableTeamsUl.setAttribute("style", "padding:0px 10px 10px 10px; margin-bottom: 20px;")
+            tableTeamsUl.setAttribute("style", "padding:0px 10px 10px 10px;")
         });
         const playerLi = document.querySelectorAll("li")
         playerLi.forEach(item => {
-        item.addEventListener("click", async () => {
             const butPageTeam = document.querySelector(`#pageTeam${item.id}`)
             butPageTeam.addEventListener("click",()=>{
-                pageTeam(item.id)
-            })
+                localStorage.setItem("@team",item.id)
+                window.location.href = ".././pageTeam"
         })
     });
 
