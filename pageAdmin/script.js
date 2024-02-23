@@ -1,4 +1,4 @@
-import { openTableChampion, tableChampion, tableChampionOC } from "../global/tableChampion.js"
+
 import { insertTeamModel, listTeam, } from "../global/teams.js"
 import { insertPlayerModel, listPosition } from "../global/player.js"
 import { modal, toastify } from "../global/toastity.js"
@@ -15,8 +15,6 @@ const main = document.querySelector("main")
 main.insertAdjacentHTML("afterbegin", `
 <div id="functionsDiv">
 </div>
-<div id="tableChampion">
-</div>
 <div id="games">
     <button value="1" class="openclose" id="gamesOC">
         <p>JOGOS</p>
@@ -26,10 +24,6 @@ main.insertAdjacentHTML("afterbegin", `
 </div>
 `)
 const functionsDiv = document.querySelector("#functionsDiv")
-
-tableChampion()
-openTableChampion()
-tableChampionOC()
 
 gamesChampion()
 actions()

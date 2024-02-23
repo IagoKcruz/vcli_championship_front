@@ -6,10 +6,6 @@ const game = document.querySelector("#round")
 openDayGame()
 gamesChampion()
 
-tableChampion()
-openTableChampion()
-tableChampionOC()
-
 async function openDayGame() {
     const gamesDiv = document.querySelector("#round")
     const league = await validationLeague()
