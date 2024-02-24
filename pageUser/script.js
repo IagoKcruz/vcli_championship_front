@@ -6,7 +6,7 @@ openDayGame()
 gamesChampion()
 
 async function openDayGame() {
-    const gamesDiv = document.querySelector("#round")
+    const gamesDiv = document.querySelector("#generate")
     const league = await validationLeague()
     if (league[0].active == "false") {
         gamesDiv.insertAdjacentHTML("afterbegin", `
@@ -38,7 +38,7 @@ dayGameOC.addEventListener("click", () => {
 })
 
 async function gamesChampion() {
-    const gamesDiv = document.querySelector("#rounds")
+    const gamesDiv = document.querySelector("#generate")
     const league = await validationLeague()
     if (league[0].active == "false") {
         gamesDiv.insertAdjacentHTML("afterbegin", `
@@ -64,44 +64,6 @@ gamesOC.addEventListener("click", () => {
         imgGames.src = "/global/img/fechar.png"
     }
 })
-
-
-// async function openGames() {
-//     const league = await validationLeague()
-//     if (league[0].active == "false") {
-//         games.insertAdjacentHTML("afterbegin", `
-//         <p>NENHUMA LIGA ATIVA NO MOMENTO</p>
-//         `)
-//         games.setAttribute("style", "padding:0px 10px; margin-bottom: 10px;")
-//     } else {
-//         showRounds(1)
-//         OpenCloseSection()
-//     }
-
-// }
-
-// async function OpenCloseSection(){
-//     const imgGames = document.querySelector("#imgGames")
-//     const gamesOC = document.querySelector("#gamesOC")
-//     const league = await validationLeague()
-//     if (league[0].active == "false"){
-//         gamesOC.addEventListener("click", () => {
-//             if (gamesOC.value == 1) {
-//                 games.innerHTML = ""
-//                 gamesOC.value = 2
-//                 games.setAttribute("style", "padding:0px;")
-//                 games.setAttribute("style", "padding:0px; margin-bottom: 0px;")
-//                 imgGames.src = "/global/img/abrir.png"
-//             } else {
-//                 openGames()
-//                 games.insertAdjacentHTML("afterbegin", `<p>NENHUMA LIGA ATIVA NO MOMENTO</p>`)
-//                 games.setAttribute("style", "padding:5px; margin-bottom: 10px;")
-//                 gamesOC.value = 1
-//                 imgGames.src = "/global/img/fechar.png"
-//             }
-//         })
-//     }
-// }
 
 
 
