@@ -130,7 +130,7 @@ newPlayer.addEventListener("click", async () => {
     });
     const form = document.querySelector("form")
     form.addEventListener("submit", async(event) => {
-        console.log("aqui")
+
         event.preventDefault()
         const formPlayer =
         {
@@ -143,9 +143,7 @@ newPlayer.addEventListener("click", async () => {
          
          const validation = validationInsertPlayer(formPlayer)
          if (validation) {
-            console.log("aqui 2")
              const countValidation =  await validationCountPlayer(formPlayer)
-             console.log(formPlayer.status)
              if(countValidation){
                  insertPlayerDataBase(formPlayer)
              } 
@@ -198,7 +196,6 @@ async function insertPlayerDataBase(form) {
     const insertPlayer = document.querySelector("#insertPlayer")
     insertPlayer.addEventListener("click", async() => {
         const dataBase = await insertPlayerModel(form)
-        console.log(dataBase)
         if (dataBase.status == 201) {
             cancelPlayer.setAttribute('disabled', '')
             updatePlayer.setAttribute('disabled', '')

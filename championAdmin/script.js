@@ -8,7 +8,6 @@ registerform.addEventListener("submit",(event)=>{
 })
 
 async function registerForm(){
-    console.log("cheguei")
     const email = document.querySelector("#name").value
     const pass = document.querySelector("#pass").value
     let erro;

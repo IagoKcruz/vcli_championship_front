@@ -5,11 +5,11 @@ import { toastify } from "../global/toastity.js"
 const main = document.querySelector("main")
 
 const GamedataBase = await showGame(localStorage.getItem("@game"))
-if (!GamedataBase) {
-console.log("nao deu")
-} else {
+if (GamedataBase) {
 openGame(GamedataBase)
 }
+
+
 
 async function openGame(game) {
     let cardHome = 0
@@ -161,7 +161,6 @@ FINALIZAR PARTIDA</button>
 }
 
 async function CountPointsTeam(idGame , goalAway, goalHome, cardAway, cardHome){
-    console.log(idGame, goalAway, goalHome, cardAway, cardHome)
         const div = document.createElement("div")
         div.classList.add("modal")
         main.appendChild(div)

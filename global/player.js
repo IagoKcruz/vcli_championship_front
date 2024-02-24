@@ -7,7 +7,6 @@ const url = "http://localhost:3000/"
 
 export async function insertPlayerModel(player) {
     try {
-        console.log(player)
         const items = {
             playerName: player.name,
             idTeam: player.team,
@@ -25,7 +24,7 @@ export async function insertPlayerModel(player) {
             })
         return res;
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -35,7 +34,7 @@ export async function listPosition() {
         const resJson = await res.json();
         return resJson
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -45,7 +44,7 @@ export async function listPlayerInTimeModel(idTeam) {
         const resJson = await res.json();
         return resJson
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -53,10 +52,9 @@ export async function searchPlayerController(idPlayer) {
     try {
         const res = await fetch(url+`admin/searchPlayerById/${idPlayer}`)
         const resJson = await res.json();
-        console.log(resJson)
         return resJson
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -71,7 +69,6 @@ export function playersDiv(idTeam) {
 export async function showPlayers(idTeam) {
     const playersUl = document.querySelector("#playersUl"+idTeam)
     const dataBase = await listPlayerInTimeModel(idTeam)
-    console.log(dataBase)
     if(dataBase.length == 0){
             playersUl.insertAdjacentHTML("beforeend", `
             <li>
@@ -114,10 +111,8 @@ export async function showPlayers(idTeam) {
 
 
 async function showUpdate(id){
-    console.log(id)
     const main = document.querySelector("main")
     const item = await searchPlayerController(id)
-    console.log(item)
     if(item){
         const div = document.createElement("div")
         div.classList.add("modal")
@@ -180,7 +175,6 @@ async function showUpdate(id){
             const validation = validationInsertPlayer(formPlayer)
             if (validation){
                 const count = await validationCountUpdate(formPlayer)
-                console.log(count)
                 if(count){
                     updateAction(formPlayer)
                 } 
@@ -231,7 +225,6 @@ async function updateAction(form) {
     const confirmUpdate = document.querySelector("#confirmUpdate")
     confirmUpdate.addEventListener("click", async() => {
         const dataBase = await insertPlayerModel(form)
-        console.log(dataBase)
         if (dataBase.status == 201) {
             cancelPlayer.setAttribute('disabled', '')
             updatePlayer.setAttribute('disabled', '')

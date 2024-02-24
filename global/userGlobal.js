@@ -25,7 +25,6 @@ export async function login(email, pass){
         password: pass,
         userName: email
     }
-        console.log("cheguei", user)
     const bodyJson = JSON.stringify(user)
     const token = await fetch(
         url+"admin/login",

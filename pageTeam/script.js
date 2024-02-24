@@ -6,9 +6,7 @@ divTeam()
 export async function divTeam(){
     const teamStorage = localStorage.getItem("@team")
     const main = document.querySelector("main")
-    console.log(teamStorage)
     const teamDB = await listOneTeam(teamStorage) 
-    console.log(teamDB.length)
     if(teamDB.length == 0){
         main.insertAdjacentHTML("afterbegin",`
         <div>

@@ -9,7 +9,7 @@ export async function listLeagueModel() {
         const resJson = await res.json();
         return resJson
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 export async function showGame(game) {
@@ -18,7 +18,7 @@ export async function showGame(game) {
         const resJson = await res.json();
         return resJson
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 export async function listGamesController(round) {
@@ -27,7 +27,7 @@ export async function listGamesController(round) {
         const resJson = await res.json();
         return resJson
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -49,7 +49,6 @@ export async function insertGameModel(game) {
             idLeague: game.league
         }
         const bodyJson = JSON.stringify(items)
-        console.log(bodyJson)
         const res = await fetch(
             url + "admin/insertGame",
             {
@@ -60,7 +59,7 @@ export async function insertGameModel(game) {
             })
         return res;
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -73,7 +72,7 @@ export async function updatePointController(idGame, goalHome, goalAway, cardHome
             cardHome: cardHome,
             cardAway: cardAway
         }
-        const bodyJson = JSON.stringify(items); console.log(bodyJson)
+        const bodyJson = JSON.stringify(items);
         const res = await fetch(
             url + "admin/updateGame",
             {
@@ -83,7 +82,7 @@ export async function updatePointController(idGame, goalHome, goalAway, cardHome
             })
         return res;
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -145,7 +144,7 @@ async function generateRoundsReturn(teams, league) {
             }
         }
     }
-    showRounds(1)
+    showRoundsAdmin(1)
 }
 
 export async function showRounds(round) {
@@ -217,7 +216,6 @@ export async function listGames(round) {
     const ul = document.querySelector("#roundUl")
     ul.innerHTML = ""
     const games = await listGamesController(round)
-    console.log(games)
     games.forEach(async (item) => {
         ul.insertAdjacentHTML("afterend", `
         <li>
@@ -233,7 +231,6 @@ export async function listGamesAdmin(round) {
     const ul = document.querySelector("#roundUl")
     ul.innerHTML = ""
     const games = await listGamesController(round)
-    console.log(games)
     games.forEach(async (item) => {
             ul.insertAdjacentHTML("afterend", `
         <li class="listaGamesAdmin" id="${item.idGame}">
@@ -245,10 +242,8 @@ export async function listGamesAdmin(round) {
         `)
         const playerLi = document.querySelectorAll("li.listaGamesAdmin")
         playerLi.forEach(item => {
-                console.log(item)
                 const butImage = document.querySelector(`#img${item.id}`)
                 butImage.addEventListener("click", () => {
-                console.log("aqui")
                 localStorage.setItem("@game", item.id)
                 localStorage.removeItem("@team")
                 window.location.href = ".././pageGame"

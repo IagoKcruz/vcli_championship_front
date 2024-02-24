@@ -10,10 +10,9 @@ export async function listTeam() {
     try {
         const res = await fetch(url + "admin/teams")
         const resJson = await res.json();
-        console.log(resJson)
         return resJson
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -43,7 +42,7 @@ export async function insertTeamModel(team) {
             })
         return res;
     } catch (error) {
-        console.log(error)
+        return error
     }
 
 }
@@ -96,7 +95,6 @@ export async function tableTeams() {
                 item.value = 1
                 section.addEventListener("click", () => {
                     butImage.src = "/global/img/abrir.png"
-                    console.log(item.value)
                     id.remove()
                 })
             } else {

@@ -53,12 +53,10 @@ if (token) {
                 const teamsDataBase = await listTeam();
                 if (teamsDataBase) {
                     for (let i = 0; i < teamsDataBase.length; i++) {
-                        console.log(teamsDataBase[i])
+
                         teams.push(teamsDataBase[i].idTeam)
                     }
-                    console.log(teams)
                     const selectDataBase = await validationLeague()
-                    console.log(selectDataBase[0].idLeague)
                     generateRoundsChampion(teams, selectDataBase[0].idLeague)
                 }
             })
