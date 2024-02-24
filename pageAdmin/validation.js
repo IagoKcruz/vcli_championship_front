@@ -104,7 +104,6 @@ export async function validationCountUpdate(player) {
                 count++
             }
         });
-        .log(count)
         if (count > 4 && player.status == "holder") {
             erro = "erro"
             msg = "Time com a quantidade de titulares completa"
