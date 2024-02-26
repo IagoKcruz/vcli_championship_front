@@ -1,4 +1,5 @@
 import { validationCountUpdate, validationInsertPlayer } from "../pageAdmin/validation.js"
+import { toastify } from "./toastity.js"
 
 const my_headers = {
     "Content-Type": "application/json"
@@ -22,6 +23,28 @@ export async function insertPlayerModel(player) {
                 method: "POST",
                 body: bodyJson
             })
+        return res;
+    } catch (error) {
+        return error
+    }
+}
+
+export async function updatePlayerModel(player) {
+    try {
+        const items = {
+            idPlayer: player.id,
+            playerName: player.name,
+            status: player.status
+        }
+        const bodyJson = JSON.stringify(items)
+        const res = await fetch(
+            url + "admin/updatePlayer",
+            {
+                headers: my_headers,
+                method: "PATCH",
+                body: bodyJson
+            })
+        console.log(res)
         return res;
     } catch (error) {
         return error
@@ -165,6 +188,7 @@ async function showUpdate(id){
             event.preventDefault()
             const formPlayer =
             {
+                id: id,
                 name: document.querySelector("#name").value,
                 age: document.querySelector("#age").value,
                 position: document.querySelector("#position").value,
@@ -222,22 +246,23 @@ async function updateAction(form) {
     <button id="exitConfirm">NÃO</button>
     </div>
     `)
-    const confirmUpdate = document.querySelector("#confirmUpdate")
-    confirmUpdate.addEventListener("click", async() => {
-        const dataBase = await insertPlayerModel(form)
-        if (dataBase.status == 201) {
-            cancelPlayer.setAttribute('disabled', '')
-            updatePlayer.setAttribute('disabled', '')
-            setTimeout(() => {
-                window.location.href = "./"
-            }, 5000);
-            toastify("erro", "Jogador cadastrado")
-        } else {
-            toastify("erro", "Erro ao alterar jogador tente novamente mais tarde")
-        }
-    })
     const exitConfirm = document.querySelector("#exitConfirm")
     exitConfirm.addEventListener("click", () => {
         div.remove();
     })
+    const confirmUpdate = document.querySelector("#confirmUpdate")
+    confirmUpdate.addEventListener("click", async() => {
+        const dataBase = await updatePlayerModel(form)
+        if (dataBase.status == 200) {
+            exitConfirm.setAttribute('disabled', '')
+            setTimeout(() => {
+                window.location.href = "./"
+            }, 5000);
+            toastify("erro", "Jogador alterado com sucesso")
+        } else {
+            toastify("erro", "Erro ao alterar jogador tente novamente mais tarde")
+        }
+    })
+
 }
+
