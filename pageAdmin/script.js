@@ -240,7 +240,7 @@ newTeam.addEventListener("click", () => {
         event.preventDefault()
         const validation = validationInsertTeam(formTeam)
         if (validation) {
-            const countValidation = validationCountTeam(formTeam)
+            const countValidation = validationCountTeam()
             if(countValidation){
                 insertTeamDataBase(formTeam)
             }             

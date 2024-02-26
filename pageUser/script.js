@@ -1,12 +1,10 @@
 import { listRound, showRounds, validationLeague } from "../global/game.js"
 
-const game = document.querySelector("#round")
-
 openDayGame()
 gamesChampion()
 
 async function openDayGame() {
-    const gamesDiv = document.querySelector("#generate")
+    const gamesDiv = document.querySelector("#generateRound")
     const league = await validationLeague()
     if (league[0].active == "false") {
         gamesDiv.insertAdjacentHTML("afterbegin", `
@@ -19,16 +17,17 @@ async function openDayGame() {
         </ul>
         `)
         gamesDiv.setAttribute("style", "padding:0px 10px; margin-bottom: 10px;")
-        listRound(3)
+        listRound(1)
     }
 }
+const gamesDiv = document.querySelector("#generateRound")
 const imgGame = document.querySelector("#imgGame")
 const dayGameOC = document.querySelector("#dayGameOC")
 dayGameOC.addEventListener("click", () => {
     if (dayGameOC.value == 1) {
-        game.innerHTML = ""
+        gamesDiv.innerHTML = ""
         dayGameOC.value = 2
-        game.setAttribute("style", "padding:0px;")
+        gamesDiv.setAttribute("style", "padding:0px;")
         imgGame.src = "/global/img/abrir.png"
     } else {
         openDayGame()

@@ -1,4 +1,5 @@
 import { listPlayerInTimeModel } from "../global/player.js";
+import { listTeam } from "../global/teams.js";
 import { toastify } from "../global/toastity.js";
 
 let erro, msg;
@@ -30,8 +31,8 @@ export function validationInsertTeam(team) {
     }
 }
 
-export async function validationCountTeam(player) {
-    const dataBase = await (player.team)
+export async function validationCountTeam() {
+    const dataBase = await listTeam()
     if (dataBase.length > 9) {
         erro = "erro"
         msg = "Campeonato com a quantidade de times completa"

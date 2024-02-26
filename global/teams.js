@@ -1,4 +1,3 @@
-import { validationLeague } from "./game.js";
 import { playersDiv, showPlayers } from "./player.js";
 
 const my_headers = {

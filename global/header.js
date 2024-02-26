@@ -28,8 +28,8 @@ menu.addEventListener("click", () => {
   }
   body.insertAdjacentHTML("afterbegin", `
    <aside>
-   <a href="../pageTeams">TIMES/JOGADORES</a>
    <a href="../pageUser">HOME</a>
+   <a href="../pageTeams">TIMES/JOGADORES</a>
    <a href="../pageChampion">RODADAS</a>
    <button id="back">VOLTAR</button>
    </aside>
